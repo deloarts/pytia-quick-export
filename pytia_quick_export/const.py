@@ -7,20 +7,19 @@ import os
 __version__ = "0.1.0"
 
 PYTIA = "pytia"
-~APP_NAME~ = "~app_name~"
-PYTIA_BOUNDING_BOX = "pytia_bounding_box"
+PYTIA_QUICK_EXPORT = "pytia_quick_export"
 
-APP_NAME = "~app-name~"
+APP_NAME = "PYTIA Quick Export"
 APP_VERSION = __version__
 
 LOGON = str(os.environ.get("USERNAME"))
 CNEXT = "win_b64\\code\\bin\\CNEXT.exe"
 TEMP = str(os.environ.get("TEMP"))
-APPDATA = f"{str(os.environ.get('APPDATA'))}\\{PYTIA}\\{~APP_NAME~}"
+APPDATA = f"{str(os.environ.get('APPDATA'))}\\{PYTIA}\\{PYTIA_QUICK_EXPORT}"
 LOGS = f"{APPDATA}\\logs"
 LOG = "app.log"
 PID = os.getpid()
-PID_FILE = f"{TEMP}\\{~APP_NAME~}.pid"
+PID_FILE = f"{TEMP}\\{PYTIA_QUICK_EXPORT}.pid"
 VENV = f"\\.env\\{APP_VERSION}"
 VENV_PYTHON = VENV + "\\Scripts\\python.exe"
 VENV_PYTHONW = VENV + "\\Scripts\\pythonw.exe"

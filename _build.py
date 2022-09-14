@@ -16,9 +16,9 @@ import toml
 from jinja2 import Environment, FileSystemLoader
 from packaging.version import Version
 from pygit2 import Repository
-from ~app_name~.const import APP_NAME, APP_VERSION
+from pytia_quick_export.const import APP_NAME, APP_VERSION
 
-settings_path = "./~app_name~/resources/settings.json"
+settings_path = "./pytia_quick_export/resources/settings.json"
 branch_name = Repository(".").head.shorthand
 
 
@@ -33,7 +33,7 @@ class Build:
             self.settings = json.load(f)
 
         self.dev_build = bool(branch_name == "development" or self.settings["debug"])
-        self.source_folder = Path("./~app_name~").resolve()
+        self.source_folder = Path("./pytia_quick_export").resolve()
         self.build_folder = Path("./build").resolve()
 
         self.build_app_path = (

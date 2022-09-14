@@ -37,7 +37,6 @@ class SettingsPaths:
     """Dataclass for paths (settings.json)."""
 
     catia: Path
-    material: Path
     local_dependencies: Path
     release: Path
 
@@ -48,8 +47,6 @@ class SettingsFiles:
 
     app: str
     launcher: str
-    bounding_box_launcher: Optional[str]
-    material: str
     workspace: str
 
 

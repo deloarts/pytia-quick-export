@@ -1,3 +1,3 @@
 import sys
 
-sys.path.append("./~app_name~/")
+sys.path.append("./pytia_quick_export/")

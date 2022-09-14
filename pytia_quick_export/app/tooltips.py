@@ -26,5 +26,5 @@ class ToolTips:
             workspace (Workspace): The workspace instance.
             variables (Variables): The variables of the main window.
         """
-        
-        ToolTip()
+
+        # ToolTip()

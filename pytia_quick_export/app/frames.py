@@ -22,9 +22,7 @@ class Frames:
         root.grid_rowconfigure(0, weight=1)
 
         self._frame_footer = ttk.Frame(master=root, height=30, style="Footer.TFrame")
-        self._frame_footer.grid(
-            row=1, column=0, sticky="swe", padx=10, pady=(5, 10), columnspan=0
-        )
+        self._frame_footer.grid(row=1, column=0, sticky="swe", padx=10, pady=(5, 10))
         self._frame_footer.grid_columnconfigure(1, weight=1)
 
     @property

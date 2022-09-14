@@ -6,9 +6,9 @@ import json
 import os
 import shutil
 
-from ~app_name~.const import APP_NAME, APP_VERSION
+from pytia_quick_export.const import APP_NAME, APP_VERSION
 
-with open("./~app_name~/resources/settings.json", "r") as f:
+with open("./pytia_quick_export/resources/settings.json", "r") as f:
     settings = json.load(f)
 
 source_app = f"./build/{settings['files']['app']}"

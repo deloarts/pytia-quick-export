@@ -8,12 +8,12 @@ import validators
 
 
 def test_resources_class():
-    from ~app_name~.resources import Resources
+    from pytia_quick_export.resources import Resources
 
     resource = Resources()
 
 
 def test_settings():
-    from ~app_name~.resources import resource
+    from pytia_quick_export.resources import resource
 
     # TODO

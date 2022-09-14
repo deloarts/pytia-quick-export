@@ -13,7 +13,7 @@ directory = os.path.dirname(os.path.realpath("__file__"))
 def test_versions():
     """Test if the versions from the pyproject file are matching the versions of the deps json."""
     with open(
-        os.path.join(directory, "~app_name~\\resources\\dependencies.json"),
+        os.path.join(directory, "pytia_quick_export\\resources\\dependencies.json"),
         "r",
     ) as f:
         deps = json.load(f)
@@ -34,7 +34,7 @@ def test_versions():
 def test_imports():
     """Tests if no third party imports are in the dependencies file."""
     with open(
-        os.path.join(directory, "~app_name~\\dependencies.py"),
+        os.path.join(directory, "pytia_quick_export\\dependencies.py"),
         "r",
     ) as f:
         for line in f.readlines():

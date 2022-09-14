@@ -2,14 +2,14 @@
 authors = ["Philip Delorenzo <git@deloarts.com>"]
 classifiers = ["Operating System :: Windows"]
 description = ""
-name = "~app-name~"
+name = "pytia-quick-export"
 readme = "README.md"
-version = "0.0.0"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.0.0"}
-pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.0.0"}
+pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.2.2"}
+pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.5.3"}
 
 [tool.poetry.dev-dependencies]
 Jinja2 = "^3.1.2"

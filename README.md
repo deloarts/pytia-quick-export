@@ -1,10 +1,8 @@
-# pytia template
+> ⚠️ This app is currently in development, the code provided in the main branch is not ready for production.
 
-A template repo for pytia apps. The placeholder for the app name is `~app_name~`, `~APP_NAME~` or `~app-name~`. Search and replace this keyword when creating a new project from this repository.
+# pytia quick export
 
-# ~app-name~
-
-![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
+![state](https://img.shields.io/badge/State-DEVELOPMENT-brown.svg?style=for-the-badge)
 ![version](https://img.shields.io/badge/Version-0.0.0-orange.svg?style=for-the-badge)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
@@ -31,7 +29,7 @@ On the users machine you need to install the following:
 - CATIA
 - [Python](https://www.python.org/downloads/)
 
-When the user starts the app it will automatically install all its requirements. Further the app also updates outdated dependencies if needed. The apps environment will be created in the users appdata-folder: `C:\Users\User\AppData\Roaming\pytia\~app_name~`
+When the user starts the app it will automatically install all its requirements. Further the app also updates outdated dependencies if needed. The apps environment will be created in the users appdata-folder: `C:\Users\User\AppData\Roaming\pytia\pytia_quick_export`
 
 Recommended python install options for the user:
 
@@ -59,7 +57,7 @@ On the developers machine (this is you) install the following:
 
 ### 2.1 resource files
 
-All configuration is done via json files inside the [resources folder](/~app_name~/resources/).
+All configuration is done via json files inside the [resources folder](/pytia_quick_export/resources/).
 
 #### 2.1.1 default files
 
@@ -137,13 +135,13 @@ Documentation is done with [pdoc3](https://pdoc3.github.io/pdoc/).
 To update the documentation run:
 
 ```powershell
-python -m pdoc --html --output-dir docs ~app_name~
+python -m pdoc --html --output-dir docs pytia_quick_export
 ```
 
 For preview run:
 
 ```powershell
-python -m pdoc --http : ~app_name~
+python -m pdoc --http : pytia_quick_export
 ```
 
 You can find the documentation in the [docs folder](/docs).
@@ -154,16 +152,16 @@ On a new revision, do the following:
 
 1. Update **dependency versions** in
    - [pyproject.toml](pyproject.toml)
-   - [dependencies.json](~app_name~/resources/dependencies.json)
+   - [dependencies.json](pytia_quick_export/resources/dependencies.json)
    - [README.md](README.md)
 2. Update **dependencies**: `poetry update`
 3. Update the **version** in
    - [pyproject.toml](pyproject.toml)
-   - [__ init __.py](~app_name~/__init__.py)
+   - [__ init __.py](pytia_quick_export/__init__.py)
    - [README.md](README.md)
 4. Run all **tests**: `poetry run pytest`
-5. Check **pylint** output: `poetry run pylint ~app_name~/`
-6. Update the **documentation**: `poetry run pdoc --force --html --output-dir docs ~app_name~`
+5. Check **pylint** output: `poetry run pylint pytia_quick_export/`
+6. Update the **documentation**: `poetry run pdoc --force --html --output-dir docs pytia_quick_export`
 7. Update the **lockfile**: `poetry lock`
 8. Update the **requirements.txt**: `poetry export --dev -f requirements.txt -o requirements.txt`
 

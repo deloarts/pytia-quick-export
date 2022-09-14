@@ -6,7 +6,7 @@
 ' Date:    {{ date }}
 ' Target:  {{ path }}
 ' Version: {{ version }}
-' Project: https://github.com/deloarts/~app-name~
+' Project: https://github.com/deloarts/pytia-quick-export
 '
 ' This script has been created automatically!
 ' Do not change the content of this file, only update the build.template.catvbs file.
@@ -27,7 +27,7 @@ Sub CATMain()
     Set Fso = CreateObject("Scripting.FileSystemObject")
 
     ' Environment
-    AppData = Shell.ExpandEnvironmentStrings("%APPDATA%") & "\pytia\~app_name~"
+    AppData = Shell.ExpandEnvironmentStrings("%APPDATA%") & "\pytia\pytia_quick_export"
     VenvFolder = AppData & "\.env"
     VenvVersionFolder = VenvFolder & "\{{ version }}"
     PythonVersionFile = AppData & "\pyversion.txt"
@@ -52,7 +52,7 @@ Sub CATMain()
     
     ' Check environment folder for the current app version
     If Not Fso.FolderExists(VenvVersionFolder) Then
-        MsgBox "The app requires an update. Click OK to continue.", 0 + 64 + 65536 + 4096, "~app-name~"
+        MsgBox "The app requires an update. Click OK to continue.", 0 + 64 + 65536 + 4096, "PYTIA Quick Export"
 
         If Fso.FolderExists(VenvFolder) Then
             ' Delete old version folder

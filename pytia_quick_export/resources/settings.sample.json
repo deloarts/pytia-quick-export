@@ -1,5 +1,5 @@
 {
-    "title": "~app-name~",
+    "title": "PYTIA Quick Export",
     "debug": false,
     "restrictions": {
         "allow_all_users": true,
@@ -16,8 +16,8 @@
         "release": "C:\\pytia\\release"
     },
     "files": {
-        "app": "~app_name~.pyz",
-        "launcher": "~app_name~.catvbs",
+        "app": "pytia_quick_export.pyz",
+        "launcher": "pytia_quick_export.catvbs",
         "workspace": "workspace.yml"
     },
     "urls": {
