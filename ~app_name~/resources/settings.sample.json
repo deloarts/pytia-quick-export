@@ -1,0 +1,29 @@
+{
+    "title": "~app-name~",
+    "debug": false,
+    "restrictions": {
+        "allow_all_users": true,
+        "allow_all_editors": true,
+        "allow_unsaved": true,
+        "allow_outside_workspace": true,
+        "strict_project": false,
+        "strict_machine": false,
+        "enable_information": true
+    },
+    "paths": {
+        "catia": "C:\\CATIA\\V5-6R2017\\B27",
+        "local_dependencies": "C:\\pytia\\local_deps",
+        "release": "C:\\pytia\\release"
+    },
+    "files": {
+        "app": "~app_name~.pyz",
+        "launcher": "~app_name~.catvbs",
+        "workspace": "workspace.yml"
+    },
+    "urls": {
+        "help": null
+    },
+    "mails": {
+        "admin": "admin@company.com"
+    }
+}
