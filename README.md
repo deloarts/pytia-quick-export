@@ -1,9 +1,7 @@
-> ⚠️ This app is currently in development, the code provided in the main branch is not ready for production.
-
 # pytia quick export
 
-![state](https://img.shields.io/badge/State-DEVELOPMENT-brown.svg?style=for-the-badge)
-![version](https://img.shields.io/badge/Version-0.0.0-orange.svg?style=for-the-badge)
+![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
+![version](https://img.shields.io/badge/Version-0.1.0-orange.svg?style=for-the-badge)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 ![catia](https://img.shields.io/badge/CATIA-V5%206R2017-blue.svg?style=for-the-badge)
@@ -61,11 +59,19 @@ All configuration is done via json files inside the [resources folder](/pytia_qu
 
 #### 2.1.1 default files
 
-> TODO
+You can leave the default configuration if it suits your needs, but you can always copy any default json file, rename (get rid of 'default') it and edit its content.
+
+Example: If you want to change the content of the [properties.default.json](/pytia_quick_export/resources/properties.default.json) you have to copy this file, and paste it as **properties.json**. Then you can edit the content of your newly generated filters-settings file. Same for any other default-resource file.
+
+> ✏️ For a full description of all default files, see [docs/DEFAULT_FILES.md](/docs/DEFAULT_FILES.md).
 
 #### 2.1.2 sample files
 
-> TODO
+Files that are named like **settings.sample.json** must be copied, renamed and edited. Sample files exists only for you to have a guide, of how the config file must look.
+
+Example: Before you can build the app you have to copy the [settings.sample.json](/pytia_bill_of_material/resources/settings.sample.json) and rename it to **settings.json**. Then you can edit its content to match your requirements.
+
+> ✏️ For a full description of all sample files, see [docs/SAMPLE_FILES.md](/docs/SAMPLE_FILES.md).
 
 #### 2.1.3 static files
 
@@ -77,8 +83,8 @@ Some dependencies are not publicly available on PyPi or GitHub (because they are
 
 | Name               | Link                                         | Version                                                                 |
 | ------------------ | -------------------------------------------- | ----------------------------------------------------------------------- |
-| **pytia**          | <https://github.com/deloarts/pytia>          | [0.0.0](https://github.com/deloarts/pytia/releases/tag/v0.0.0)          |
-| **pytia-ui-tools** | <https://github.com/deloarts/pytia-ui-tools> | [0.0.0](https://github.com/deloarts/pytia-ui-tools/releases/tag/v0.0.0) |
+| **pytia**          | <https://github.com/deloarts/pytia>          | [0.2.2](https://github.com/deloarts/pytia/releases/tag/v0.2.2)          |
+| **pytia-ui-tools** | <https://github.com/deloarts/pytia-ui-tools> | [0.6.0](https://github.com/deloarts/pytia-ui-tools/releases/tag/v0.6.0) |
 
 > ❗️ The folder where you provide the local dependencies must match the **paths.local_dependencies** entry of the **settings.json**. The user must have at least read access on this folder.
 >
@@ -167,7 +173,26 @@ On a new revision, do the following:
 
 ## 3 usage
 
-> TODO
+Use the launcher (a.k.a the catvbs-file) to launch the app. On the first run all required dependencies will be installed:
+
+![Installer](assets/images/installer.png)
+
+After the installation the app starts automatically:
+
+![App](assets/images/app.png)
+
+The usage itself is pretty straight forward, as long as all config files are setup properly.
+
+Object | Description
+--- | ---
+Project | The user can overwrite the project number for all items of the bill of material. If set to `Keep` no project number will be overwritten.
+Condition | The condition of the document. Can be `new` or `modification`. New means, that the part needs to be made, modification means that a parts need to be modified (maybe due to a revision).
+Quantity | The amount of parts to make.
+Note | A note for the export. Will only be displayed in the mail body and nowhere else.
+Mail Address | The receiver of the exported files.
+Export Folder | The location to which the data will be written.
+
+To enable the export, you have to provide a mail address or the export folder, or both.
 
 ## 4 workspace
 

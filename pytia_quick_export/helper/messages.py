@@ -9,7 +9,7 @@ from resources import resource
 
 
 def show_help() -> None:
-    """Opens the help docs."""
+    """Opens the help url."""
     if url := resource.settings.urls.help:
         webbrowser.open_new(url)
     else:

@@ -1,0 +1,1880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pytia_quick_export.resources API documentation</title>
+<meta name="description" content="Loads the content from config files …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pytia_quick_export.resources</code></h1>
+</header>
+<section id="section-intro">
+<p>Loads the content from config files.</p>
+<p>Important: Do not import third party modules here. This module
+must work on its own without any other dependencies!</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+    Loads the content from config files.
+
+    Important: Do not import third party modules here. This module
+    must work on its own without any other dependencies!
+&#34;&#34;&#34;
+
+import atexit
+import importlib.resources
+import json
+import os
+import tkinter.messagebox as tkmsg
+from dataclasses import asdict, dataclass, field, fields
+from json.decoder import JSONDecodeError
+from pathlib import Path
+from typing import List, Optional
+
+from const import (
+    APP_VERSION,
+    APPDATA,
+    CONFIG_APPDATA,
+    CONFIG_DOCKET,
+    CONFIG_EXCEL,
+    CONFIG_EXCEL_DEFAULT,
+    CONFIG_KEYWORDS,
+    CONFIG_PROPS,
+    CONFIG_PROPS_DEFAULT,
+    CONFIG_SETTINGS,
+    CONFIG_USERS,
+    LOGON,
+)
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsRestrictions:
+    &#34;&#34;&#34;Dataclass for restrictive settings.&#34;&#34;&#34;
+
+    allow_all_users: bool
+    allow_all_editors: bool
+    allow_unsaved: bool
+    allow_outside_workspace: bool
+    strict_project: bool
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsExport:
+    &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
+
+    apply_username_in_excel: bool
+    apply_username_in_docket: bool
+    lock_drawing_views: bool  # TODO: This isn&#39;t used yet
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionNew:
+    &#34;&#34;&#34;Dataclass for conditions of type new (settings.json).&#34;&#34;&#34;
+
+    name: str
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionMod:
+    &#34;&#34;&#34;Dataclass for conditions of type modified (settings.json).&#34;&#34;&#34;
+
+    name: str
+    overwrite: dict
+
+
+@dataclass(slots=True, kw_only=True)
+class SettingsCondition:
+    &#34;&#34;&#34;Dataclass for conditions (settings.json).&#34;&#34;&#34;
+
+    new: SettingsConditionNew
+    mod: SettingsConditionMod
+
+    def __post_init__(self) -&gt; None:
+        self.new = SettingsConditionNew(**dict(self.new))  # type: ignore
+        self.mod = SettingsConditionMod(**dict(self.mod))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsPaths:
+    &#34;&#34;&#34;Dataclass for paths (settings.json).&#34;&#34;&#34;
+
+    catia: Path
+    local_dependencies: Path
+    release: Path
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsFiles:
+    &#34;&#34;&#34;Dataclass for files (settings.json).&#34;&#34;&#34;
+
+    app: str
+    launcher: str
+    workspace: str
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsUrls:
+    &#34;&#34;&#34;Dataclass for urls (settings.json).&#34;&#34;&#34;
+
+    help: str | None
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsMails:
+    &#34;&#34;&#34;Dataclass for mails (settings.json).&#34;&#34;&#34;
+
+    admin: str
+    export: List[str] | None
+    export_debug: str
+
+
+@dataclass(slots=True, kw_only=True)
+class Settings:  # pylint: disable=R0902
+    &#34;&#34;&#34;Dataclass for settings (settings.json).&#34;&#34;&#34;
+
+    title: str
+    debug: bool
+    restrictions: SettingsRestrictions
+    export: SettingsExport
+    condition: SettingsCondition
+    paths: SettingsPaths
+    files: SettingsFiles
+    urls: SettingsUrls
+    mails: SettingsMails
+
+    def __post_init__(self) -&gt; None:
+        self.restrictions = SettingsRestrictions(**dict(self.restrictions))  # type: ignore
+        self.export = SettingsExport(**dict(self.export))  # type: ignore
+        self.condition = SettingsCondition(**dict(self.condition))  # type: ignore
+        self.files = SettingsFiles(**dict(self.files))  # type: ignore
+        self.paths = SettingsPaths(**dict(self.paths))  # type: ignore
+        self.urls = SettingsUrls(**dict(self.urls))  # type: ignore
+        self.mails = SettingsMails(**dict(self.mails))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class KeywordElements:
+    &#34;&#34;&#34;Dataclass for keyword elements.&#34;&#34;&#34;
+
+    partnumber: str
+    revision: str
+    definition: str
+    nomenclature: str
+    source: str
+    made: str
+    bought: str
+    unknown: str
+    description: str
+    number: str
+    type: str
+    part: str
+    assembly: str
+    quantity: str
+    bom: str
+    summary: str
+
+
+@dataclass(slots=True, kw_only=True)
+class Keywords:
+    &#34;&#34;&#34;Dataclass for language specific keywords.&#34;&#34;&#34;
+
+    en: KeywordElements
+    de: KeywordElements
+
+    def __post_init__(self) -&gt; None:
+        self.en = KeywordElements(**dict(self.en))  # type: ignore
+        self.de = KeywordElements(**dict(self.de))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class EXCEL:
+    &#34;&#34;&#34;Excel dataclass.&#34;&#34;&#34;
+
+    header_row: int | None
+    data_row: int
+    header_items: List[str]
+    font: str
+    size: int
+    header_color: str
+    header_bg_color: str
+    data_color_1: str
+    data_bg_color_1: str
+    data_color_2: str
+    data_bg_color_2: str
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class Props:
+    &#34;&#34;&#34;Dataclass for properties on the part (properties.json).&#34;&#34;&#34;
+
+    project: str
+    machine: str
+    creator: str
+    modifier: str
+
+    @property
+    def keys(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all keys from the Props dataclass.&#34;&#34;&#34;
+        return [f.name for f in fields(self)]
+
+    @property
+    def values(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all values from the Props dataclass.&#34;&#34;&#34;
+        return [getattr(self, f.name) for f in fields(self)]
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class User:
+    &#34;&#34;&#34;Dataclass a user (users.json).&#34;&#34;&#34;
+
+    logon: str
+    id: str
+    name: str
+    mail: str
+
+    @property
+    def keys(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all keys from the User dataclass.&#34;&#34;&#34;
+        return [f.name for f in fields(self)]
+
+    @property
+    def values(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all values from the User dataclass.&#34;&#34;&#34;
+        return [getattr(self, f.name) for f in fields(self)]
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class Info:
+    &#34;&#34;&#34;Dataclass for an info messages (information.json).&#34;&#34;&#34;
+
+    counter: int
+    msg: str
+
+
+@dataclass(slots=True, kw_only=True)
+class AppData:
+    &#34;&#34;&#34;Dataclass for appdata settings.&#34;&#34;&#34;
+
+    version: str = field(default=APP_VERSION)
+    counter: int = 0
+    save_on_apply: bool = True
+
+    def __post_init__(self) -&gt; None:
+        self.version = (
+            APP_VERSION  # Always store the latest version in the appdata json
+        )
+        self.counter += 1
+
+
+class Resources:  # pylint: disable=R0902
+    &#34;&#34;&#34;Class for handling resource files.&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        self._read_settings()
+        self._read_users()
+        self._read_keywords()
+        self._read_excel()
+        self._read_docket()
+        self._read_props()
+        self._read_appdata()
+
+        atexit.register(self._write_appdata)
+
+    @property
+    def settings(self) -&gt; Settings:
+        &#34;&#34;&#34;settings.json&#34;&#34;&#34;
+        return self._settings
+
+    @property
+    def keywords(self) -&gt; Keywords:
+        &#34;&#34;&#34;keywords.json&#34;&#34;&#34;
+        return self._keywords
+
+    @property
+    def props(self) -&gt; Props:
+        &#34;&#34;&#34;properties.json&#34;&#34;&#34;
+        return self._props
+
+    @property
+    def excel(self) -&gt; EXCEL:
+        &#34;&#34;&#34;excel.json&#34;&#34;&#34;
+        return self._excel
+
+    @property
+    def users(self) -&gt; List[User]:
+        &#34;&#34;&#34;users.json&#34;&#34;&#34;
+        return self._users
+
+    @property
+    def docket(self) -&gt; dict:
+        &#34;&#34;&#34;docket.json&#34;&#34;&#34;
+        return self._docket
+
+    @property
+    def appdata(self) -&gt; AppData:
+        &#34;&#34;&#34;Property for the appdata config file.&#34;&#34;&#34;
+        return self._appdata
+
+    def get_png(self, name: str) -&gt; bytes:
+        &#34;&#34;&#34;Returns a png resource by its name.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, name) as f:
+            return f.read()
+
+    def _read_settings(self) -&gt; None:
+        &#34;&#34;&#34;Reads the settings json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_SETTINGS) as f:
+            self._settings = Settings(**json.load(f))
+
+    def _read_keywords(self) -&gt; None:
+        &#34;&#34;&#34;Reads the keywords json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_KEYWORDS) as f:
+            self._keywords = Keywords(**json.load(f))
+
+    def _read_users(self) -&gt; None:
+        &#34;&#34;&#34;Reads the users json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_USERS) as f:
+            self._users = [User(**i) for i in json.load(f)]
+
+    def _read_docket(self) -&gt; None:
+        &#34;&#34;&#34;Reads the docket json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_DOCKET) as f:
+            self._docket = json.load(f)
+
+    def _read_props(self) -&gt; None:
+        &#34;&#34;&#34;Reads the props json from the resources folder.&#34;&#34;&#34;
+        props_resource = (
+            CONFIG_PROPS
+            if importlib.resources.is_resource(&#34;resources&#34;, CONFIG_PROPS)
+            else CONFIG_PROPS_DEFAULT
+        )
+        with importlib.resources.open_binary(&#34;resources&#34;, props_resource) as f:
+            self._props = Props(**json.load(f))
+
+    def _read_excel(self) -&gt; None:
+        &#34;&#34;&#34;Reads the excel json from the resources folder.&#34;&#34;&#34;
+        excel_resource = (
+            CONFIG_EXCEL
+            if importlib.resources.is_resource(&#34;resources&#34;, CONFIG_EXCEL)
+            else CONFIG_EXCEL_DEFAULT
+        )
+        with importlib.resources.open_binary(&#34;resources&#34;, excel_resource) as f:
+            self._excel = EXCEL(**json.load(f))
+
+    def _read_appdata(self) -&gt; None:
+        &#34;&#34;&#34;Reads the json config file from the appdata folder.&#34;&#34;&#34;
+        if os.path.exists(appdata_file := f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;):
+            with open(appdata_file, &#34;r&#34;, encoding=&#34;utf8&#34;) as f:
+                try:
+                    value = AppData(**json.load(f))
+                except JSONDecodeError:
+                    value = AppData()
+                    tkmsg.showwarning(
+                        title=&#34;Configuration warning&#34;,
+                        message=&#34;The AppData config file has been corrupted. \
+                            You may need to apply your preferences again.&#34;,
+                    )
+                self._appdata = value
+        else:
+            self._appdata = AppData()
+
+    def _write_appdata(self) -&gt; None:
+        &#34;&#34;&#34;Saves appdata config to file.&#34;&#34;&#34;
+        os.makedirs(APPDATA, exist_ok=True)
+        with open(f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;, &#34;w&#34;, encoding=&#34;utf8&#34;) as f:
+            json.dump(asdict(self._appdata), f)
+
+    def get_user_by_logon(self, logon: Optional[str] = None) -&gt; User:
+        &#34;&#34;&#34;
+        Returns the user dataclass that matches the logon value. Returns the User of the current
+        session if logon is omitted.
+
+        Args:
+            logon (Optional[str]): The user to fetch from the dataclass list.
+
+        Raises:
+            PytiaValueError: Raised when the user doesn&#39;t exist.
+
+        Returns:
+            User: The user from the dataclass list that matches the provided logon name.
+        &#34;&#34;&#34;
+        if logon is None:
+            logon = LOGON
+
+        for index, value in enumerate(self._users):
+            if value.logon == logon:
+                return self._users[index]
+        raise ValueError(f&#34;The user {logon} does not exist.&#34;)
+
+    def get_user_by_name(self, name: str) -&gt; Optional[User]:
+        &#34;&#34;&#34;
+        Returns the user dataclass that matches the name.
+
+        Args:
+            name (str): The username to fetch from the dataclass list.
+
+        Returns:
+            User: The user from the dataclass list that matches the provided name.
+        &#34;&#34;&#34;
+        for index, value in enumerate(self._users):
+            if value.name == name:
+                return self._users[index]
+        return None
+
+    def logon_exists(self, logon: Optional[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Returns wether the users logon exists in the dataclass, or not. Uses the logon-value of the
+        current session if logon is omitted.
+
+        Args:
+            logon (str): The logon name to search for.
+
+        Returns:
+            bool: The user from the dataclass list that matches the provided logon name.
+        &#34;&#34;&#34;
+        if logon is None:
+            logon = LOGON
+
+        for user in self._users:
+            if user.logon == logon:
+                return True
+        return False
+
+
+resource = Resources()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
+<span>class <span class="ident">AppData</span></span>
+<span>(</span><span>*, version: str = '0.1.0', counter: int = 0, save_on_apply: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for appdata settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class AppData:
+    &#34;&#34;&#34;Dataclass for appdata settings.&#34;&#34;&#34;
+
+    version: str = field(default=APP_VERSION)
+    counter: int = 0
+    save_on_apply: bool = True
+
+    def __post_init__(self) -&gt; None:
+        self.version = (
+            APP_VERSION  # Always store the latest version in the appdata json
+        )
+        self.counter += 1</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.AppData.counter"><code class="name">var <span class="ident">counter</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.AppData.save_on_apply"><code class="name">var <span class="ident">save_on_apply</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.AppData.version"><code class="name">var <span class="ident">version</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL"><code class="flex name class">
+<span>class <span class="ident">EXCEL</span></span>
+<span>(</span><span>*, header_row: int | None, data_row: int, header_items: List[str], font: str, size: int, header_color: str, header_bg_color: str, data_color_1: str, data_bg_color_1: str, data_color_2: str, data_bg_color_2: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Excel dataclass.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class EXCEL:
+    &#34;&#34;&#34;Excel dataclass.&#34;&#34;&#34;
+
+    header_row: int | None
+    data_row: int
+    header_items: List[str]
+    font: str
+    size: int
+    header_color: str
+    header_bg_color: str
+    data_color_1: str
+    data_bg_color_1: str
+    data_color_2: str
+    data_bg_color_2: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.EXCEL.data_bg_color_1"><code class="name">var <span class="ident">data_bg_color_1</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.data_bg_color_2"><code class="name">var <span class="ident">data_bg_color_2</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.data_color_1"><code class="name">var <span class="ident">data_color_1</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.data_color_2"><code class="name">var <span class="ident">data_color_2</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.data_row"><code class="name">var <span class="ident">data_row</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.font"><code class="name">var <span class="ident">font</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.header_bg_color"><code class="name">var <span class="ident">header_bg_color</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.header_color"><code class="name">var <span class="ident">header_color</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.header_items"><code class="name">var <span class="ident">header_items</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.header_row"><code class="name">var <span class="ident">header_row</span> : int | None</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.size"><code class="name">var <span class="ident">size</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.Info"><code class="flex name class">
+<span>class <span class="ident">Info</span></span>
+<span>(</span><span>*, counter: int, msg: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for an info messages (information.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class Info:
+    &#34;&#34;&#34;Dataclass for an info messages (information.json).&#34;&#34;&#34;
+
+    counter: int
+    msg: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Info.counter"><code class="name">var <span class="ident">counter</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Info.msg"><code class="name">var <span class="ident">msg</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements"><code class="flex name class">
+<span>class <span class="ident">KeywordElements</span></span>
+<span>(</span><span>*, partnumber: str, revision: str, definition: str, nomenclature: str, source: str, made: str, bought: str, unknown: str, description: str, number: str, type: str, part: str, assembly: str, quantity: str, bom: str, summary: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for keyword elements.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class KeywordElements:
+    &#34;&#34;&#34;Dataclass for keyword elements.&#34;&#34;&#34;
+
+    partnumber: str
+    revision: str
+    definition: str
+    nomenclature: str
+    source: str
+    made: str
+    bought: str
+    unknown: str
+    description: str
+    number: str
+    type: str
+    part: str
+    assembly: str
+    quantity: str
+    bom: str
+    summary: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.KeywordElements.assembly"><code class="name">var <span class="ident">assembly</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.bom"><code class="name">var <span class="ident">bom</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.bought"><code class="name">var <span class="ident">bought</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.definition"><code class="name">var <span class="ident">definition</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.made"><code class="name">var <span class="ident">made</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.nomenclature"><code class="name">var <span class="ident">nomenclature</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.number"><code class="name">var <span class="ident">number</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.part"><code class="name">var <span class="ident">part</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.partnumber"><code class="name">var <span class="ident">partnumber</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.quantity"><code class="name">var <span class="ident">quantity</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.revision"><code class="name">var <span class="ident">revision</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.source"><code class="name">var <span class="ident">source</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.summary"><code class="name">var <span class="ident">summary</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.KeywordElements.unknown"><code class="name">var <span class="ident">unknown</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.Keywords"><code class="flex name class">
+<span>class <span class="ident">Keywords</span></span>
+<span>(</span><span>*, en: <a title="pytia_quick_export.resources.KeywordElements" href="#pytia_quick_export.resources.KeywordElements">KeywordElements</a>, de: <a title="pytia_quick_export.resources.KeywordElements" href="#pytia_quick_export.resources.KeywordElements">KeywordElements</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for language specific keywords.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class Keywords:
+    &#34;&#34;&#34;Dataclass for language specific keywords.&#34;&#34;&#34;
+
+    en: KeywordElements
+    de: KeywordElements
+
+    def __post_init__(self) -&gt; None:
+        self.en = KeywordElements(**dict(self.en))  # type: ignore
+        self.de = KeywordElements(**dict(self.de))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Keywords.de"><code class="name">var <span class="ident">de</span> : <a title="pytia_quick_export.resources.KeywordElements" href="#pytia_quick_export.resources.KeywordElements">KeywordElements</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Keywords.en"><code class="name">var <span class="ident">en</span> : <a title="pytia_quick_export.resources.KeywordElements" href="#pytia_quick_export.resources.KeywordElements">KeywordElements</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.Props"><code class="flex name class">
+<span>class <span class="ident">Props</span></span>
+<span>(</span><span>*, project: str, machine: str, creator: str, modifier: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for properties on the part (properties.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class Props:
+    &#34;&#34;&#34;Dataclass for properties on the part (properties.json).&#34;&#34;&#34;
+
+    project: str
+    machine: str
+    creator: str
+    modifier: str
+
+    @property
+    def keys(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all keys from the Props dataclass.&#34;&#34;&#34;
+        return [f.name for f in fields(self)]
+
+    @property
+    def values(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all values from the Props dataclass.&#34;&#34;&#34;
+        return [getattr(self, f.name) for f in fields(self)]</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Props.creator"><code class="name">var <span class="ident">creator</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Props.keys"><code class="name">var <span class="ident">keys</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of all keys from the Props dataclass.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def keys(self) -&gt; List[str]:
+    &#34;&#34;&#34;Returns a list of all keys from the Props dataclass.&#34;&#34;&#34;
+    return [f.name for f in fields(self)]</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Props.machine"><code class="name">var <span class="ident">machine</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Props.modifier"><code class="name">var <span class="ident">modifier</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Props.project"><code class="name">var <span class="ident">project</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Props.values"><code class="name">var <span class="ident">values</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of all values from the Props dataclass.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def values(self) -&gt; List[str]:
+    &#34;&#34;&#34;Returns a list of all values from the Props dataclass.&#34;&#34;&#34;
+    return [getattr(self, f.name) for f in fields(self)]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.Resources"><code class="flex name class">
+<span>class <span class="ident">Resources</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for handling resource files.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Resources:  # pylint: disable=R0902
+    &#34;&#34;&#34;Class for handling resource files.&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        self._read_settings()
+        self._read_users()
+        self._read_keywords()
+        self._read_excel()
+        self._read_docket()
+        self._read_props()
+        self._read_appdata()
+
+        atexit.register(self._write_appdata)
+
+    @property
+    def settings(self) -&gt; Settings:
+        &#34;&#34;&#34;settings.json&#34;&#34;&#34;
+        return self._settings
+
+    @property
+    def keywords(self) -&gt; Keywords:
+        &#34;&#34;&#34;keywords.json&#34;&#34;&#34;
+        return self._keywords
+
+    @property
+    def props(self) -&gt; Props:
+        &#34;&#34;&#34;properties.json&#34;&#34;&#34;
+        return self._props
+
+    @property
+    def excel(self) -&gt; EXCEL:
+        &#34;&#34;&#34;excel.json&#34;&#34;&#34;
+        return self._excel
+
+    @property
+    def users(self) -&gt; List[User]:
+        &#34;&#34;&#34;users.json&#34;&#34;&#34;
+        return self._users
+
+    @property
+    def docket(self) -&gt; dict:
+        &#34;&#34;&#34;docket.json&#34;&#34;&#34;
+        return self._docket
+
+    @property
+    def appdata(self) -&gt; AppData:
+        &#34;&#34;&#34;Property for the appdata config file.&#34;&#34;&#34;
+        return self._appdata
+
+    def get_png(self, name: str) -&gt; bytes:
+        &#34;&#34;&#34;Returns a png resource by its name.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, name) as f:
+            return f.read()
+
+    def _read_settings(self) -&gt; None:
+        &#34;&#34;&#34;Reads the settings json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_SETTINGS) as f:
+            self._settings = Settings(**json.load(f))
+
+    def _read_keywords(self) -&gt; None:
+        &#34;&#34;&#34;Reads the keywords json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_KEYWORDS) as f:
+            self._keywords = Keywords(**json.load(f))
+
+    def _read_users(self) -&gt; None:
+        &#34;&#34;&#34;Reads the users json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_USERS) as f:
+            self._users = [User(**i) for i in json.load(f)]
+
+    def _read_docket(self) -&gt; None:
+        &#34;&#34;&#34;Reads the docket json from the resources folder.&#34;&#34;&#34;
+        with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_DOCKET) as f:
+            self._docket = json.load(f)
+
+    def _read_props(self) -&gt; None:
+        &#34;&#34;&#34;Reads the props json from the resources folder.&#34;&#34;&#34;
+        props_resource = (
+            CONFIG_PROPS
+            if importlib.resources.is_resource(&#34;resources&#34;, CONFIG_PROPS)
+            else CONFIG_PROPS_DEFAULT
+        )
+        with importlib.resources.open_binary(&#34;resources&#34;, props_resource) as f:
+            self._props = Props(**json.load(f))
+
+    def _read_excel(self) -&gt; None:
+        &#34;&#34;&#34;Reads the excel json from the resources folder.&#34;&#34;&#34;
+        excel_resource = (
+            CONFIG_EXCEL
+            if importlib.resources.is_resource(&#34;resources&#34;, CONFIG_EXCEL)
+            else CONFIG_EXCEL_DEFAULT
+        )
+        with importlib.resources.open_binary(&#34;resources&#34;, excel_resource) as f:
+            self._excel = EXCEL(**json.load(f))
+
+    def _read_appdata(self) -&gt; None:
+        &#34;&#34;&#34;Reads the json config file from the appdata folder.&#34;&#34;&#34;
+        if os.path.exists(appdata_file := f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;):
+            with open(appdata_file, &#34;r&#34;, encoding=&#34;utf8&#34;) as f:
+                try:
+                    value = AppData(**json.load(f))
+                except JSONDecodeError:
+                    value = AppData()
+                    tkmsg.showwarning(
+                        title=&#34;Configuration warning&#34;,
+                        message=&#34;The AppData config file has been corrupted. \
+                            You may need to apply your preferences again.&#34;,
+                    )
+                self._appdata = value
+        else:
+            self._appdata = AppData()
+
+    def _write_appdata(self) -&gt; None:
+        &#34;&#34;&#34;Saves appdata config to file.&#34;&#34;&#34;
+        os.makedirs(APPDATA, exist_ok=True)
+        with open(f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;, &#34;w&#34;, encoding=&#34;utf8&#34;) as f:
+            json.dump(asdict(self._appdata), f)
+
+    def get_user_by_logon(self, logon: Optional[str] = None) -&gt; User:
+        &#34;&#34;&#34;
+        Returns the user dataclass that matches the logon value. Returns the User of the current
+        session if logon is omitted.
+
+        Args:
+            logon (Optional[str]): The user to fetch from the dataclass list.
+
+        Raises:
+            PytiaValueError: Raised when the user doesn&#39;t exist.
+
+        Returns:
+            User: The user from the dataclass list that matches the provided logon name.
+        &#34;&#34;&#34;
+        if logon is None:
+            logon = LOGON
+
+        for index, value in enumerate(self._users):
+            if value.logon == logon:
+                return self._users[index]
+        raise ValueError(f&#34;The user {logon} does not exist.&#34;)
+
+    def get_user_by_name(self, name: str) -&gt; Optional[User]:
+        &#34;&#34;&#34;
+        Returns the user dataclass that matches the name.
+
+        Args:
+            name (str): The username to fetch from the dataclass list.
+
+        Returns:
+            User: The user from the dataclass list that matches the provided name.
+        &#34;&#34;&#34;
+        for index, value in enumerate(self._users):
+            if value.name == name:
+                return self._users[index]
+        return None
+
+    def logon_exists(self, logon: Optional[str] = None) -&gt; bool:
+        &#34;&#34;&#34;
+        Returns wether the users logon exists in the dataclass, or not. Uses the logon-value of the
+        current session if logon is omitted.
+
+        Args:
+            logon (str): The logon name to search for.
+
+        Returns:
+            bool: The user from the dataclass list that matches the provided logon name.
+        &#34;&#34;&#34;
+        if logon is None:
+            logon = LOGON
+
+        for user in self._users:
+            if user.logon == logon:
+                return True
+        return False</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Resources.appdata"><code class="name">var <span class="ident">appdata</span> : <a title="pytia_quick_export.resources.AppData" href="#pytia_quick_export.resources.AppData">AppData</a></code></dt>
+<dd>
+<div class="desc"><p>Property for the appdata config file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def appdata(self) -&gt; AppData:
+    &#34;&#34;&#34;Property for the appdata config file.&#34;&#34;&#34;
+    return self._appdata</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.docket"><code class="name">var <span class="ident">docket</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>docket.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def docket(self) -&gt; dict:
+    &#34;&#34;&#34;docket.json&#34;&#34;&#34;
+    return self._docket</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.excel"><code class="name">var <span class="ident">excel</span> : <a title="pytia_quick_export.resources.EXCEL" href="#pytia_quick_export.resources.EXCEL">EXCEL</a></code></dt>
+<dd>
+<div class="desc"><p>excel.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def excel(self) -&gt; EXCEL:
+    &#34;&#34;&#34;excel.json&#34;&#34;&#34;
+    return self._excel</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.keywords"><code class="name">var <span class="ident">keywords</span> : <a title="pytia_quick_export.resources.Keywords" href="#pytia_quick_export.resources.Keywords">Keywords</a></code></dt>
+<dd>
+<div class="desc"><p>keywords.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def keywords(self) -&gt; Keywords:
+    &#34;&#34;&#34;keywords.json&#34;&#34;&#34;
+    return self._keywords</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.props"><code class="name">var <span class="ident">props</span> : <a title="pytia_quick_export.resources.Props" href="#pytia_quick_export.resources.Props">Props</a></code></dt>
+<dd>
+<div class="desc"><p>properties.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def props(self) -&gt; Props:
+    &#34;&#34;&#34;properties.json&#34;&#34;&#34;
+    return self._props</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.settings"><code class="name">var <span class="ident">settings</span> : <a title="pytia_quick_export.resources.Settings" href="#pytia_quick_export.resources.Settings">Settings</a></code></dt>
+<dd>
+<div class="desc"><p>settings.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def settings(self) -&gt; Settings:
+    &#34;&#34;&#34;settings.json&#34;&#34;&#34;
+    return self._settings</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.users"><code class="name">var <span class="ident">users</span> : List[<a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a>]</code></dt>
+<dd>
+<div class="desc"><p>users.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def users(self) -&gt; List[User]:
+    &#34;&#34;&#34;users.json&#34;&#34;&#34;
+    return self._users</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Resources.get_png"><code class="name flex">
+<span>def <span class="ident">get_png</span></span>(<span>self, name: str) ‑> bytes</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a png resource by its name.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_png(self, name: str) -&gt; bytes:
+    &#34;&#34;&#34;Returns a png resource by its name.&#34;&#34;&#34;
+    with importlib.resources.open_binary(&#34;resources&#34;, name) as f:
+        return f.read()</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.get_user_by_logon"><code class="name flex">
+<span>def <span class="ident">get_user_by_logon</span></span>(<span>self, logon: str | None = None) ‑> <a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the user dataclass that matches the logon value. Returns the User of the current
+session if logon is omitted.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>logon</code></strong> :&ensp;<code>Optional[str]</code></dt>
+<dd>The user to fetch from the dataclass list.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>PytiaValueError</code></dt>
+<dd>Raised when the user doesn't exist.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a></code></dt>
+<dd>The user from the dataclass list that matches the provided logon name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_user_by_logon(self, logon: Optional[str] = None) -&gt; User:
+    &#34;&#34;&#34;
+    Returns the user dataclass that matches the logon value. Returns the User of the current
+    session if logon is omitted.
+
+    Args:
+        logon (Optional[str]): The user to fetch from the dataclass list.
+
+    Raises:
+        PytiaValueError: Raised when the user doesn&#39;t exist.
+
+    Returns:
+        User: The user from the dataclass list that matches the provided logon name.
+    &#34;&#34;&#34;
+    if logon is None:
+        logon = LOGON
+
+    for index, value in enumerate(self._users):
+        if value.logon == logon:
+            return self._users[index]
+    raise ValueError(f&#34;The user {logon} does not exist.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.get_user_by_name"><code class="name flex">
+<span>def <span class="ident">get_user_by_name</span></span>(<span>self, name: str) ‑> Optional[<a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the user dataclass that matches the name.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The username to fetch from the dataclass list.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a></code></dt>
+<dd>The user from the dataclass list that matches the provided name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_user_by_name(self, name: str) -&gt; Optional[User]:
+    &#34;&#34;&#34;
+    Returns the user dataclass that matches the name.
+
+    Args:
+        name (str): The username to fetch from the dataclass list.
+
+    Returns:
+        User: The user from the dataclass list that matches the provided name.
+    &#34;&#34;&#34;
+    for index, value in enumerate(self._users):
+        if value.name == name:
+            return self._users[index]
+    return None</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.logon_exists"><code class="name flex">
+<span>def <span class="ident">logon_exists</span></span>(<span>self, logon: str | None = None) ‑> bool</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns wether the users logon exists in the dataclass, or not. Uses the logon-value of the
+current session if logon is omitted.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>logon</code></strong> :&ensp;<code>str</code></dt>
+<dd>The logon name to search for.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>The user from the dataclass list that matches the provided logon name.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def logon_exists(self, logon: Optional[str] = None) -&gt; bool:
+    &#34;&#34;&#34;
+    Returns wether the users logon exists in the dataclass, or not. Uses the logon-value of the
+    current session if logon is omitted.
+
+    Args:
+        logon (str): The logon name to search for.
+
+    Returns:
+        bool: The user from the dataclass list that matches the provided logon name.
+    &#34;&#34;&#34;
+    if logon is None:
+        logon = LOGON
+
+    for user in self._users:
+        if user.logon == logon:
+            return True
+    return False</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.Settings"><code class="flex name class">
+<span>class <span class="ident">Settings</span></span>
+<span>(</span><span>*, title: str, debug: bool, restrictions: <a title="pytia_quick_export.resources.SettingsRestrictions" href="#pytia_quick_export.resources.SettingsRestrictions">SettingsRestrictions</a>, export: <a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a>, condition: <a title="pytia_quick_export.resources.SettingsCondition" href="#pytia_quick_export.resources.SettingsCondition">SettingsCondition</a>, paths: <a title="pytia_quick_export.resources.SettingsPaths" href="#pytia_quick_export.resources.SettingsPaths">SettingsPaths</a>, files: <a title="pytia_quick_export.resources.SettingsFiles" href="#pytia_quick_export.resources.SettingsFiles">SettingsFiles</a>, urls: <a title="pytia_quick_export.resources.SettingsUrls" href="#pytia_quick_export.resources.SettingsUrls">SettingsUrls</a>, mails: <a title="pytia_quick_export.resources.SettingsMails" href="#pytia_quick_export.resources.SettingsMails">SettingsMails</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for settings (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class Settings:  # pylint: disable=R0902
+    &#34;&#34;&#34;Dataclass for settings (settings.json).&#34;&#34;&#34;
+
+    title: str
+    debug: bool
+    restrictions: SettingsRestrictions
+    export: SettingsExport
+    condition: SettingsCondition
+    paths: SettingsPaths
+    files: SettingsFiles
+    urls: SettingsUrls
+    mails: SettingsMails
+
+    def __post_init__(self) -&gt; None:
+        self.restrictions = SettingsRestrictions(**dict(self.restrictions))  # type: ignore
+        self.export = SettingsExport(**dict(self.export))  # type: ignore
+        self.condition = SettingsCondition(**dict(self.condition))  # type: ignore
+        self.files = SettingsFiles(**dict(self.files))  # type: ignore
+        self.paths = SettingsPaths(**dict(self.paths))  # type: ignore
+        self.urls = SettingsUrls(**dict(self.urls))  # type: ignore
+        self.mails = SettingsMails(**dict(self.mails))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Settings.condition"><code class="name">var <span class="ident">condition</span> : <a title="pytia_quick_export.resources.SettingsCondition" href="#pytia_quick_export.resources.SettingsCondition">SettingsCondition</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.debug"><code class="name">var <span class="ident">debug</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.export"><code class="name">var <span class="ident">export</span> : <a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.files"><code class="name">var <span class="ident">files</span> : <a title="pytia_quick_export.resources.SettingsFiles" href="#pytia_quick_export.resources.SettingsFiles">SettingsFiles</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.mails"><code class="name">var <span class="ident">mails</span> : <a title="pytia_quick_export.resources.SettingsMails" href="#pytia_quick_export.resources.SettingsMails">SettingsMails</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.paths"><code class="name">var <span class="ident">paths</span> : <a title="pytia_quick_export.resources.SettingsPaths" href="#pytia_quick_export.resources.SettingsPaths">SettingsPaths</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.restrictions"><code class="name">var <span class="ident">restrictions</span> : <a title="pytia_quick_export.resources.SettingsRestrictions" href="#pytia_quick_export.resources.SettingsRestrictions">SettingsRestrictions</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Settings.urls"><code class="name">var <span class="ident">urls</span> : <a title="pytia_quick_export.resources.SettingsUrls" href="#pytia_quick_export.resources.SettingsUrls">SettingsUrls</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsCondition"><code class="flex name class">
+<span>class <span class="ident">SettingsCondition</span></span>
+<span>(</span><span>*, new: <a title="pytia_quick_export.resources.SettingsConditionNew" href="#pytia_quick_export.resources.SettingsConditionNew">SettingsConditionNew</a>, mod: <a title="pytia_quick_export.resources.SettingsConditionMod" href="#pytia_quick_export.resources.SettingsConditionMod">SettingsConditionMod</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for conditions (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class SettingsCondition:
+    &#34;&#34;&#34;Dataclass for conditions (settings.json).&#34;&#34;&#34;
+
+    new: SettingsConditionNew
+    mod: SettingsConditionMod
+
+    def __post_init__(self) -&gt; None:
+        self.new = SettingsConditionNew(**dict(self.new))  # type: ignore
+        self.mod = SettingsConditionMod(**dict(self.mod))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsCondition.mod"><code class="name">var <span class="ident">mod</span> : <a title="pytia_quick_export.resources.SettingsConditionMod" href="#pytia_quick_export.resources.SettingsConditionMod">SettingsConditionMod</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsCondition.new"><code class="name">var <span class="ident">new</span> : <a title="pytia_quick_export.resources.SettingsConditionNew" href="#pytia_quick_export.resources.SettingsConditionNew">SettingsConditionNew</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsConditionMod"><code class="flex name class">
+<span>class <span class="ident">SettingsConditionMod</span></span>
+<span>(</span><span>*, name: str, overwrite: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for conditions of type modified (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionMod:
+    &#34;&#34;&#34;Dataclass for conditions of type modified (settings.json).&#34;&#34;&#34;
+
+    name: str
+    overwrite: dict</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsConditionMod.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsConditionMod.overwrite"><code class="name">var <span class="ident">overwrite</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsConditionNew"><code class="flex name class">
+<span>class <span class="ident">SettingsConditionNew</span></span>
+<span>(</span><span>*, name: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for conditions of type new (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionNew:
+    &#34;&#34;&#34;Dataclass for conditions of type new (settings.json).&#34;&#34;&#34;
+
+    name: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsConditionNew.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsExport"><code class="flex name class">
+<span>class <span class="ident">SettingsExport</span></span>
+<span>(</span><span>*, apply_username_in_excel: bool, apply_username_in_docket: bool, lock_drawing_views: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for export settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsExport:
+    &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
+
+    apply_username_in_excel: bool
+    apply_username_in_docket: bool
+    lock_drawing_views: bool  # TODO: This isn&#39;t used yet</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsExport.apply_username_in_docket"><code class="name">var <span class="ident">apply_username_in_docket</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsExport.apply_username_in_excel"><code class="name">var <span class="ident">apply_username_in_excel</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsExport.lock_drawing_views"><code class="name">var <span class="ident">lock_drawing_views</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsFiles"><code class="flex name class">
+<span>class <span class="ident">SettingsFiles</span></span>
+<span>(</span><span>*, app: str, launcher: str, workspace: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for files (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsFiles:
+    &#34;&#34;&#34;Dataclass for files (settings.json).&#34;&#34;&#34;
+
+    app: str
+    launcher: str
+    workspace: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsFiles.app"><code class="name">var <span class="ident">app</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsFiles.launcher"><code class="name">var <span class="ident">launcher</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsFiles.workspace"><code class="name">var <span class="ident">workspace</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsMails"><code class="flex name class">
+<span>class <span class="ident">SettingsMails</span></span>
+<span>(</span><span>*, admin: str, export: Optional[List[str]], export_debug: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for mails (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsMails:
+    &#34;&#34;&#34;Dataclass for mails (settings.json).&#34;&#34;&#34;
+
+    admin: str
+    export: List[str] | None
+    export_debug: str</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsMails.admin"><code class="name">var <span class="ident">admin</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsMails.export"><code class="name">var <span class="ident">export</span> : Optional[List[str]]</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsMails.export_debug"><code class="name">var <span class="ident">export_debug</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsPaths"><code class="flex name class">
+<span>class <span class="ident">SettingsPaths</span></span>
+<span>(</span><span>*, catia: pathlib.Path, local_dependencies: pathlib.Path, release: pathlib.Path)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for paths (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsPaths:
+    &#34;&#34;&#34;Dataclass for paths (settings.json).&#34;&#34;&#34;
+
+    catia: Path
+    local_dependencies: Path
+    release: Path</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsPaths.catia"><code class="name">var <span class="ident">catia</span> : pathlib.Path</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsPaths.local_dependencies"><code class="name">var <span class="ident">local_dependencies</span> : pathlib.Path</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsPaths.release"><code class="name">var <span class="ident">release</span> : pathlib.Path</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsRestrictions"><code class="flex name class">
+<span>class <span class="ident">SettingsRestrictions</span></span>
+<span>(</span><span>*, allow_all_users: bool, allow_all_editors: bool, allow_unsaved: bool, allow_outside_workspace: bool, strict_project: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for restrictive settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsRestrictions:
+    &#34;&#34;&#34;Dataclass for restrictive settings.&#34;&#34;&#34;
+
+    allow_all_users: bool
+    allow_all_editors: bool
+    allow_unsaved: bool
+    allow_outside_workspace: bool
+    strict_project: bool</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsRestrictions.allow_all_editors"><code class="name">var <span class="ident">allow_all_editors</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsRestrictions.allow_all_users"><code class="name">var <span class="ident">allow_all_users</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsRestrictions.allow_outside_workspace"><code class="name">var <span class="ident">allow_outside_workspace</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsRestrictions.allow_unsaved"><code class="name">var <span class="ident">allow_unsaved</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsRestrictions.strict_project"><code class="name">var <span class="ident">strict_project</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsUrls"><code class="flex name class">
+<span>class <span class="ident">SettingsUrls</span></span>
+<span>(</span><span>*, help: str | None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for urls (settings.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsUrls:
+    &#34;&#34;&#34;Dataclass for urls (settings.json).&#34;&#34;&#34;
+
+    help: str | None</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.SettingsUrls.help"><code class="name">var <span class="ident">help</span> : str | None</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.User"><code class="flex name class">
+<span>class <span class="ident">User</span></span>
+<span>(</span><span>*, logon: str, id: str, name: str, mail: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass a user (users.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class User:
+    &#34;&#34;&#34;Dataclass a user (users.json).&#34;&#34;&#34;
+
+    logon: str
+    id: str
+    name: str
+    mail: str
+
+    @property
+    def keys(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all keys from the User dataclass.&#34;&#34;&#34;
+        return [f.name for f in fields(self)]
+
+    @property
+    def values(self) -&gt; List[str]:
+        &#34;&#34;&#34;Returns a list of all values from the User dataclass.&#34;&#34;&#34;
+        return [getattr(self, f.name) for f in fields(self)]</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.User.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.User.keys"><code class="name">var <span class="ident">keys</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of all keys from the User dataclass.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def keys(self) -&gt; List[str]:
+    &#34;&#34;&#34;Returns a list of all keys from the User dataclass.&#34;&#34;&#34;
+    return [f.name for f in fields(self)]</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.User.logon"><code class="name">var <span class="ident">logon</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.User.mail"><code class="name">var <span class="ident">mail</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.User.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.User.values"><code class="name">var <span class="ident">values</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Returns a list of all values from the User dataclass.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def values(self) -&gt; List[str]:
+    &#34;&#34;&#34;Returns a list of all values from the User dataclass.&#34;&#34;&#34;
+    return [getattr(self, f.name) for f in fields(self)]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pytia_quick_export" href="../index.html">pytia_quick_export</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pytia_quick_export.resources.AppData" href="#pytia_quick_export.resources.AppData">AppData</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.AppData.counter" href="#pytia_quick_export.resources.AppData.counter">counter</a></code></li>
+<li><code><a title="pytia_quick_export.resources.AppData.save_on_apply" href="#pytia_quick_export.resources.AppData.save_on_apply">save_on_apply</a></code></li>
+<li><code><a title="pytia_quick_export.resources.AppData.version" href="#pytia_quick_export.resources.AppData.version">version</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.EXCEL" href="#pytia_quick_export.resources.EXCEL">EXCEL</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.EXCEL.data_bg_color_1" href="#pytia_quick_export.resources.EXCEL.data_bg_color_1">data_bg_color_1</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.data_bg_color_2" href="#pytia_quick_export.resources.EXCEL.data_bg_color_2">data_bg_color_2</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.data_color_1" href="#pytia_quick_export.resources.EXCEL.data_color_1">data_color_1</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.data_color_2" href="#pytia_quick_export.resources.EXCEL.data_color_2">data_color_2</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.data_row" href="#pytia_quick_export.resources.EXCEL.data_row">data_row</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.font" href="#pytia_quick_export.resources.EXCEL.font">font</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_bg_color" href="#pytia_quick_export.resources.EXCEL.header_bg_color">header_bg_color</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_color" href="#pytia_quick_export.resources.EXCEL.header_color">header_color</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_items" href="#pytia_quick_export.resources.EXCEL.header_items">header_items</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_row" href="#pytia_quick_export.resources.EXCEL.header_row">header_row</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.size" href="#pytia_quick_export.resources.EXCEL.size">size</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Info" href="#pytia_quick_export.resources.Info">Info</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.Info.counter" href="#pytia_quick_export.resources.Info.counter">counter</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Info.msg" href="#pytia_quick_export.resources.Info.msg">msg</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.KeywordElements" href="#pytia_quick_export.resources.KeywordElements">KeywordElements</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.KeywordElements.assembly" href="#pytia_quick_export.resources.KeywordElements.assembly">assembly</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.bom" href="#pytia_quick_export.resources.KeywordElements.bom">bom</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.bought" href="#pytia_quick_export.resources.KeywordElements.bought">bought</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.definition" href="#pytia_quick_export.resources.KeywordElements.definition">definition</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.description" href="#pytia_quick_export.resources.KeywordElements.description">description</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.made" href="#pytia_quick_export.resources.KeywordElements.made">made</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.nomenclature" href="#pytia_quick_export.resources.KeywordElements.nomenclature">nomenclature</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.number" href="#pytia_quick_export.resources.KeywordElements.number">number</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.part" href="#pytia_quick_export.resources.KeywordElements.part">part</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.partnumber" href="#pytia_quick_export.resources.KeywordElements.partnumber">partnumber</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.quantity" href="#pytia_quick_export.resources.KeywordElements.quantity">quantity</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.revision" href="#pytia_quick_export.resources.KeywordElements.revision">revision</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.source" href="#pytia_quick_export.resources.KeywordElements.source">source</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.summary" href="#pytia_quick_export.resources.KeywordElements.summary">summary</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.type" href="#pytia_quick_export.resources.KeywordElements.type">type</a></code></li>
+<li><code><a title="pytia_quick_export.resources.KeywordElements.unknown" href="#pytia_quick_export.resources.KeywordElements.unknown">unknown</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Keywords" href="#pytia_quick_export.resources.Keywords">Keywords</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.Keywords.de" href="#pytia_quick_export.resources.Keywords.de">de</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Keywords.en" href="#pytia_quick_export.resources.Keywords.en">en</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Props" href="#pytia_quick_export.resources.Props">Props</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.Props.creator" href="#pytia_quick_export.resources.Props.creator">creator</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.keys" href="#pytia_quick_export.resources.Props.keys">keys</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.machine" href="#pytia_quick_export.resources.Props.machine">machine</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.modifier" href="#pytia_quick_export.resources.Props.modifier">modifier</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.project" href="#pytia_quick_export.resources.Props.project">project</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.values" href="#pytia_quick_export.resources.Props.values">values</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Resources" href="#pytia_quick_export.resources.Resources">Resources</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.Resources.appdata" href="#pytia_quick_export.resources.Resources.appdata">appdata</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.docket" href="#pytia_quick_export.resources.Resources.docket">docket</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.excel" href="#pytia_quick_export.resources.Resources.excel">excel</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.get_png" href="#pytia_quick_export.resources.Resources.get_png">get_png</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.get_user_by_logon" href="#pytia_quick_export.resources.Resources.get_user_by_logon">get_user_by_logon</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.get_user_by_name" href="#pytia_quick_export.resources.Resources.get_user_by_name">get_user_by_name</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.keywords" href="#pytia_quick_export.resources.Resources.keywords">keywords</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.logon_exists" href="#pytia_quick_export.resources.Resources.logon_exists">logon_exists</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.props" href="#pytia_quick_export.resources.Resources.props">props</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.settings" href="#pytia_quick_export.resources.Resources.settings">settings</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.users" href="#pytia_quick_export.resources.Resources.users">users</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Settings" href="#pytia_quick_export.resources.Settings">Settings</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.Settings.condition" href="#pytia_quick_export.resources.Settings.condition">condition</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.debug" href="#pytia_quick_export.resources.Settings.debug">debug</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.export" href="#pytia_quick_export.resources.Settings.export">export</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.files" href="#pytia_quick_export.resources.Settings.files">files</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.mails" href="#pytia_quick_export.resources.Settings.mails">mails</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.paths" href="#pytia_quick_export.resources.Settings.paths">paths</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.restrictions" href="#pytia_quick_export.resources.Settings.restrictions">restrictions</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.title" href="#pytia_quick_export.resources.Settings.title">title</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Settings.urls" href="#pytia_quick_export.resources.Settings.urls">urls</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsCondition" href="#pytia_quick_export.resources.SettingsCondition">SettingsCondition</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsCondition.mod" href="#pytia_quick_export.resources.SettingsCondition.mod">mod</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsCondition.new" href="#pytia_quick_export.resources.SettingsCondition.new">new</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsConditionMod" href="#pytia_quick_export.resources.SettingsConditionMod">SettingsConditionMod</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsConditionMod.name" href="#pytia_quick_export.resources.SettingsConditionMod.name">name</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsConditionMod.overwrite" href="#pytia_quick_export.resources.SettingsConditionMod.overwrite">overwrite</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsConditionNew" href="#pytia_quick_export.resources.SettingsConditionNew">SettingsConditionNew</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsConditionNew.name" href="#pytia_quick_export.resources.SettingsConditionNew.name">name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username_in_docket" href="#pytia_quick_export.resources.SettingsExport.apply_username_in_docket">apply_username_in_docket</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username_in_excel" href="#pytia_quick_export.resources.SettingsExport.apply_username_in_excel">apply_username_in_excel</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsExport.lock_drawing_views" href="#pytia_quick_export.resources.SettingsExport.lock_drawing_views">lock_drawing_views</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsFiles" href="#pytia_quick_export.resources.SettingsFiles">SettingsFiles</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsFiles.app" href="#pytia_quick_export.resources.SettingsFiles.app">app</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsFiles.launcher" href="#pytia_quick_export.resources.SettingsFiles.launcher">launcher</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsFiles.workspace" href="#pytia_quick_export.resources.SettingsFiles.workspace">workspace</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsMails" href="#pytia_quick_export.resources.SettingsMails">SettingsMails</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsMails.admin" href="#pytia_quick_export.resources.SettingsMails.admin">admin</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsMails.export" href="#pytia_quick_export.resources.SettingsMails.export">export</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsMails.export_debug" href="#pytia_quick_export.resources.SettingsMails.export_debug">export_debug</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsPaths" href="#pytia_quick_export.resources.SettingsPaths">SettingsPaths</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsPaths.catia" href="#pytia_quick_export.resources.SettingsPaths.catia">catia</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsPaths.local_dependencies" href="#pytia_quick_export.resources.SettingsPaths.local_dependencies">local_dependencies</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsPaths.release" href="#pytia_quick_export.resources.SettingsPaths.release">release</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsRestrictions" href="#pytia_quick_export.resources.SettingsRestrictions">SettingsRestrictions</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsRestrictions.allow_all_editors" href="#pytia_quick_export.resources.SettingsRestrictions.allow_all_editors">allow_all_editors</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsRestrictions.allow_all_users" href="#pytia_quick_export.resources.SettingsRestrictions.allow_all_users">allow_all_users</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsRestrictions.allow_outside_workspace" href="#pytia_quick_export.resources.SettingsRestrictions.allow_outside_workspace">allow_outside_workspace</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsRestrictions.allow_unsaved" href="#pytia_quick_export.resources.SettingsRestrictions.allow_unsaved">allow_unsaved</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsRestrictions.strict_project" href="#pytia_quick_export.resources.SettingsRestrictions.strict_project">strict_project</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.SettingsUrls" href="#pytia_quick_export.resources.SettingsUrls">SettingsUrls</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.SettingsUrls.help" href="#pytia_quick_export.resources.SettingsUrls.help">help</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.User" href="#pytia_quick_export.resources.User">User</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pytia_quick_export.resources.User.id" href="#pytia_quick_export.resources.User.id">id</a></code></li>
+<li><code><a title="pytia_quick_export.resources.User.keys" href="#pytia_quick_export.resources.User.keys">keys</a></code></li>
+<li><code><a title="pytia_quick_export.resources.User.logon" href="#pytia_quick_export.resources.User.logon">logon</a></code></li>
+<li><code><a title="pytia_quick_export.resources.User.mail" href="#pytia_quick_export.resources.User.mail">mail</a></code></li>
+<li><code><a title="pytia_quick_export.resources.User.name" href="#pytia_quick_export.resources.User.name">name</a></code></li>
+<li><code><a title="pytia_quick_export.resources.User.values" href="#pytia_quick_export.resources.User.values">values</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

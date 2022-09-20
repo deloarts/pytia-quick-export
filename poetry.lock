@@ -87,7 +87,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "decorator"
 version = "5.1.1"
 description = "Decorators for Humans"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -125,6 +125,14 @@ description = "easy to use command-line interface for python modules"
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "et-xmlfile"
+version = "1.1.0"
+description = "An implementation of lxml.xmlfile for the standard library"
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "filelock"
@@ -271,6 +279,17 @@ description = "Node.js virtual environment builder"
 category = "dev"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*"
+
+[[package]]
+name = "openpyxl"
+version = "3.0.10"
+description = "A Python library to read/write Excel 2010 xlsx/xlsm files"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+et-xmlfile = "*"
 
 [[package]]
 name = "packaging"
@@ -481,7 +500,7 @@ resolved_reference = "9c735717517e7801b87c082dfaa507e7f64d2912"
 
 [[package]]
 name = "pytia-ui-tools"
-version = "0.5.3"
+version = "0.6.0"
 description = "Helper functions and widgets for all pytia ui apps."
 category = "main"
 optional = false
@@ -499,8 +518,8 @@ qrcode = "7.3.1"
 [package.source]
 type = "git"
 url = "ssh://git@github.com/deloarts/pytia-ui-tools.git"
-reference = "v0.5.3"
-resolved_reference = "21c5321f386c56f59e373fbd3ef92c5b95de4721"
+reference = "v0.6.0"
+resolved_reference = "407cdfda449273bc655b5082a30d6f5b2ff45281"
 
 [[package]]
 name = "pywin32"
@@ -554,9 +573,9 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "validators"
-version = "0.19.0"
+version = "0.20.0"
 description = "Python Data Validation for Humans™."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.4"
 
@@ -594,7 +613,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "f30fd66e38ca53e73f0c49b3576dcacfc19fd2fc5546e7c1dc06f79dec2fdc29"
+content-hash = "28628707584fead31988ac337b0c87daba0028849bb8ea47876cab8e2e2c8894"
 
 [metadata.files]
 astroid = []
@@ -630,6 +649,7 @@ entrypoint2 = [
     {file = "entrypoint2-1.1-py2.py3-none-any.whl", hash = "sha256:eeb8c327bdb65cdd1668c023a6b110b7e3d1a046fb05e043861ebd9264b3a257"},
     {file = "entrypoint2-1.1.tar.gz", hash = "sha256:fc0b7fe7b21acdab47a585ab9407ca7e5c4f96cb6888575db6b0ceb91f0e105a"},
 ]
+et-xmlfile = []
 filelock = []
 identify = []
 iniconfig = [
@@ -747,6 +767,7 @@ nodeenv = [
     {file = "nodeenv-1.7.0-py2.py3-none-any.whl", hash = "sha256:27083a7b96a25f2f5e1d8cb4b6317ee8aeda3bdd121394e5ac54e498028a042e"},
     {file = "nodeenv-1.7.0.tar.gz", hash = "sha256:e0e7f7dfb85fc5394c6fe1e8fa98131a2473e04311a45afb6508f7cf1836fa2b"},
 ]
+openpyxl = []
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
@@ -920,9 +941,7 @@ tomli = [
     {file = "tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc"},
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
-validators = [
-    {file = "validators-0.19.0.tar.gz", hash = "sha256:dec45f4381f042f1e705cfa74949505b77f1e27e8b05409096fee8152c839cbe"},
-]
+validators = []
 virtualenv = []
 wrapt = [
     {file = "wrapt-1.14.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:1b376b3f4896e7930f1f772ac4b064ac12598d1c38d04907e696cc4d794b43d3"},

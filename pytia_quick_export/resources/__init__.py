@@ -15,8 +15,20 @@ from json.decoder import JSONDecodeError
 from pathlib import Path
 from typing import List, Optional
 
-from const import (APP_VERSION, APPDATA, CONFIG_APPDATA, CONFIG_INFOS,
-                   CONFIG_INFOS_DEFAULT, CONFIG_SETTINGS, CONFIG_USERS, LOGON)
+from const import (
+    APP_VERSION,
+    APPDATA,
+    CONFIG_APPDATA,
+    CONFIG_DOCKET,
+    CONFIG_EXCEL,
+    CONFIG_EXCEL_DEFAULT,
+    CONFIG_KEYWORDS,
+    CONFIG_PROPS,
+    CONFIG_PROPS_DEFAULT,
+    CONFIG_SETTINGS,
+    CONFIG_USERS,
+    LOGON,
+)
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
@@ -28,8 +40,42 @@ class SettingsRestrictions:
     allow_unsaved: bool
     allow_outside_workspace: bool
     strict_project: bool
-    strict_machine: bool
-    enable_information: bool
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsExport:
+    """Dataclass for export settings."""
+
+    apply_username_in_excel: bool
+    apply_username_in_docket: bool
+    lock_drawing_views: bool  # TODO: This isn't used yet
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionNew:
+    """Dataclass for conditions of type new (settings.json)."""
+
+    name: str
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class SettingsConditionMod:
+    """Dataclass for conditions of type modified (settings.json)."""
+
+    name: str
+    overwrite: dict
+
+
+@dataclass(slots=True, kw_only=True)
+class SettingsCondition:
+    """Dataclass for conditions (settings.json)."""
+
+    new: SettingsConditionNew
+    mod: SettingsConditionMod
+
+    def __post_init__(self) -> None:
+        self.new = SettingsConditionNew(**dict(self.new))  # type: ignore
+        self.mod = SettingsConditionMod(**dict(self.mod))  # type: ignore
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
@@ -62,6 +108,8 @@ class SettingsMails:
     """Dataclass for mails (settings.json)."""
 
     admin: str
+    export: List[str] | None
+    export_debug: str
 
 
 @dataclass(slots=True, kw_only=True)
@@ -71,6 +119,8 @@ class Settings:  # pylint: disable=R0902
     title: str
     debug: bool
     restrictions: SettingsRestrictions
+    export: SettingsExport
+    condition: SettingsCondition
     paths: SettingsPaths
     files: SettingsFiles
     urls: SettingsUrls
@@ -78,10 +128,83 @@ class Settings:  # pylint: disable=R0902
 
     def __post_init__(self) -> None:
         self.restrictions = SettingsRestrictions(**dict(self.restrictions))  # type: ignore
+        self.export = SettingsExport(**dict(self.export))  # type: ignore
+        self.condition = SettingsCondition(**dict(self.condition))  # type: ignore
         self.files = SettingsFiles(**dict(self.files))  # type: ignore
         self.paths = SettingsPaths(**dict(self.paths))  # type: ignore
         self.urls = SettingsUrls(**dict(self.urls))  # type: ignore
         self.mails = SettingsMails(**dict(self.mails))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class KeywordElements:
+    """Dataclass for keyword elements."""
+
+    partnumber: str
+    revision: str
+    definition: str
+    nomenclature: str
+    source: str
+    made: str
+    bought: str
+    unknown: str
+    description: str
+    number: str
+    type: str
+    part: str
+    assembly: str
+    quantity: str
+    bom: str
+    summary: str
+
+
+@dataclass(slots=True, kw_only=True)
+class Keywords:
+    """Dataclass for language specific keywords."""
+
+    en: KeywordElements
+    de: KeywordElements
+
+    def __post_init__(self) -> None:
+        self.en = KeywordElements(**dict(self.en))  # type: ignore
+        self.de = KeywordElements(**dict(self.de))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class EXCEL:
+    """Excel dataclass."""
+
+    header_row: int | None
+    data_row: int
+    header_items: List[str]
+    font: str
+    size: int
+    header_color: str
+    header_bg_color: str
+    data_color_1: str
+    data_bg_color_1: str
+    data_color_2: str
+    data_bg_color_2: str
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class Props:
+    """Dataclass for properties on the part (properties.json)."""
+
+    project: str
+    machine: str
+    creator: str
+    modifier: str
+
+    @property
+    def keys(self) -> List[str]:
+        """Returns a list of all keys from the Props dataclass."""
+        return [f.name for f in fields(self)]
+
+    @property
+    def values(self) -> List[str]:
+        """Returns a list of all values from the Props dataclass."""
+        return [getattr(self, f.name) for f in fields(self)]
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
@@ -130,17 +253,13 @@ class AppData:
 class Resources:  # pylint: disable=R0902
     """Class for handling resource files."""
 
-    __slots__ = (
-        "_settings",
-        "_users",
-        "_infos",
-        "_appdata",
-    )
-
     def __init__(self) -> None:
         self._read_settings()
         self._read_users()
-        self._read_infos()
+        self._read_keywords()
+        self._read_excel()
+        self._read_docket()
+        self._read_props()
         self._read_appdata()
 
         atexit.register(self._write_appdata)
@@ -151,40 +270,79 @@ class Resources:  # pylint: disable=R0902
         return self._settings
 
     @property
+    def keywords(self) -> Keywords:
+        """keywords.json"""
+        return self._keywords
+
+    @property
+    def props(self) -> Props:
+        """properties.json"""
+        return self._props
+
+    @property
+    def excel(self) -> EXCEL:
+        """excel.json"""
+        return self._excel
+
+    @property
     def users(self) -> List[User]:
         """users.json"""
         return self._users
 
     @property
-    def infos(self) -> List[Info]:
-        """infos.json"""
-        return self._infos
+    def docket(self) -> dict:
+        """docket.json"""
+        return self._docket
 
     @property
     def appdata(self) -> AppData:
         """Property for the appdata config file."""
         return self._appdata
 
+    def get_png(self, name: str) -> bytes:
+        """Returns a png resource by its name."""
+        with importlib.resources.open_binary("resources", name) as f:
+            return f.read()
+
     def _read_settings(self) -> None:
         """Reads the settings json from the resources folder."""
         with importlib.resources.open_binary("resources", CONFIG_SETTINGS) as f:
             self._settings = Settings(**json.load(f))
+
+    def _read_keywords(self) -> None:
+        """Reads the keywords json from the resources folder."""
+        with importlib.resources.open_binary("resources", CONFIG_KEYWORDS) as f:
+            self._keywords = Keywords(**json.load(f))
 
     def _read_users(self) -> None:
         """Reads the users json from the resources folder."""
         with importlib.resources.open_binary("resources", CONFIG_USERS) as f:
             self._users = [User(**i) for i in json.load(f)]
 
+    def _read_docket(self) -> None:
+        """Reads the docket json from the resources folder."""
+        with importlib.resources.open_binary("resources", CONFIG_DOCKET) as f:
+            self._docket = json.load(f)
 
-    def _read_infos(self) -> None:
-        """Reads the information json from the resources folder."""
-        infos_resource = (
-            CONFIG_INFOS
-            if importlib.resources.is_resource("resources", CONFIG_INFOS)
-            else CONFIG_INFOS_DEFAULT
+    def _read_props(self) -> None:
+        """Reads the props json from the resources folder."""
+        props_resource = (
+            CONFIG_PROPS
+            if importlib.resources.is_resource("resources", CONFIG_PROPS)
+            else CONFIG_PROPS_DEFAULT
         )
-        with importlib.resources.open_binary("resources", infos_resource) as f:
-            self._infos = [Info(**i) for i in json.load(f)]
+        with importlib.resources.open_binary("resources", props_resource) as f:
+            self._props = Props(**json.load(f))
+
+    def _read_excel(self) -> None:
+        """Reads the excel json from the resources folder."""
+        excel_resource = (
+            CONFIG_EXCEL
+            if importlib.resources.is_resource("resources", CONFIG_EXCEL)
+            else CONFIG_EXCEL_DEFAULT
+        )
+        with importlib.resources.open_binary("resources", excel_resource) as f:
+            self._excel = EXCEL(**json.load(f))
 
     def _read_appdata(self) -> None:
         """Reads the json config file from the appdata folder."""
@@ -264,19 +422,6 @@ class Resources:  # pylint: disable=R0902
             if user.logon == logon:
                 return True
         return False
-
-    def get_info_msg_by_counter(self) -> List[str]:
-        """
-        Returns the info message by the app usage counter.
-
-        Returns:
-            List[str]: A list of all messages that should be shown at the counter value.
-        """
-        values = []
-        for index, value in enumerate(self._infos):
-            if value.counter == self._appdata.counter:
-                values.append(self._infos[index].msg)
-        return values
 
 
 resource = Resources()

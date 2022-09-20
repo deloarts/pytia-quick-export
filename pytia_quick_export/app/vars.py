@@ -3,7 +3,7 @@
 """
 
 from dataclasses import dataclass
-from tkinter import StringVar, Tk
+from tkinter import DoubleVar, StringVar, Tk
 
 
 @dataclass(slots=True, kw_only=True)
@@ -11,7 +11,14 @@ class Variables:
     """Dataclass for the main windows variables."""
 
     project: StringVar
-    machine: StringVar
+    condition: StringVar
+    quantity: StringVar
+    note: StringVar
+
+    mail: StringVar
+    folder: StringVar
+
+    progress: DoubleVar
 
     def __init__(self, root: Tk) -> None:
         """
@@ -22,4 +29,11 @@ class Variables:
         """
 
         self.project = StringVar(master=root, name="project")
-        self.machine = StringVar(master=root, name="machine")
+        self.condition = StringVar(master=root, name="condition")
+        self.quantity = StringVar(master=root, name="quantity", value="0")
+        self.note = StringVar(master=root, name="note")
+
+        self.mail = StringVar(master=root, name="mail")
+        self.folder = StringVar(master=root, name="folder")
+
+        self.progress = DoubleVar(master=root, name="progress", value=0)

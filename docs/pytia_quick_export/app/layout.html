@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pytia_quick_export.app.layout API documentation</title>
+<meta name="description" content="The layout of the app." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pytia_quick_export.app.layout</code></h1>
+</header>
+<section id="section-intro">
+<p>The layout of the app.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+    The layout of the app.
+&#34;&#34;&#34;
+from tkinter import DISABLED, PhotoImage, Tk, ttk
+
+from pytia_ui_tools.widgets.entries import NumberEntry
+from pytia_ui_tools.widgets.texts import ScrolledText
+from resources import resource
+
+from app.frames import Frames
+from app.vars import Variables
+
+
+class Layout:
+    &#34;&#34;&#34;The layout class of the app, holds all widgets.&#34;&#34;&#34;
+
+    MARGIN_X = 10
+    MARGIN_Y = 10
+
+    def __init__(self, root: Tk, frames: Frames, variables: Variables) -&gt; None:
+        &#34;&#34;&#34;
+        Inits the Layout class. Creates and places the widgets of the main window.
+
+        Args:
+            root (Tk): The main window.
+            frames (Frames): The frames of the main window.
+            variables (Variables): The variables of the main window.
+        &#34;&#34;&#34;
+
+        self.help_png = PhotoImage(data=resource.get_png(&#34;help.png&#34;))
+
+        # region PROJECT
+        lbl_project = ttk.Label(
+            frames.data_frame,
+            text=&#34;Project&#34;,
+            width=12,
+        )
+        lbl_project.grid(
+            row=0,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(Layout.MARGIN_Y, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_project = ttk.Combobox(
+            frames.data_frame,
+            values=[],
+            textvariable=variables.project,
+            state=DISABLED,
+        )
+        self._combo_project.grid(
+            row=0,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(Layout.MARGIN_Y, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region CONDITION
+        lbl_condition = ttk.Label(
+            frames.data_frame,
+            text=&#34;Condition&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_condition.grid(
+            row=1,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(2, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_condition = ttk.Combobox(
+            frames.data_frame,
+            values=[
+                resource.settings.condition.new.name,
+                resource.settings.condition.mod.name,
+            ],
+            textvariable=variables.condition,
+            state=DISABLED,
+        )
+        self._combo_condition.grid(
+            row=1,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(2, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region QUANTITY
+        lbl_quantity = ttk.Label(
+            frames.data_frame,
+            text=&#34;Quantity&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_quantity.grid(
+            row=2,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(2, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._entry_quantity = NumberEntry(
+            frames.data_frame,
+            string_var=variables.quantity,
+            state=DISABLED,
+        )
+        self._entry_quantity.grid(
+            row=2,
+            column=1,
+            padx=(5, 2),
+            pady=(2, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+        )
+        self._btn_qty_increase = ttk.Button(
+            frames.data_frame,
+            text=&#34;+&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_qty_increase.grid(
+            row=2,
+            column=2,
+            padx=(2, 2),
+            pady=(1, 1),
+            sticky=&#34;nsew&#34;,
+        )
+        self._btn_qty_decrease = ttk.Button(
+            frames.data_frame,
+            text=&#34;-&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_qty_decrease.grid(
+            row=2,
+            column=3,
+            padx=(2, Layout.MARGIN_X),
+            pady=(1, 1),
+            sticky=&#34;nsew&#34;,
+        )
+        # endregion
+
+        # region NOT
+        lbl_note = ttk.Label(
+            frames.data_frame,
+            text=&#34;Note&#34;,
+            width=12,
+        )
+        lbl_note.grid(
+            row=3,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(6, 2),
+            sticky=&#34;new&#34;,
+        )
+        self._input_note = ScrolledText(
+            parent=frames.data_frame,
+            textvariable=variables.note,
+            state=DISABLED,
+            height=3,
+            font=(&#34;Segoe UI&#34;, 9),
+        )
+        self._input_note.grid(
+            row=3,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(2, Layout.MARGIN_Y),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        self._lbl_help_note = ttk.Label(image=self.help_png)
+        self._lbl_help_note.place(x=55, y=130)
+        # endregion
+
+        # region MAIL
+        lbl_mail = ttk.Label(
+            frames.export_frame,
+            text=&#34;Mail Address&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_mail.grid(
+            row=0,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(Layout.MARGIN_Y, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_mail = ttk.Combobox(
+            frames.export_frame,
+            values=[],
+            textvariable=variables.mail,
+            state=DISABLED,
+        )
+        self._combo_mail.grid(
+            row=0,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(Layout.MARGIN_Y, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region FOLDER
+        lbl_export_folder = ttk.Label(
+            frames.export_frame, text=&#34;Export Folder&#34;, width=12
+        )
+        lbl_export_folder.grid(
+            row=1,
+            column=0,
+            padx=(Layout.MARGIN_X, 2),
+            pady=(2, Layout.MARGIN_Y),
+            sticky=&#34;nsew&#34;,
+        )
+
+        self._entry_export_folder = ttk.Entry(
+            frames.export_frame,
+            textvariable=variables.folder,
+            state=DISABLED,
+        )
+        self._entry_export_folder.grid(
+            row=1,
+            column=1,
+            padx=(5, 2),
+            pady=(2, Layout.MARGIN_Y),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=2,
+        )
+
+        self._btn_browse_export_folder = ttk.Button(
+            frames.export_frame,
+            text=&#34;...&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_browse_export_folder.grid(
+            row=1,
+            column=3,
+            padx=(2, Layout.MARGIN_X),
+            pady=(1, Layout.MARGIN_Y - 1),
+            sticky=&#34;nsew&#34;,
+        )
+        # endregion
+
+        # region FRAME Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        lbl_info = ttk.Label(
+            frames.footer,
+            text=&#34;&#34;,
+        )
+        lbl_info.grid(
+            row=0, column=0, padx=(0, 5), pady=0, ipadx=2, ipady=2, sticky=&#34;nsew&#34;
+        )
+
+        self._btn_export = ttk.Button(
+            frames.footer, text=&#34;Export&#34;, style=&#34;Footer.TButton&#34;, state=DISABLED
+        )
+        self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
+
+        self._btn_abort = ttk.Button(frames.footer, text=&#34;Exit&#34;, style=&#34;Footer.TButton&#34;)
+        self._btn_abort.grid(row=0, column=2, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
+
+    @property
+    def input_project(self) -&gt; ttk.Combobox:
+        return self._combo_project
+
+    @property
+    def input_condition(self) -&gt; ttk.Combobox:
+        return self._combo_condition
+
+    @property
+    def input_quantity(self) -&gt; NumberEntry:
+        return self._entry_quantity
+
+    @property
+    def button_increase_qty(self) -&gt; ttk.Button:
+        return self._btn_qty_increase
+
+    @property
+    def button_decrease_qty(self) -&gt; ttk.Button:
+        return self._btn_qty_decrease
+
+    @property
+    def input_note(self) -&gt; ScrolledText:
+        return self._input_note
+
+    @property
+    def input_mail(self) -&gt; ttk.Combobox:
+        return self._combo_mail
+
+    @property
+    def input_folder(self) -&gt; ttk.Entry:
+        return self._entry_export_folder
+
+    @property
+    def button_browse_folder(self) -&gt; ttk.Button:
+        return self._btn_browse_export_folder
+
+    @property
+    def button_export(self) -&gt; ttk.Button:
+        return self._btn_export
+
+    @property
+    def button_abort(self) -&gt; ttk.Button:
+        return self._btn_abort
+
+    @property
+    def help_note(self) -&gt; ttk.Label:
+        return self._lbl_help_note</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pytia_quick_export.app.layout.Layout"><code class="flex name class">
+<span>class <span class="ident">Layout</span></span>
+<span>(</span><span>root: tkinter.Tk, frames: app.frames.Frames, variables: app.vars.Variables)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The layout class of the app, holds all widgets.</p>
+<p>Inits the Layout class. Creates and places the widgets of the main window.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>root</code></strong> :&ensp;<code>Tk</code></dt>
+<dd>The main window.</dd>
+<dt><strong><code>frames</code></strong> :&ensp;<code>Frames</code></dt>
+<dd>The frames of the main window.</dd>
+<dt><strong><code>variables</code></strong> :&ensp;<code>Variables</code></dt>
+<dd>The variables of the main window.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Layout:
+    &#34;&#34;&#34;The layout class of the app, holds all widgets.&#34;&#34;&#34;
+
+    MARGIN_X = 10
+    MARGIN_Y = 10
+
+    def __init__(self, root: Tk, frames: Frames, variables: Variables) -&gt; None:
+        &#34;&#34;&#34;
+        Inits the Layout class. Creates and places the widgets of the main window.
+
+        Args:
+            root (Tk): The main window.
+            frames (Frames): The frames of the main window.
+            variables (Variables): The variables of the main window.
+        &#34;&#34;&#34;
+
+        self.help_png = PhotoImage(data=resource.get_png(&#34;help.png&#34;))
+
+        # region PROJECT
+        lbl_project = ttk.Label(
+            frames.data_frame,
+            text=&#34;Project&#34;,
+            width=12,
+        )
+        lbl_project.grid(
+            row=0,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(Layout.MARGIN_Y, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_project = ttk.Combobox(
+            frames.data_frame,
+            values=[],
+            textvariable=variables.project,
+            state=DISABLED,
+        )
+        self._combo_project.grid(
+            row=0,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(Layout.MARGIN_Y, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region CONDITION
+        lbl_condition = ttk.Label(
+            frames.data_frame,
+            text=&#34;Condition&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_condition.grid(
+            row=1,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(2, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_condition = ttk.Combobox(
+            frames.data_frame,
+            values=[
+                resource.settings.condition.new.name,
+                resource.settings.condition.mod.name,
+            ],
+            textvariable=variables.condition,
+            state=DISABLED,
+        )
+        self._combo_condition.grid(
+            row=1,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(2, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region QUANTITY
+        lbl_quantity = ttk.Label(
+            frames.data_frame,
+            text=&#34;Quantity&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_quantity.grid(
+            row=2,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(2, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._entry_quantity = NumberEntry(
+            frames.data_frame,
+            string_var=variables.quantity,
+            state=DISABLED,
+        )
+        self._entry_quantity.grid(
+            row=2,
+            column=1,
+            padx=(5, 2),
+            pady=(2, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+        )
+        self._btn_qty_increase = ttk.Button(
+            frames.data_frame,
+            text=&#34;+&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_qty_increase.grid(
+            row=2,
+            column=2,
+            padx=(2, 2),
+            pady=(1, 1),
+            sticky=&#34;nsew&#34;,
+        )
+        self._btn_qty_decrease = ttk.Button(
+            frames.data_frame,
+            text=&#34;-&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_qty_decrease.grid(
+            row=2,
+            column=3,
+            padx=(2, Layout.MARGIN_X),
+            pady=(1, 1),
+            sticky=&#34;nsew&#34;,
+        )
+        # endregion
+
+        # region NOT
+        lbl_note = ttk.Label(
+            frames.data_frame,
+            text=&#34;Note&#34;,
+            width=12,
+        )
+        lbl_note.grid(
+            row=3,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(6, 2),
+            sticky=&#34;new&#34;,
+        )
+        self._input_note = ScrolledText(
+            parent=frames.data_frame,
+            textvariable=variables.note,
+            state=DISABLED,
+            height=3,
+            font=(&#34;Segoe UI&#34;, 9),
+        )
+        self._input_note.grid(
+            row=3,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(2, Layout.MARGIN_Y),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        self._lbl_help_note = ttk.Label(image=self.help_png)
+        self._lbl_help_note.place(x=55, y=130)
+        # endregion
+
+        # region MAIL
+        lbl_mail = ttk.Label(
+            frames.export_frame,
+            text=&#34;Mail Address&#34;,
+            width=12,
+            # font=(&#34;Segoe UI&#34;, 9, &#34;bold&#34;),
+        )
+        lbl_mail.grid(
+            row=0,
+            column=0,
+            padx=(Layout.MARGIN_X, 5),
+            pady=(Layout.MARGIN_Y, 2),
+            sticky=&#34;nsew&#34;,
+        )
+        self._combo_mail = ttk.Combobox(
+            frames.export_frame,
+            values=[],
+            textvariable=variables.mail,
+            state=DISABLED,
+        )
+        self._combo_mail.grid(
+            row=0,
+            column=1,
+            padx=(5, Layout.MARGIN_X),
+            pady=(Layout.MARGIN_Y, 2),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=3,
+        )
+        # endregion
+
+        # region FOLDER
+        lbl_export_folder = ttk.Label(
+            frames.export_frame, text=&#34;Export Folder&#34;, width=12
+        )
+        lbl_export_folder.grid(
+            row=1,
+            column=0,
+            padx=(Layout.MARGIN_X, 2),
+            pady=(2, Layout.MARGIN_Y),
+            sticky=&#34;nsew&#34;,
+        )
+
+        self._entry_export_folder = ttk.Entry(
+            frames.export_frame,
+            textvariable=variables.folder,
+            state=DISABLED,
+        )
+        self._entry_export_folder.grid(
+            row=1,
+            column=1,
+            padx=(5, 2),
+            pady=(2, Layout.MARGIN_Y),
+            ipadx=2,
+            ipady=2,
+            sticky=&#34;nsew&#34;,
+            columnspan=2,
+        )
+
+        self._btn_browse_export_folder = ttk.Button(
+            frames.export_frame,
+            text=&#34;...&#34;,
+            width=4,
+            state=DISABLED,
+        )
+        self._btn_browse_export_folder.grid(
+            row=1,
+            column=3,
+            padx=(2, Layout.MARGIN_X),
+            pady=(1, Layout.MARGIN_Y - 1),
+            sticky=&#34;nsew&#34;,
+        )
+        # endregion
+
+        # region FRAME Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        lbl_info = ttk.Label(
+            frames.footer,
+            text=&#34;&#34;,
+        )
+        lbl_info.grid(
+            row=0, column=0, padx=(0, 5), pady=0, ipadx=2, ipady=2, sticky=&#34;nsew&#34;
+        )
+
+        self._btn_export = ttk.Button(
+            frames.footer, text=&#34;Export&#34;, style=&#34;Footer.TButton&#34;, state=DISABLED
+        )
+        self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
+
+        self._btn_abort = ttk.Button(frames.footer, text=&#34;Exit&#34;, style=&#34;Footer.TButton&#34;)
+        self._btn_abort.grid(row=0, column=2, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
+
+    @property
+    def input_project(self) -&gt; ttk.Combobox:
+        return self._combo_project
+
+    @property
+    def input_condition(self) -&gt; ttk.Combobox:
+        return self._combo_condition
+
+    @property
+    def input_quantity(self) -&gt; NumberEntry:
+        return self._entry_quantity
+
+    @property
+    def button_increase_qty(self) -&gt; ttk.Button:
+        return self._btn_qty_increase
+
+    @property
+    def button_decrease_qty(self) -&gt; ttk.Button:
+        return self._btn_qty_decrease
+
+    @property
+    def input_note(self) -&gt; ScrolledText:
+        return self._input_note
+
+    @property
+    def input_mail(self) -&gt; ttk.Combobox:
+        return self._combo_mail
+
+    @property
+    def input_folder(self) -&gt; ttk.Entry:
+        return self._entry_export_folder
+
+    @property
+    def button_browse_folder(self) -&gt; ttk.Button:
+        return self._btn_browse_export_folder
+
+    @property
+    def button_export(self) -&gt; ttk.Button:
+        return self._btn_export
+
+    @property
+    def button_abort(self) -&gt; ttk.Button:
+        return self._btn_abort
+
+    @property
+    def help_note(self) -&gt; ttk.Label:
+        return self._lbl_help_note</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="pytia_quick_export.app.layout.Layout.MARGIN_X"><code class="name">var <span class="ident">MARGIN_X</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.MARGIN_Y"><code class="name">var <span class="ident">MARGIN_Y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.app.layout.Layout.button_abort"><code class="name">var <span class="ident">button_abort</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_abort(self) -&gt; ttk.Button:
+    return self._btn_abort</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.button_browse_folder"><code class="name">var <span class="ident">button_browse_folder</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_browse_folder(self) -&gt; ttk.Button:
+    return self._btn_browse_export_folder</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.button_decrease_qty"><code class="name">var <span class="ident">button_decrease_qty</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_decrease_qty(self) -&gt; ttk.Button:
+    return self._btn_qty_decrease</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.button_export"><code class="name">var <span class="ident">button_export</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_export(self) -&gt; ttk.Button:
+    return self._btn_export</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.button_increase_qty"><code class="name">var <span class="ident">button_increase_qty</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_increase_qty(self) -&gt; ttk.Button:
+    return self._btn_qty_increase</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.help_note"><code class="name">var <span class="ident">help_note</span> : tkinter.ttk.Label</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def help_note(self) -&gt; ttk.Label:
+    return self._lbl_help_note</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_condition"><code class="name">var <span class="ident">input_condition</span> : tkinter.ttk.Combobox</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_condition(self) -&gt; ttk.Combobox:
+    return self._combo_condition</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_folder"><code class="name">var <span class="ident">input_folder</span> : tkinter.ttk.Entry</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_folder(self) -&gt; ttk.Entry:
+    return self._entry_export_folder</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_mail"><code class="name">var <span class="ident">input_mail</span> : tkinter.ttk.Combobox</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_mail(self) -&gt; ttk.Combobox:
+    return self._combo_mail</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_note"><code class="name">var <span class="ident">input_note</span> : pytia_ui_tools.widgets.texts.ScrolledText</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_note(self) -&gt; ScrolledText:
+    return self._input_note</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_project"><code class="name">var <span class="ident">input_project</span> : tkinter.ttk.Combobox</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_project(self) -&gt; ttk.Combobox:
+    return self._combo_project</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.input_quantity"><code class="name">var <span class="ident">input_quantity</span> : pytia_ui_tools.widgets.entries.NumberEntry</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def input_quantity(self) -&gt; NumberEntry:
+    return self._entry_quantity</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pytia_quick_export.app" href="index.html">pytia_quick_export.app</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pytia_quick_export.app.layout.Layout" href="#pytia_quick_export.app.layout.Layout">Layout</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.app.layout.Layout.MARGIN_X" href="#pytia_quick_export.app.layout.Layout.MARGIN_X">MARGIN_X</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.MARGIN_Y" href="#pytia_quick_export.app.layout.Layout.MARGIN_Y">MARGIN_Y</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_abort" href="#pytia_quick_export.app.layout.Layout.button_abort">button_abort</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_browse_folder" href="#pytia_quick_export.app.layout.Layout.button_browse_folder">button_browse_folder</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_decrease_qty" href="#pytia_quick_export.app.layout.Layout.button_decrease_qty">button_decrease_qty</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_export" href="#pytia_quick_export.app.layout.Layout.button_export">button_export</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_increase_qty" href="#pytia_quick_export.app.layout.Layout.button_increase_qty">button_increase_qty</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.help_note" href="#pytia_quick_export.app.layout.Layout.help_note">help_note</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_condition" href="#pytia_quick_export.app.layout.Layout.input_condition">input_condition</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_folder" href="#pytia_quick_export.app.layout.Layout.input_folder">input_folder</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_mail" href="#pytia_quick_export.app.layout.Layout.input_mail">input_mail</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_note" href="#pytia_quick_export.app.layout.Layout.input_note">input_note</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_project" href="#pytia_quick_export.app.layout.Layout.input_project">input_project</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.input_quantity" href="#pytia_quick_export.app.layout.Layout.input_quantity">input_quantity</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

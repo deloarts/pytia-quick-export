@@ -7,9 +7,11 @@ readme = "README.md"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
+openpyxl = "3.0.10"
 python = "^3.10"
 pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.2.2"}
-pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.5.3"}
+pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.6.0"}
+validators = "0.20.0"
 
 [tool.poetry.dev-dependencies]
 Jinja2 = "^3.1.2"
@@ -22,7 +24,6 @@ pylint = "2.13.9"
 pytest = "^7.1.1"
 setuptools = "^62.3.1"
 toml = "^0.10.2"
-validators = "^0.19.0"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
