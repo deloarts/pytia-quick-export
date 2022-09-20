@@ -16,6 +16,7 @@ import toml
 from jinja2 import Environment, FileSystemLoader
 from packaging.version import Version
 from pygit2 import Repository
+
 from pytia_quick_export.const import APP_NAME, APP_VERSION
 
 settings_path = "./pytia_quick_export/resources/settings.json"

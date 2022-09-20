@@ -21,6 +21,12 @@ properties.json
 processes.json
 settings.json
 users.json
+excel.json
+docket.json
+
+# Template files
+docket.CATDrawing
+mail.html
 
 # VS Code files
 .vscode/*

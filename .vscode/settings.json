@@ -3,11 +3,18 @@
         "appdata",
         "catia",
         "CATP",
+        "catpart",
         "catvbs",
         "CNEXT",
         "columnspan",
         "endregion",
         "gaierror",
+        "getpid",
+        "initialdir",
+        "ipadx",
+        "ipady",
+        "Monospac",
+        "openpyxl",
         "padx",
         "pady",
         "partnumber",
@@ -23,8 +30,17 @@
         "rcfile",
         "Segoe",
         "settings",
+        "tempfolder",
+        "textvariable",
         "tkmsg",
         "toolwindow",
+        "urandom",
+        "zfile",
         "zipfile"
-    ]
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pytia_quick_export.worker API documentation</title>
+<meta name="description" content="The main task of the app: Exporting stuff." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pytia_quick_export.worker</code></h1>
+</header>
+<section id="section-intro">
+<p>The main task of the app: Exporting stuff.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+    The main task of the app: Exporting stuff.
+&#34;&#34;&#34;
+
+import os
+from datetime import datetime
+from pathlib import Path
+from tkinter import Tk
+from tkinter import messagebox as tkmsg
+
+import validators
+from app.frames import Frames
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.vars import Variables
+from const import KEEP, TEMP_ATTACHMENTS, TEMP_EXPORT
+from helper.lazy_loaders import LazyDocumentHelper
+from helper.names import get_data_export_name
+from pytia.log import log
+from pytia.utilities.docket import DocketConfig
+from pytia.wrapper.documents.part_documents import PyPartDocument
+from pytia_ui_tools.utils.files import file_utility
+from pytia_ui_tools.utils.qr import QR
+from resources import resource
+
+from .docket import export_docket
+from .drawing import export_drawing
+from .excel import export_excel
+from .mail import export_mail
+from .runner import Runner
+from .stp_stl import export_stl, export_stp
+
+
+class Worker:
+    &#34;&#34;&#34;The worker class. Responsible for running all sub-tasks to export data.&#34;&#34;&#34;
+
+    def __init__(
+        self,
+        main_ui: Tk,
+        layout: Layout,
+        ui_setter: UISetter,
+        doc_helper: LazyDocumentHelper,
+        variables: Variables,
+        frames: Frames,
+    ) -&gt; None:
+        self.main_ui = main_ui
+        self.layout = layout
+        self.ui_setter = ui_setter
+        self.doc_helper = doc_helper
+        self.variables = variables
+        self.frames = frames
+
+        self.project = (
+            self.doc_helper.document.properties.get_by_name(
+                resource.props.project
+            ).value
+            if self.variables.project.get() == KEEP
+            else self.variables.project.get()
+        )
+        self.machine = self.doc_helper.document.properties.get_by_name(
+            resource.props.machine
+        ).value
+        self.partnumber = self.doc_helper.document.product.part_number
+        self.revision = self.doc_helper.document.product.revision
+
+        self.export_folder = Path(
+            TEMP_EXPORT, datetime.now().strftime(&#34;%Y_%m_%d_%H_%M_%S&#34;)
+        )
+        self.attachments_folder = Path(
+            TEMP_ATTACHMENTS, datetime.now().strftime(&#34;%Y_%m_%d_%H_%M_%S&#34;)
+        )
+
+        self.export_name = get_data_export_name(self.doc_helper)
+        self.export_name_with_project = get_data_export_name(
+            self.doc_helper, project=self.project
+        )
+
+        self.docket_path = Path(
+            self.export_folder, self.export_name_with_project + &#34;.pdf&#34;
+        )
+        self.xlsx_path = Path(
+            self.export_folder, self.export_name_with_project + &#34;.xlsx&#34;
+        )
+        self.stp_path = Path(self.export_folder, self.export_name + &#34;.stp&#34;)
+        self.stl_path = Path(self.export_folder, self.export_name + &#34;.stl&#34;)
+        self.dxf_path = Path(self.export_folder, self.export_name + &#34;.dxf&#34;)
+        self.pdf_path = Path(self.export_folder, self.export_name + &#34;.pdf&#34;)
+
+        self.runner = Runner(
+            root=self.main_ui,
+            callback_variable=self.variables.progress,
+        )
+        self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
+        self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
+        self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
+        self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+        self.runner.add(self._send_mail, name=&#34;Sending mail&#34;)
+        self.runner.add(self._clean, name=&#34;Cleaning up&#34;)
+
+    def run(self) -&gt; None:
+        &#34;&#34;&#34;Runs all tasks.&#34;&#34;&#34;
+        os.makedirs(self.export_folder)
+        self.runner.run_tasks()
+        tkmsg.showinfo(
+            title=resource.settings.title, message=&#34;Export completed successfully.&#34;
+        )
+        self.ui_setter.normal()
+
+    def _export_excel(self) -&gt; None:
+        &#34;&#34;&#34;Exports the EXCEL file, containing all information about the document.&#34;&#34;&#34;
+        export_excel(
+            path=self.xlsx_path,
+            document=self.doc_helper.document,
+            project=self.project,
+            quantity=self.variables.quantity.get(),
+            condition=self.variables.condition.get(),
+        )
+
+    def _export_stp_stl(self) -&gt; None:
+        &#34;&#34;&#34;Exports the 3D data as STL and STEP (STL only for parts).&#34;&#34;&#34;
+        if isinstance(self.doc_helper.document, PyPartDocument):
+            export_stl(path=self.stl_path, document=self.doc_helper.document)
+        export_stp(path=self.stp_path, document=self.doc_helper.document)
+
+    def _export_docket(self) -&gt; None:
+        &#34;&#34;&#34;Generates a docket file as pdf.&#34;&#34;&#34;
+        qr = QR()
+        qr.generate(
+            data={
+                &#34;project&#34;: self.project,
+                &#34;machine&#34;: self.machine,
+                &#34;partnumber&#34;: self.partnumber,
+                &#34;revision&#34;: self.revision,
+            }
+        )
+        qr_path = qr.save(
+            path=Path(
+                TEMP_EXPORT,
+                file_utility.get_random_filename(filetype=&#34;png&#34;),
+            )
+        )
+        file_utility.add_delete(path=qr_path, skip_silent=True)
+
+        export_docket(
+            path=self.docket_path,
+            document=self.doc_helper.document,
+            config=DocketConfig.from_dict(resource.docket),
+            condition=self.variables.condition.get(),
+            project=self.project,
+            quantity=self.variables.quantity.get(),
+            qr_path=qr_path,
+        )
+
+    def _export_drawing(self) -&gt; None:
+        &#34;&#34;&#34;Exports the 2D data of the linked drawing (if there is one).&#34;&#34;&#34;
+        export_drawing(
+            pdf_path=self.pdf_path,
+            dxf_path=self.dxf_path,
+            document=self.doc_helper.document,
+        )
+
+    def _send_mail(self) -&gt; None:
+        &#34;&#34;&#34;Sends the mail.&#34;&#34;&#34;
+        if validators.email(self.variables.mail.get()):  # type: ignore
+            export_mail(
+                project=self.project,
+                machine=self.machine,
+                partnumber=self.partnumber,
+                revision=self.revision,
+                condition=self.variables.condition.get(),
+                quantity=self.variables.quantity.get(),
+                note=self.variables.note.get(),
+                receiver=self.variables.mail.get(),
+                attachments_folder=self.attachments_folder,
+                data_folder=self.export_folder,
+            )
+
+    def _clean(self) -&gt; None:
+        &#34;&#34;&#34;Deletes and moves files.&#34;&#34;&#34;
+        if os.path.exists(self.attachments_folder):
+            for file in os.listdir(self.attachments_folder):
+                file_utility.add_delete(path=Path(self.attachments_folder, file))
+
+        export_files = os.listdir(self.export_folder)
+        target_folder = Path(self.variables.folder.get())
+
+        if target_folder.is_absolute() and target_folder.is_dir():
+            for file in export_files:
+                file_utility.add_move(
+                    source=Path(self.export_folder, file),
+                    target=Path(target_folder, file),
+                )
+        else:
+            for file in export_files:
+                file_utility.add_delete(path=Path(self.export_folder, file))
+
+        file_utility.move_all()</code></pre>
+</details>
+</section>
+<section>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+<dl>
+<dt><code class="name"><a title="pytia_quick_export.worker.docket" href="docket.html">pytia_quick_export.worker.docket</a></code></dt>
+<dd>
+<div class="desc"><p>Export submodule. Holds utility functions for handling data exports.</p></div>
+</dd>
+<dt><code class="name"><a title="pytia_quick_export.worker.drawing" href="drawing.html">pytia_quick_export.worker.drawing</a></code></dt>
+<dd>
+<div class="desc"><p>Export submodule. Holds utility functions for handling data exports.</p></div>
+</dd>
+<dt><code class="name"><a title="pytia_quick_export.worker.excel" href="excel.html">pytia_quick_export.worker.excel</a></code></dt>
+<dd>
+<div class="desc"><p>Export submodule. Holds utility functions for handling data exports.</p></div>
+</dd>
+<dt><code class="name"><a title="pytia_quick_export.worker.mail" href="mail.html">pytia_quick_export.worker.mail</a></code></dt>
+<dd>
+<div class="desc"><p>Mail export task.</p></div>
+</dd>
+<dt><code class="name"><a title="pytia_quick_export.worker.runner" href="runner.html">pytia_quick_export.worker.runner</a></code></dt>
+<dd>
+<div class="desc"><p>Runner for the main task.</p></div>
+</dd>
+<dt><code class="name"><a title="pytia_quick_export.worker.stp_stl" href="stp_stl.html">pytia_quick_export.worker.stp_stl</a></code></dt>
+<dd>
+<div class="desc"><p>Export submodule. Holds utility functions for handling data exports.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pytia_quick_export.worker.Worker"><code class="flex name class">
+<span>class <span class="ident">Worker</span></span>
+<span>(</span><span>main_ui: tkinter.Tk, layout: app.layout.Layout, ui_setter: app.state_setter.UISetter, doc_helper: helper.lazy_loaders.LazyDocumentHelper, variables: app.vars.Variables, frames: app.frames.Frames)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The worker class. Responsible for running all sub-tasks to export data.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Worker:
+    &#34;&#34;&#34;The worker class. Responsible for running all sub-tasks to export data.&#34;&#34;&#34;
+
+    def __init__(
+        self,
+        main_ui: Tk,
+        layout: Layout,
+        ui_setter: UISetter,
+        doc_helper: LazyDocumentHelper,
+        variables: Variables,
+        frames: Frames,
+    ) -&gt; None:
+        self.main_ui = main_ui
+        self.layout = layout
+        self.ui_setter = ui_setter
+        self.doc_helper = doc_helper
+        self.variables = variables
+        self.frames = frames
+
+        self.project = (
+            self.doc_helper.document.properties.get_by_name(
+                resource.props.project
+            ).value
+            if self.variables.project.get() == KEEP
+            else self.variables.project.get()
+        )
+        self.machine = self.doc_helper.document.properties.get_by_name(
+            resource.props.machine
+        ).value
+        self.partnumber = self.doc_helper.document.product.part_number
+        self.revision = self.doc_helper.document.product.revision
+
+        self.export_folder = Path(
+            TEMP_EXPORT, datetime.now().strftime(&#34;%Y_%m_%d_%H_%M_%S&#34;)
+        )
+        self.attachments_folder = Path(
+            TEMP_ATTACHMENTS, datetime.now().strftime(&#34;%Y_%m_%d_%H_%M_%S&#34;)
+        )
+
+        self.export_name = get_data_export_name(self.doc_helper)
+        self.export_name_with_project = get_data_export_name(
+            self.doc_helper, project=self.project
+        )
+
+        self.docket_path = Path(
+            self.export_folder, self.export_name_with_project + &#34;.pdf&#34;
+        )
+        self.xlsx_path = Path(
+            self.export_folder, self.export_name_with_project + &#34;.xlsx&#34;
+        )
+        self.stp_path = Path(self.export_folder, self.export_name + &#34;.stp&#34;)
+        self.stl_path = Path(self.export_folder, self.export_name + &#34;.stl&#34;)
+        self.dxf_path = Path(self.export_folder, self.export_name + &#34;.dxf&#34;)
+        self.pdf_path = Path(self.export_folder, self.export_name + &#34;.pdf&#34;)
+
+        self.runner = Runner(
+            root=self.main_ui,
+            callback_variable=self.variables.progress,
+        )
+        self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
+        self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
+        self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
+        self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+        self.runner.add(self._send_mail, name=&#34;Sending mail&#34;)
+        self.runner.add(self._clean, name=&#34;Cleaning up&#34;)
+
+    def run(self) -&gt; None:
+        &#34;&#34;&#34;Runs all tasks.&#34;&#34;&#34;
+        os.makedirs(self.export_folder)
+        self.runner.run_tasks()
+        tkmsg.showinfo(
+            title=resource.settings.title, message=&#34;Export completed successfully.&#34;
+        )
+        self.ui_setter.normal()
+
+    def _export_excel(self) -&gt; None:
+        &#34;&#34;&#34;Exports the EXCEL file, containing all information about the document.&#34;&#34;&#34;
+        export_excel(
+            path=self.xlsx_path,
+            document=self.doc_helper.document,
+            project=self.project,
+            quantity=self.variables.quantity.get(),
+            condition=self.variables.condition.get(),
+        )
+
+    def _export_stp_stl(self) -&gt; None:
+        &#34;&#34;&#34;Exports the 3D data as STL and STEP (STL only for parts).&#34;&#34;&#34;
+        if isinstance(self.doc_helper.document, PyPartDocument):
+            export_stl(path=self.stl_path, document=self.doc_helper.document)
+        export_stp(path=self.stp_path, document=self.doc_helper.document)
+
+    def _export_docket(self) -&gt; None:
+        &#34;&#34;&#34;Generates a docket file as pdf.&#34;&#34;&#34;
+        qr = QR()
+        qr.generate(
+            data={
+                &#34;project&#34;: self.project,
+                &#34;machine&#34;: self.machine,
+                &#34;partnumber&#34;: self.partnumber,
+                &#34;revision&#34;: self.revision,
+            }
+        )
+        qr_path = qr.save(
+            path=Path(
+                TEMP_EXPORT,
+                file_utility.get_random_filename(filetype=&#34;png&#34;),
+            )
+        )
+        file_utility.add_delete(path=qr_path, skip_silent=True)
+
+        export_docket(
+            path=self.docket_path,
+            document=self.doc_helper.document,
+            config=DocketConfig.from_dict(resource.docket),
+            condition=self.variables.condition.get(),
+            project=self.project,
+            quantity=self.variables.quantity.get(),
+            qr_path=qr_path,
+        )
+
+    def _export_drawing(self) -&gt; None:
+        &#34;&#34;&#34;Exports the 2D data of the linked drawing (if there is one).&#34;&#34;&#34;
+        export_drawing(
+            pdf_path=self.pdf_path,
+            dxf_path=self.dxf_path,
+            document=self.doc_helper.document,
+        )
+
+    def _send_mail(self) -&gt; None:
+        &#34;&#34;&#34;Sends the mail.&#34;&#34;&#34;
+        if validators.email(self.variables.mail.get()):  # type: ignore
+            export_mail(
+                project=self.project,
+                machine=self.machine,
+                partnumber=self.partnumber,
+                revision=self.revision,
+                condition=self.variables.condition.get(),
+                quantity=self.variables.quantity.get(),
+                note=self.variables.note.get(),
+                receiver=self.variables.mail.get(),
+                attachments_folder=self.attachments_folder,
+                data_folder=self.export_folder,
+            )
+
+    def _clean(self) -&gt; None:
+        &#34;&#34;&#34;Deletes and moves files.&#34;&#34;&#34;
+        if os.path.exists(self.attachments_folder):
+            for file in os.listdir(self.attachments_folder):
+                file_utility.add_delete(path=Path(self.attachments_folder, file))
+
+        export_files = os.listdir(self.export_folder)
+        target_folder = Path(self.variables.folder.get())
+
+        if target_folder.is_absolute() and target_folder.is_dir():
+            for file in export_files:
+                file_utility.add_move(
+                    source=Path(self.export_folder, file),
+                    target=Path(target_folder, file),
+                )
+        else:
+            for file in export_files:
+                file_utility.add_delete(path=Path(self.export_folder, file))
+
+        file_utility.move_all()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pytia_quick_export.worker.Worker.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Runs all tasks.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self) -&gt; None:
+    &#34;&#34;&#34;Runs all tasks.&#34;&#34;&#34;
+    os.makedirs(self.export_folder)
+    self.runner.run_tasks()
+    tkmsg.showinfo(
+        title=resource.settings.title, message=&#34;Export completed successfully.&#34;
+    )
+    self.ui_setter.normal()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pytia_quick_export" href="../index.html">pytia_quick_export</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pytia_quick_export.worker.docket" href="docket.html">pytia_quick_export.worker.docket</a></code></li>
+<li><code><a title="pytia_quick_export.worker.drawing" href="drawing.html">pytia_quick_export.worker.drawing</a></code></li>
+<li><code><a title="pytia_quick_export.worker.excel" href="excel.html">pytia_quick_export.worker.excel</a></code></li>
+<li><code><a title="pytia_quick_export.worker.mail" href="mail.html">pytia_quick_export.worker.mail</a></code></li>
+<li><code><a title="pytia_quick_export.worker.runner" href="runner.html">pytia_quick_export.worker.runner</a></code></li>
+<li><code><a title="pytia_quick_export.worker.stp_stl" href="stp_stl.html">pytia_quick_export.worker.stp_stl</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pytia_quick_export.worker.Worker" href="#pytia_quick_export.worker.Worker">Worker</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.worker.Worker.run" href="#pytia_quick_export.worker.Worker.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

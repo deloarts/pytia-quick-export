@@ -6,9 +6,35 @@
         "allow_all_editors": true,
         "allow_unsaved": true,
         "allow_outside_workspace": true,
-        "strict_project": false,
-        "strict_machine": false,
-        "enable_information": true
+        "strict_project": true
+    },
+    "export": {
+        "apply_username_in_excel": true,
+        "apply_username_in_docket": true,
+        "lock_drawing_views": true
+    },
+    "condition": {
+        "new": {
+            "name": "New"
+        },
+        "mod": {
+            "name": "Modification",
+            "overwrite": {
+                "pytia.base_size": "Modification",
+                "pytia.process_1": "Milling",
+                "pytia.note_process_1": "Due to a modification, part is supplied.",
+                "pytia.process_2": "",
+                "pytia.note_process_2": "",
+                "pytia.process_3": "",
+                "pytia.note_process_3": "",
+                "pytia.process_4": "",
+                "pytia.note_process_4": "",
+                "pytia.process_5": "",
+                "pytia.note_process_5": "",
+                "pytia.process_6": "",
+                "pytia.note_process_6": ""
+            }
+        }
     },
     "paths": {
         "catia": "C:\\CATIA\\V5-6R2017\\B27",
@@ -24,6 +50,10 @@
         "help": null
     },
     "mails": {
-        "admin": "admin@company.com"
+        "admin": "admin@company.com",
+        "export": [
+            "request@company.com"
+        ],
+        "export_debug": "dev@company.com"
     }
 }

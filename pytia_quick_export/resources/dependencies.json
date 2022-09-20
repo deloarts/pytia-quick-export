@@ -1,12 +1,22 @@
 [
     {
         "name": "pytia",
-        "version": "0.0.0",
+        "version": "0.2.2",
         "local": true
     },
     {
         "name": "pytia_ui_tools",
-        "version": "0.0.0",
+        "version": "0.6.0",
         "local": true
+    },
+    {
+        "name": "validators",
+        "version": "0.20.0",
+        "local": false
+    },
+    {
+        "name": "openpyxl",
+        "version": "3.0.10",
+        "local": false
     }
 ]

@@ -4,9 +4,7 @@
 
 import tkinter as tk
 from pathlib import Path
-from tkinter import font
-from tkinter import messagebox as tkmsg
-from tkinter import ttk
+from tkinter import font, ttk
 
 from pytia.exceptions import (
     PytiaBodyEmptyError,
@@ -23,13 +21,14 @@ from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.window_manager import WindowManager
 
 from app.callbacks import Callbacks
+from app.controller import Controller
 from app.frames import Frames
 from app.layout import Layout
 from app.state_setter import UISetter
 from app.tooltips import ToolTips
 from app.traces import Traces
 from app.vars import Variables
-from const import APP_VERSION, LOG, LOGON, LOGS
+from const import APP_VERSION, LOG, LOGS
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.messages import show_help
 from resources import resource
@@ -38,8 +37,8 @@ from resources import resource
 class GUI(tk.Tk):
     """The user interface of the app."""
 
-    WIDTH = 1100
-    HEIGHT = 640
+    WIDTH = 350
+    HEIGHT = 400
 
     def __init__(self) -> None:
         """Inits the main window."""
@@ -105,9 +104,7 @@ class GUI(tk.Tk):
 
         # STYLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         style = ttk.Style(self)
-        style.configure("Left.TLabelframe.Label", foreground="grey")
-        style.configure("Middle.TLabelframe.Label", foreground="grey")
-        style.configure("Right.TLabelframe.Label", foreground="grey")
+        style.configure("LabelFrames.TLabelframe.Label", foreground="grey")
         style.configure("Footer.TButton", width=14)
 
         self.update()
@@ -115,10 +112,10 @@ class GUI(tk.Tk):
 
     def run(self) -> None:
         """Run the app."""
-        self.after(100, self.run_controller)
+        self.after(100, self._run)
         self.mainloop()
 
-    def run_controller(self) -> None:
+    def _run(self) -> None:
         """Runs all controllers. Initializes all lazy loaders, bindings and traces."""
         self.doc_helper = LazyDocumentHelper()
         self.workspace = Workspace(
@@ -131,65 +128,28 @@ class GUI(tk.Tk):
             self.title(f"{self.title()}  -  {ws_title} (Workspace)")
 
         self.set_ui = UISetter(
-            root=self,
-            layout=self.layout,
-            variables=self.vars,
+            root=self, layout=self.layout, variables=self.vars, workspace=self.workspace
         )
+
+        controller = Controller(
+            root=self,
+            doc_helper=self.doc_helper,
+            layout=self.layout,
+            vars=self.vars,
+            ui_setter=self.set_ui,
+            workspace=self.workspace,
+        )
+        controller.run_all_controllers()
+
         self.callbacks()
         self.traces()
         self.bindings()
-        self.main_controller()
-
-    def main_controller(self) -> None:
-        """
-        The main controller.
-        - Retrieves the properties from the document (part or product).
-        - Loads all tooltips (some of them depend on some properties).
-        - Sets the UI state based on the restrictions of the settings.json and the workspace file.
-        """
-        self.set_ui.disabled()
         self.tooltips()
-
-        if not self.workspace.elements.active:
-            self.set_ui.disabled()
-            tkmsg.showinfo(
-                message=(
-                    "This workspace is disabled. You cannot make changes to this document."
-                )
-            )
-            return
-
-        if self.readonly:
-            self.set_ui.disabled()
-            tkmsg.showinfo(
-                message=(
-                    f"You are not allowed to make changes to the part properties: {LOGON} is not "
-                    f"available in the user configuration."
-                )
-            )
-            return
-
-        if (
-            self.workspace.elements.editors
-            and LOGON not in self.workspace.elements.editors
-            and not resource.settings.restrictions.allow_all_editors
-        ):
-            self.set_ui.disabled()
-            tkmsg.showinfo(
-                message=(
-                    f"You are not allowed to make changes to the part properties: {LOGON} is not "
-                    f"available in the workspace configuration."
-                )
-            )
-            return
-
-        self.set_ui.normal()
 
     def bindings(self) -> None:
         """Key bindings."""
         self.bind("<Escape>", lambda _: self.destroy())
         self.bind("<F1>", lambda _: show_help())
-        self.bind("<F5>", lambda _: self.main_controller())
         # FIXME: There is a bug on the middle mouse button, where, when the button is clicked,
         # selected text will be inserted into a widget, when the cursor hovers above the widget.
         # I can't find the source of the bug, this is a to do.
@@ -201,7 +161,10 @@ class GUI(tk.Tk):
             root=self,
             variables=self.vars,
             layout=self.layout,
+            frames=self.frames,
+            doc_helper=self.doc_helper,
             ui_setter=self.set_ui,
+            workspace=self.workspace,
         )
 
     def traces(self) -> None:
@@ -209,6 +172,7 @@ class GUI(tk.Tk):
         Traces(
             variables=self.vars,
             state_setter=self.set_ui,
+            layout=self.layout,
         )
 
     def tooltips(self) -> None:

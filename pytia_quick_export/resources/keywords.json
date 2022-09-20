@@ -1,0 +1,38 @@
+{
+    "en": {
+        "partnumber": "Part Number",
+        "revision": "Revision",
+        "definition": "Definition",
+        "nomenclature": "Nomenclature",
+        "source": "Source",
+        "description": "Product Description",
+        "made": "Made",
+        "bought": "Bought",
+        "unknown": "Unknown",
+        "number": "Number",
+        "type": "Type",
+        "part": "Part",
+        "assembly": "Assembly",
+        "quantity": "Quantity",
+        "bom": "Bill of Material",
+        "summary": "Recapitulation"
+    },
+    "de": {
+        "partnumber": "Teilenummer",
+        "revision": "Überarbeitung",
+        "definition": "Definition",
+        "nomenclature": "Nomenklatur",
+        "source": "Quelle",
+        "description": "Produktbeschreibung",
+        "made": "Hergestellt",
+        "bought": "Gekauft",
+        "unknown": "Unbekannt",
+        "number": "Nummer",
+        "type": "Typ",
+        "part": "Teil",
+        "assembly": "Baugruppe",
+        "quantity": "Menge",
+        "bom": "Stückliste",
+        "summary": "Wiederholung"
+    }
+}
