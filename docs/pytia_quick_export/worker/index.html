@@ -120,9 +120,11 @@ class Worker:
             callback_variable=self.variables.progress,
         )
         self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
-        self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
-        self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
-        self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+        if self.doc_helper.document.product.source == 1:  # Source: Made
+            self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
+            self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
+            self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+
         self.runner.add(self._send_mail, name=&#34;Sending mail&#34;)
         self.runner.add(self._clean, name=&#34;Cleaning up&#34;)
 
@@ -332,9 +334,11 @@ class Worker:
             callback_variable=self.variables.progress,
         )
         self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
-        self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
-        self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
-        self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+        if self.doc_helper.document.product.source == 1:  # Source: Made
+            self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
+            self.runner.add(self._export_docket, name=&#34;Docket export&#34;)
+            self.runner.add(self._export_drawing, name=&#34;Drawing export&#34;)
+
         self.runner.add(self._send_mail, name=&#34;Sending mail&#34;)
         self.runner.add(self._clean, name=&#34;Cleaning up&#34;)
 
