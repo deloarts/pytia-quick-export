@@ -145,6 +145,21 @@ class Controller:
             project_values.extend(self.workspace.elements.projects)
         self.layout.input_project.configure(values=project_values)
 
+        # Set condition (always &#39;New&#39; if doc source is bought)
+        if self.doc_helper.document.product.source == 2:  # Source: Bought
+            self.layout.input_condition.configure(
+                values=[resource.settings.condition.new.name]
+            )
+            self.layout.input_condition.current(0)
+        else:
+            self.layout.input_condition.configure(
+                values=[
+                    resource.settings.condition.new.name,
+                    resource.settings.condition.mod.name,
+                ]
+            )
+
+        # Set mail list
         if resource.settings.mails.export:
             if resource.settings.debug:
                 self.layout.input_mail.configure(
@@ -289,6 +304,21 @@ class Controller:
             project_values.extend(self.workspace.elements.projects)
         self.layout.input_project.configure(values=project_values)
 
+        # Set condition (always &#39;New&#39; if doc source is bought)
+        if self.doc_helper.document.product.source == 2:  # Source: Bought
+            self.layout.input_condition.configure(
+                values=[resource.settings.condition.new.name]
+            )
+            self.layout.input_condition.current(0)
+        else:
+            self.layout.input_condition.configure(
+                values=[
+                    resource.settings.condition.new.name,
+                    resource.settings.condition.mod.name,
+                ]
+            )
+
+        # Set mail list
         if resource.settings.mails.export:
             if resource.settings.debug:
                 self.layout.input_mail.configure(

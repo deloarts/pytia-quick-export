@@ -2,13 +2,11 @@
     Lazy loader for the UI.
 """
 
-import atexit
 import os
 import time
 from pathlib import Path
 
-from pytia.exceptions import (PytiaDocumentNotSavedError,
-                              PytiaWrongDocumentTypeError)
+from pytia.exceptions import PytiaDocumentNotSavedError, PytiaWrongDocumentTypeError
 from pytia.log import log
 from resources import resource
 
@@ -39,8 +37,9 @@ class LazyDocumentHelper:
         self.is_part = self.lazy_document.is_part
         self.is_document = self.lazy_document.is_product
 
-        self._lock_catia(True)
-        atexit.register(lambda: self._lock_catia(False))
+        # FIXME: Disabled lock: Can't release the lock when changing the editor.
+        # self._lock_catia(True)
+        # atexit.register(lambda: self._lock_catia(False))
 
         if not resource.settings.restrictions.allow_unsaved and not os.path.isabs(
             self.lazy_document.full_name
@@ -61,8 +60,7 @@ class LazyDocumentHelper:
 
         elif self.lazy_document.is_product:
             # pylint: disable=C0415
-            from pytia.wrapper.documents.product_documents import \
-                PyProductDocument
+            from pytia.wrapper.documents.product_documents import PyProductDocument
 
             # pylint: enable=C0415
 
@@ -97,7 +95,6 @@ class LazyDocumentHelper:
     def partnumber(self) -> str:
         """Returns the part number of the document."""
         return self.document.product.part_number
-
 
     def _lock_catia(self, value: bool) -> None:
         """

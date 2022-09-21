@@ -38,7 +38,7 @@ def export_excel(
     lang = get_ui_language(parameters=document.product.parameters)
     wb = Workbook()
     ws = wb.active
-    ws.title = path.stem
+    ws.title = project
 
     _write_data(
         worksheet=ws,

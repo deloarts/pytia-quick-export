@@ -91,9 +91,11 @@ class Worker:
             callback_variable=self.variables.progress,
         )
         self.runner.add(self._export_excel, name="EXCEL export")
-        self.runner.add(self._export_stp_stl, name="STEP/STL export")
-        self.runner.add(self._export_docket, name="Docket export")
-        self.runner.add(self._export_drawing, name="Drawing export")
+        if self.doc_helper.document.product.source == 1:  # Source: Made
+            self.runner.add(self._export_stp_stl, name="STEP/STL export")
+            self.runner.add(self._export_docket, name="Docket export")
+            self.runner.add(self._export_drawing, name="Drawing export")
+
         self.runner.add(self._send_mail, name="Sending mail")
         self.runner.add(self._clean, name="Cleaning up")
 
