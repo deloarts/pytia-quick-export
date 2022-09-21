@@ -2,7 +2,6 @@
     Lazy loader for the UI.
 """
 
-import atexit
 import os
 import time
 from pathlib import Path

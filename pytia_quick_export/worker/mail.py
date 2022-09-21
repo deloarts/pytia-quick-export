@@ -1,6 +1,7 @@
 """
     Mail export task.
 """
+from datetime import datetime
 from pathlib import Path
 from shutil import make_archive
 
@@ -41,12 +42,15 @@ def export_mail(
         revision=revision,
         condition=condition,
         quantity=quantity,
-        note=note,
+        note=note if len(note) > 0 else "-",
     )
 
     archive = make_archive(
         base_name=str(
-            Path(attachments_folder, f"{project} {machine} {partnumber} Rev{revision}")
+            Path(
+                attachments_folder,
+                f"{project}_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}",
+            )
         ),
         format="zip",
         root_dir=str(data_folder),

@@ -76,10 +76,6 @@ class Layout:
         )
         self._combo_condition = ttk.Combobox(
             frames.data_frame,
-            values=[
-                resource.settings.condition.new.name,
-                resource.settings.condition.mod.name,
-            ],
             textvariable=variables.condition,
             state=DISABLED,
         )
