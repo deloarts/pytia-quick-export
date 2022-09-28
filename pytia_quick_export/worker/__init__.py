@@ -169,6 +169,7 @@ class Worker:
                 machine=self.machine,
                 partnumber=self.partnumber,
                 revision=self.revision,
+                source=self.doc_helper.document.product.source,
                 condition=self.variables.condition.get(),
                 quantity=self.variables.quantity.get(),
                 note=self.variables.note.get(),

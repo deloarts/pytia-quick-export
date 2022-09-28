@@ -37,7 +37,11 @@
     <hr>
     <br>
     <div class="content">
-        A new document has been exported for production.
+        {% if source == 1 %}
+        A new <span class="bold">production part</span> is requested:
+        {% else %}
+        A new <span class="bold">bought part</span> is requested:
+        {% endif %}
         <table>
             <tr>
                 <td class="bold">Project</td>
