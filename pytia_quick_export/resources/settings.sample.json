@@ -9,8 +9,7 @@
         "strict_project": true
     },
     "export": {
-        "apply_username_in_excel": true,
-        "apply_username_in_docket": true,
+        "apply_username": true,
         "lock_drawing_views": true
     },
     "condition": {
@@ -50,6 +49,7 @@
         "help": null
     },
     "mails": {
+        "subject": "New Export",
         "admin": "admin@company.com",
         "export": [
             "request@company.com"

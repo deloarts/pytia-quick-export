@@ -25,8 +25,7 @@ This file contains the basic settings for the app.
         "strict_project": true
     },
     "export": {
-        "apply_username_in_excel": true,
-        "apply_username_in_docket": true,
+        "apply_username": true,
         "lock_drawing_views": true
     },
     "condition": {
@@ -66,6 +65,7 @@ This file contains the basic settings for the app.
         "help": null
     },
     "mails": {
+        "subject": "New Export",
         "admin": "admin@company.com",
         "export": [
             "request@company.com"
@@ -86,8 +86,7 @@ restrictions.allow_all_editors | `bool` | If set to `true` any user can make cha
 restrictions.allow_unsaved | `bool` | If set to `false` an unsaved document (a document which doesn't have a path yet) cannot be modified.
 restrictions.allow_outside_workspace | `bool` | If set to `false` a **workspace** file must be provided somewhere in the folder structure where the document is saved. This also means, that an unsaved document (a document which doesn't have a path yet) cannot be modified.
 restrictions.strict_project | `bool` | If set to `true` the project number must be present in the **workspace** file, otherwise the changes to the properties cannot be saved. If no workspace file is found, or no **projects** list-item is inside the workspace file, then this is omitted, and any project number can be written to the documents properties.
-export.apply_username_in_bom | `bool` | Whether to translate the username for the bom or not.
-export.apply_username_in_docket | `bool` | Whether to translate the username for the docket or not.
+export.apply_username | `bool` | Whether to translate the username or not.
 export.lock_drawing_views | `bool` | Whether to lock all drawing views after the export or not.
 condition.new.name | `str` | The name of the condition 'new'. This is more an option if you don't want to use english words on the docket or in the Excel file.
 condition.mod.name | `str` | The name of the condition 'modification'.
@@ -100,6 +99,7 @@ files.app | `str` | The name of the released python app file.
 files.launcher | `str` | The name of the release catvbs launcher file.
 files.workspace | `str` | The name of the workspace file.
 urls.help | `str` or `null` | The help page for the app. If set to null the user will receive a message, that no help page is provided.
+mail.subject | `str` | The subject of the mail (the project number will be prefixed).
 mails.admin | `str` | The mail address of the sys admin. Required for error mails.
 mails.export | `List[str]` | The email addresses which will be available in the UI for the export.
 mail.export_debug | `str` | The mail address you can use while debugging the app. This will be used when `debug` is set to `true`.

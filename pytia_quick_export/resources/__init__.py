@@ -46,8 +46,7 @@ class SettingsRestrictions:
 class SettingsExport:
     """Dataclass for export settings."""
 
-    apply_username_in_excel: bool
-    apply_username_in_docket: bool
+    apply_username: bool
     lock_drawing_views: bool  # TODO: This isn't used yet
 
 
@@ -107,6 +106,7 @@ class SettingsUrls:
 class SettingsMails:
     """Dataclass for mails (settings.json)."""
 
+    subject: str
     admin: str
     export: List[str] | None
     export_debug: str
