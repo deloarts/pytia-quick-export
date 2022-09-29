@@ -53,7 +53,7 @@ def export_docket(
                     resource.props.creator
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             creator = resource.get_user_by_logon(creator_logon).name
         else:
@@ -69,7 +69,7 @@ def export_docket(
                     resource.props.modifier
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             modifier = resource.get_user_by_logon(modifier_logon).name
         else:
@@ -78,10 +78,7 @@ def export_docket(
         modifier = "Unknown"
 
     # Translate publisher username
-    if (
-        resource.logon_exists(LOGON)
-        and resource.settings.export.apply_username_in_docket
-    ):
+    if resource.logon_exists(LOGON) and resource.settings.export.apply_username:
         publisher = resource.get_user_by_logon(LOGON).name
     else:
         publisher = LOGON
