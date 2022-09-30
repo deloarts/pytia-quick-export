@@ -20,7 +20,7 @@ def export_docket(
     path: Path,
     document: PyProductDocument | PyPartDocument,
     config: DocketConfig,
-    condition: str,
+    selected_condition: str,
     **kwargs,
 ) -> None:
     """
@@ -32,6 +32,7 @@ def export_docket(
         document (PyPartDocument | PyProductDocument): The part or product document from which \
             to create the docket
         config (DocketConfig): The docket configuration object.
+        selected_condition (str): The condition selected by the user in the UI.
 
         kwargs: Keyword arguments will be added to the docket for text elements which names are \
             prefixed with `arg.`. Example: To add the quantity to the docket text \
@@ -85,7 +86,7 @@ def export_docket(
 
     # Apply properties, where their values are dependent on the condition.
     condition_props = {}
-    if condition == resource.settings.condition.mod.name:
+    if selected_condition == resource.settings.condition.mod.name:
         condition_props = resource.settings.condition.mod.overwrite
     else:
         for prop in resource.settings.condition.mod.overwrite:

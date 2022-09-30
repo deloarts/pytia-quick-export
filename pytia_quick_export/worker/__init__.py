@@ -159,7 +159,7 @@ class Worker:
             path=self.docket_path,
             document=self.doc_helper.document,
             config=DocketConfig.from_dict(resource.docket),
-            condition=self.variables.condition.get(),
+            selected_condition=self.variables.condition.get(),
             project=self.project,
             quantity=self.variables.quantity.get(),
             qr_path=qr_path,
