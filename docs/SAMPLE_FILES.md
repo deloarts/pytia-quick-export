@@ -140,5 +140,5 @@ This file contains the configuration for the docket export.
 
 > ⚠️ This config file will be documented later, as the docket generation will be changed in the future (it's currently a very hacky solution).
 
-- **Location**: [/pytia_bill_of_material/resources/docket.sample.json](../pytia_bill_of_material/resources/users.sample.json)
+- **Location**: [/pytia_quick_export/resources/docket.sample.json](../pytia_quick_export/resources/users.sample.json)
 - **Rename to**: `docket.json`

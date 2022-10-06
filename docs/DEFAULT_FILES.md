@@ -9,7 +9,7 @@ All default files can be copied, renamed and edited to fit your needs.
 This file contains the configuration for the final bill of material excel file.
 
 - **Location**: [/pytia_quick_export/resources/excel.default.json](../pytia_quick_export/resources/excel.default.json)
-- **Rename to**: `bom.json`
+- **Rename to**: `excel.json`
 
 ### 1.1 file content
 
