@@ -16,6 +16,7 @@ from app.vars import Variables
 from const import KEEP, TEMP_ATTACHMENTS, TEMP_EXPORT
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.names import get_data_export_name
+from models.data import DataModel
 from pytia.log import log
 from pytia.utilities.docket import DocketConfig
 from pytia.wrapper.documents.part_documents import PyPartDocument
@@ -23,6 +24,7 @@ from pytia_ui_tools.utils.files import file_utility
 from pytia_ui_tools.utils.qr import QR
 from resources import resource
 
+from .data import collect_data
 from .docket import export_docket
 from .drawing import export_drawing
 from .excel import export_excel
@@ -49,6 +51,8 @@ class Worker:
         self.doc_helper = doc_helper
         self.variables = variables
         self.frames = frames
+
+        self.data: DataModel
 
         self.project = (
             self.doc_helper.document.properties.get_by_name(
@@ -90,6 +94,7 @@ class Worker:
             root=self.main_ui,
             callback_variable=self.variables.progress,
         )
+        self.runner.add(self._collect_data, name="Collect data")
         self.runner.add(self._export_excel, name="EXCEL export")
         if self.doc_helper.document.product.source == 1:  # Source: Made
             self.runner.add(self._export_stp_stl, name="STEP/STL export")
@@ -108,14 +113,21 @@ class Worker:
         )
         self.ui_setter.normal()
 
+    def _collect_data(self) -> None:
+        """Retrieves the data from the document."""
+        self.data = collect_data(
+            document=self.doc_helper.document,
+            selected_quantity=self.variables.quantity.get(),
+            selected_condition=self.variables.condition.get(),
+            selected_project=self.project,
+        )
+
     def _export_excel(self) -> None:
         """Exports the EXCEL file, containing all information about the document."""
         export_excel(
             path=self.xlsx_path,
-            document=self.doc_helper.document,
-            project=self.project,
-            quantity=self.variables.quantity.get(),
-            condition=self.variables.condition.get(),
+            selected_project=self.project,
+            data=self.data,
         )
 
     def _export_stp_stl(self) -> None:
@@ -147,7 +159,7 @@ class Worker:
             path=self.docket_path,
             document=self.doc_helper.document,
             config=DocketConfig.from_dict(resource.docket),
-            condition=self.variables.condition.get(),
+            selected_condition=self.variables.condition.get(),
             project=self.project,
             quantity=self.variables.quantity.get(),
             qr_path=qr_path,
@@ -165,14 +177,11 @@ class Worker:
         """Sends the mail."""
         if validators.email(self.variables.mail.get()):  # type: ignore
             export_mail(
-                project=self.project,
-                machine=self.machine,
-                partnumber=self.partnumber,
-                revision=self.revision,
-                condition=self.variables.condition.get(),
-                quantity=self.variables.quantity.get(),
+                data=self.data,
+                selected_project=self.project,
+                selected_condition=self.variables.condition.get(),
+                selected_receiver=self.variables.mail.get(),
                 note=self.variables.note.get(),
-                receiver=self.variables.mail.get(),
                 attachments_folder=self.attachments_folder,
                 data_folder=self.export_folder,
             )

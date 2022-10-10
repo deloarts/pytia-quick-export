@@ -1,25 +1,25 @@
 """
     Mail export task.
 """
+from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 from shutil import make_archive
 
 import jinja2
 from helper.outlook import get_outlook
+from models.data import DataModel, DatumModel
 from pytia.exceptions import PytiaApplicationError
+from resources import resource
 from templates import templates
 
 
 def export_mail(
-    project: str,
-    machine: str,
-    partnumber: str,
-    revision: str,
-    condition: str,
-    quantity: str,
+    data: DataModel,
+    selected_project: str,
+    selected_condition: str,
+    selected_receiver: str,
     note: str,
-    receiver: str,
     attachments_folder: Path,
     data_folder: Path,
 ) -> None:
@@ -33,23 +33,20 @@ def export_mail(
         raise PytiaApplicationError("Outlook is not available on this machine.")
 
     mail = outlook.CreateItem(0)
-    mail.To = receiver
-    mail.Subject = f"{project} | {machine} {partnumber} Rev{revision}"
+    mail.To = selected_receiver
+    mail.Subject = f"{selected_project} | {resource.settings.mails.subject}"
     mail.HTMLBody = _render_template(
-        project=project,
-        machine=machine,
-        partnumber=partnumber,
-        revision=revision,
-        condition=condition,
-        quantity=quantity,
-        note=note if len(note) > 0 else "-",
+        data=data.data,
+        settings=resource.settings,
+        condition=selected_condition,
+        note=note,
     )
 
     archive = make_archive(
         base_name=str(
             Path(
                 attachments_folder,
-                f"{project}_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}",
+                f"{selected_project}_{datetime.now().strftime('%Y_%m_%d_%H_%M_%S')}",
             )
         ),
         format="zip",

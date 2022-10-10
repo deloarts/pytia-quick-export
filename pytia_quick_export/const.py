@@ -5,7 +5,7 @@
 import os
 from pathlib import Path
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 PYTIA = "pytia"
 PYTIA_QUICK_EXPORT = "pytia_quick_export"

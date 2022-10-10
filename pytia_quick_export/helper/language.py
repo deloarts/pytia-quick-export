@@ -4,8 +4,8 @@
 
 from typing import Literal
 
+from pytia.exceptions import PytiaLanguageError
 from pytia.framework.knowledge_interfaces.parameters import Parameters
-from pytia.framework.product_structure_interfaces.product import Product
 from pytia.log import log
 from resources import resource
 
@@ -31,7 +31,7 @@ def get_ui_language(parameters: Parameters) -> Literal["en", "de"]:
     except:
         pass
 
-    raise Exception(
+    raise PytiaLanguageError(
         f"The selected language is not supported. "
         "Please select either 'English' or 'German'."
     )

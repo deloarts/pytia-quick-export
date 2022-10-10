@@ -3,26 +3,18 @@
 """
 from dataclasses import asdict
 from pathlib import Path
-from typing import Literal
 
-from helper.language import get_ui_language
 from helper.translators import translate_source, translate_type
+from models.data import DataModel
+from openpyxl.cell import Cell
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from pytia.log import log
-from pytia.wrapper.documents.part_documents import PyPartDocument
-from pytia.wrapper.documents.product_documents import PyProductDocument
 from resources import resource
 
 
-def export_excel(
-    path: Path,
-    document: PyProductDocument | PyPartDocument,
-    project: str,
-    quantity: int | str,
-    condition: str,
-) -> None:
+def export_excel(path: Path, selected_project: str, data: DataModel) -> None:
     """
     Exports the EXCEL file containing all the information of the document.
     The EXCEL file will have two rows, the header and the data row.
@@ -30,25 +22,14 @@ def export_excel(
 
     Args:
         path (Path): The path into which to save the EXCEL (xlsx) file.
-        document (PyProductDocument | PyPartDocument): The document from which to draw the data.
-        project (str): The project number (from the UI).
-        quantity (int | str): The quantity of the document (from the UI).
-        condition (str): The condition (from the UI).
+        selected_project (str): The project number (from the UI).
+        data (DataModel): The documents data to write.
     """
-    lang = get_ui_language(parameters=document.product.parameters)
     wb = Workbook()
     ws = wb.active
-    ws.title = project
+    ws.title = selected_project
 
-    _write_data(
-        worksheet=ws,
-        document=document,
-        project=project,
-        quantity=quantity,
-        condition=condition,
-        language=lang,
-    )
-    _create_header(worksheet=ws, language=lang)
+    _write_data(worksheet=ws, data=data)
     _style_worksheet(worksheet=ws)
 
     wb.save(str(path))
@@ -57,94 +38,29 @@ def export_excel(
 
 def _write_data(
     worksheet: Worksheet,
-    document: PyProductDocument | PyPartDocument,
-    project: str,
-    quantity: int | str,
-    condition: str,
-    language: Literal["en", "de"],
+    data: DataModel,
 ) -> None:
     """
-    Saves the documents data to the EXCEL doc.
+    Saves the documents data to the EXCEL worksheet.
 
     Args:
         worksheet (Worksheet): The EXCEL worksheet.
-        document (PyProductDocument | PyPartDocument): The document from which to draw the data.
-        project (str): The project number (from the UI).
-        quantity (int | str): The quantity (from the UI).
-        condition (str): The condition (from the UI).
-        language (Literal[&quot;en&quot;, &quot;de&quot;]): The CATIA UI language.
+        data (DataModel): The documents data to write.
     """
-    for index, item in enumerate(resource.excel.header_items):
-        cell_value: str = ""
-        if item.startswith("$"):
-            keyword_item = item.split("$")[-1]
-            if keyword_item == "partnumber":
-                cell_value = document.product.part_number
-            elif keyword_item == "revision":
-                cell_value = document.product.revision
-            elif keyword_item == "definition":
-                cell_value = document.product.definition
-            elif keyword_item == "source":
-                cell_value = translate_source(document.product.source, language)
-            elif keyword_item == "description":
-                cell_value = document.product.description_reference
-            elif keyword_item == "type":
-                cell_value = translate_type(document.product.is_catpart(), language)
-            elif keyword_item == "quantity":
-                cell_value = str(quantity)
-        elif document.properties.exists(item):
-            if (
-                condition == resource.settings.condition.mod.name
-                and item in resource.settings.condition.mod.overwrite
-            ):
-                cell_value = resource.settings.condition.mod.overwrite[item]
-            elif item == resource.props.project:
-                cell_value = project
-            elif (
-                item == resource.props.creator
-                and resource.settings.export.apply_username_in_excel
-                and resource.logon_exists(
-                    creator_logon := document.properties.get_by_name(item).value
-                )
-            ):
-                cell_value = resource.get_user_by_logon(creator_logon).name
-            elif (
-                item == resource.props.modifier
-                and resource.settings.export.apply_username_in_excel
-                and resource.logon_exists(
-                    modifier_logon := document.properties.get_by_name(item).value
-                )
-            ):
-                cell_value = resource.get_user_by_logon(modifier_logon).name
-            else:
-                cell_value = document.properties.get_by_name(item).value
-        worksheet.cell(
-            resource.excel.data_row + 1, index + 1
-        ).value = cell_value  # type:ignore
 
-
-def _create_header(worksheet: Worksheet, language: Literal["en", "de"]) -> None:
-    """
-    Creates a header row in the given worksheet.
-
-    Args:
-        worksheet (Worksheet): The worksheet into which to create the header row.
-        language (Literal[&quot;en&quot;, &quot;de&quot;]): The CATIA UI language.
-    """
-    keywords = asdict(
-        resource.keywords.en if language == "en" else resource.keywords.de
-    )
-    if isinstance(resource.excel.header_row, int):
-        for index, item in enumerate(resource.excel.header_items):
-            if item.startswith("$") and (key := item.split("$")[1]) in keywords:
-                worksheet.cell(
-                    resource.excel.header_row + 1, index + 1
-                ).value = keywords[key]
-            else:
-                worksheet.cell(
-                    resource.excel.header_row + 1, index + 1
-                ).value = item  # type:ignore
-        log.debug(f"Created header for worksheet {worksheet.title!r}")
+    for datum in data.data:
+        # Header
+        if resource.excel.header_row is not None:
+            header_cell = worksheet.cell(resource.excel.header_row + 1, datum.index + 1)
+            if isinstance(header_cell, Cell):
+                header_cell.value = datum.name
+                log.info(f"Wrote header {datum.name!r} to worksheet.")
+        # Data
+        if datum.value is not None:
+            datum_cell = worksheet.cell(resource.excel.data_row + 1, datum.index + 1)
+            if isinstance(datum_cell, Cell):
+                datum_cell.value = datum.value
+                log.info(f"Wrote value {datum.value!r} to worksheet.")
 
 
 def _style_worksheet(worksheet: Worksheet) -> None:

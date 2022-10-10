@@ -27,8 +27,14 @@
         font-size: 14px;
         font-weight: bold;
     }
+    table {
+        white-space: nowrap;
+    }
     td {
-        padding-right: 20px;
+        padding-right: 5px;
+        font-size: 12px;
+        vertical-align: top;
+        text-align: left;
     }
 </style>
 
@@ -37,36 +43,28 @@
     <hr>
     <br>
     <div class="content">
-        A new document has been exported for production.
+        <div>
+            {% if condition == settings.condition.new.name %}
+                A new item is requested.
+            {% else %}
+                A modification of an item is requested.
+            {% endif %}
+        </div>
         <table>
-            <tr>
-                <td class="bold">Project</td>
-                <td>{{ project }}</td>
-            </tr>
-            <tr>
-                <td class="bold">Machine</td>
-                <td>{{ machine }}</td>
-            </tr>
-            <tr>
-                <td class="bold">Partnumber</td>
-                <td>{{ partnumber }}</td>
-            </tr>
-            <tr>
-                <td class="bold">Revision</td>
-                <td>{{ revision }}</td>
-            </tr>
-            <tr>
-                <td class="bold">Condition</td>
-                <td>{{ condition }}</td>
-            </tr>
-            <tr>
-                <td class="bold">Quantity</td>
-                <td>{{ quantity }}</td>
-            </tr>
+            {% if note != "" %}
             <tr>
                 <td class="bold">Note</td>
                 <td>{{ note }}</td>
             </tr>
+            {% endif %}
+            {% for datum in data %}
+                {% if datum.value is not none and datum.value != "" %}
+                <tr>
+                    <td class="bold">{{ datum.name }}</td>
+                    <td>{{ datum.value | replace("\n", "<br/>") }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
         </table>
     </div>
     <br>
