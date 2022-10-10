@@ -49,7 +49,7 @@ def export_docket(
     path: Path,
     document: PyProductDocument | PyPartDocument,
     config: DocketConfig,
-    condition: str,
+    selected_condition: str,
     **kwargs,
 ) -&gt; None:
     &#34;&#34;&#34;
@@ -61,6 +61,7 @@ def export_docket(
         document (PyPartDocument | PyProductDocument): The part or product document from which \
             to create the docket
         config (DocketConfig): The docket configuration object.
+        selected_condition (str): The condition selected by the user in the UI.
 
         kwargs: Keyword arguments will be added to the docket for text elements which names are \
             prefixed with `arg.`. Example: To add the quantity to the docket text \
@@ -82,7 +83,7 @@ def export_docket(
                     resource.props.creator
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             creator = resource.get_user_by_logon(creator_logon).name
         else:
@@ -98,7 +99,7 @@ def export_docket(
                     resource.props.modifier
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             modifier = resource.get_user_by_logon(modifier_logon).name
         else:
@@ -107,17 +108,14 @@ def export_docket(
         modifier = &#34;Unknown&#34;
 
     # Translate publisher username
-    if (
-        resource.logon_exists(LOGON)
-        and resource.settings.export.apply_username_in_docket
-    ):
+    if resource.logon_exists(LOGON) and resource.settings.export.apply_username:
         publisher = resource.get_user_by_logon(LOGON).name
     else:
         publisher = LOGON
 
     # Apply properties, where their values are dependent on the condition.
     condition_props = {}
-    if condition == resource.settings.condition.mod.name:
+    if selected_condition == resource.settings.condition.mod.name:
         condition_props = resource.settings.condition.mod.overwrite
     else:
         for prop in resource.settings.condition.mod.overwrite:
@@ -152,7 +150,7 @@ def export_docket(
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pytia_quick_export.worker.docket.export_docket"><code class="name flex">
-<span>def <span class="ident">export_docket</span></span>(<span>path: pathlib.Path, document: pytia.wrapper.documents.product_documents.PyProductDocument | pytia.wrapper.documents.part_documents.PyPartDocument, config: pytia.utilities.docket.DocketConfig, condition: str, **kwargs) ‑> None</span>
+<span>def <span class="ident">export_docket</span></span>(<span>path: pathlib.Path, document: pytia.wrapper.documents.product_documents.PyProductDocument | pytia.wrapper.documents.part_documents.PyPartDocument, config: pytia.utilities.docket.DocketConfig, selected_condition: str, **kwargs) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Exports the docket into a PDF file. The docket will be exported into the temp folder and moved
@@ -165,6 +163,8 @@ after the main task has finished.</p>
 to create the docket</dt>
 <dt><strong><code>config</code></strong> :&ensp;<code>DocketConfig</code></dt>
 <dd>The docket configuration object.</dd>
+<dt><strong><code>selected_condition</code></strong> :&ensp;<code>str</code></dt>
+<dd>The condition selected by the user in the UI.</dd>
 <dt><strong><code>kwargs</code></strong></dt>
 <dd>Keyword arguments will be added to the docket for text elements which names are
 prefixed with <code>arg.</code>. Example: To add the quantity to the docket text
@@ -183,7 +183,7 @@ element with the name 'arg.quantity' you have to supply the argument <code>quant
     path: Path,
     document: PyProductDocument | PyPartDocument,
     config: DocketConfig,
-    condition: str,
+    selected_condition: str,
     **kwargs,
 ) -&gt; None:
     &#34;&#34;&#34;
@@ -195,6 +195,7 @@ element with the name 'arg.quantity' you have to supply the argument <code>quant
         document (PyPartDocument | PyProductDocument): The part or product document from which \
             to create the docket
         config (DocketConfig): The docket configuration object.
+        selected_condition (str): The condition selected by the user in the UI.
 
         kwargs: Keyword arguments will be added to the docket for text elements which names are \
             prefixed with `arg.`. Example: To add the quantity to the docket text \
@@ -216,7 +217,7 @@ element with the name 'arg.quantity' you have to supply the argument <code>quant
                     resource.props.creator
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             creator = resource.get_user_by_logon(creator_logon).name
         else:
@@ -232,7 +233,7 @@ element with the name 'arg.quantity' you have to supply the argument <code>quant
                     resource.props.modifier
                 ).value
             )
-            and resource.settings.export.apply_username_in_docket
+            and resource.settings.export.apply_username
         ):
             modifier = resource.get_user_by_logon(modifier_logon).name
         else:
@@ -241,17 +242,14 @@ element with the name 'arg.quantity' you have to supply the argument <code>quant
         modifier = &#34;Unknown&#34;
 
     # Translate publisher username
-    if (
-        resource.logon_exists(LOGON)
-        and resource.settings.export.apply_username_in_docket
-    ):
+    if resource.logon_exists(LOGON) and resource.settings.export.apply_username:
         publisher = resource.get_user_by_logon(LOGON).name
     else:
         publisher = LOGON
 
     # Apply properties, where their values are dependent on the condition.
     condition_props = {}
-    if condition == resource.settings.condition.mod.name:
+    if selected_condition == resource.settings.condition.mod.name:
         condition_props = resource.settings.condition.mod.overwrite
     else:
         for prop in resource.settings.condition.mod.overwrite:

@@ -77,8 +77,7 @@ class SettingsRestrictions:
 class SettingsExport:
     &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
 
-    apply_username_in_excel: bool
-    apply_username_in_docket: bool
+    apply_username: bool
     lock_drawing_views: bool  # TODO: This isn&#39;t used yet
 
 
@@ -138,6 +137,7 @@ class SettingsUrls:
 class SettingsMails:
     &#34;&#34;&#34;Dataclass for mails (settings.json).&#34;&#34;&#34;
 
+    subject: str
     admin: str
     export: List[str] | None
     export_debug: str
@@ -469,7 +469,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.1.1', counter: int = 0, save_on_apply: bool = True)</span>
+<span>(</span><span>*, version: str = '0.1.2', counter: int = 0, save_on_apply: bool = True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -1396,7 +1396,7 @@ class SettingsConditionNew:
 </dd>
 <dt id="pytia_quick_export.resources.SettingsExport"><code class="flex name class">
 <span>class <span class="ident">SettingsExport</span></span>
-<span>(</span><span>*, apply_username_in_excel: bool, apply_username_in_docket: bool, lock_drawing_views: bool)</span>
+<span>(</span><span>*, apply_username: bool, lock_drawing_views: bool)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for export settings.</p></div>
@@ -1408,17 +1408,12 @@ class SettingsConditionNew:
 class SettingsExport:
     &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
 
-    apply_username_in_excel: bool
-    apply_username_in_docket: bool
+    apply_username: bool
     lock_drawing_views: bool  # TODO: This isn&#39;t used yet</code></pre>
 </details>
 <h3>Instance variables</h3>
 <dl>
-<dt id="pytia_quick_export.resources.SettingsExport.apply_username_in_docket"><code class="name">var <span class="ident">apply_username_in_docket</span> : bool</code></dt>
-<dd>
-<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
-</dd>
-<dt id="pytia_quick_export.resources.SettingsExport.apply_username_in_excel"><code class="name">var <span class="ident">apply_username_in_excel</span> : bool</code></dt>
+<dt id="pytia_quick_export.resources.SettingsExport.apply_username"><code class="name">var <span class="ident">apply_username</span> : bool</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -1464,7 +1459,7 @@ class SettingsFiles:
 </dd>
 <dt id="pytia_quick_export.resources.SettingsMails"><code class="flex name class">
 <span>class <span class="ident">SettingsMails</span></span>
-<span>(</span><span>*, admin: str, export: Optional[List[str]], export_debug: str)</span>
+<span>(</span><span>*, subject: str, admin: str, export: Optional[List[str]], export_debug: str)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for mails (settings.json).</p></div>
@@ -1476,6 +1471,7 @@ class SettingsFiles:
 class SettingsMails:
     &#34;&#34;&#34;Dataclass for mails (settings.json).&#34;&#34;&#34;
 
+    subject: str
     admin: str
     export: List[str] | None
     export_debug: str</code></pre>
@@ -1491,6 +1487,10 @@ class SettingsMails:
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
 <dt id="pytia_quick_export.resources.SettingsMails.export_debug"><code class="name">var <span class="ident">export_debug</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsMails.subject"><code class="name">var <span class="ident">subject</span> : str</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -1812,8 +1812,7 @@ def values(self) -&gt; List[str]:
 <li>
 <h4><code><a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a></code></h4>
 <ul class="">
-<li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username_in_docket" href="#pytia_quick_export.resources.SettingsExport.apply_username_in_docket">apply_username_in_docket</a></code></li>
-<li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username_in_excel" href="#pytia_quick_export.resources.SettingsExport.apply_username_in_excel">apply_username_in_excel</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username" href="#pytia_quick_export.resources.SettingsExport.apply_username">apply_username</a></code></li>
 <li><code><a title="pytia_quick_export.resources.SettingsExport.lock_drawing_views" href="#pytia_quick_export.resources.SettingsExport.lock_drawing_views">lock_drawing_views</a></code></li>
 </ul>
 </li>
@@ -1831,6 +1830,7 @@ def values(self) -&gt; List[str]:
 <li><code><a title="pytia_quick_export.resources.SettingsMails.admin" href="#pytia_quick_export.resources.SettingsMails.admin">admin</a></code></li>
 <li><code><a title="pytia_quick_export.resources.SettingsMails.export" href="#pytia_quick_export.resources.SettingsMails.export">export</a></code></li>
 <li><code><a title="pytia_quick_export.resources.SettingsMails.export_debug" href="#pytia_quick_export.resources.SettingsMails.export_debug">export_debug</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsMails.subject" href="#pytia_quick_export.resources.SettingsMails.subject">subject</a></code></li>
 </ul>
 </li>
 <li>

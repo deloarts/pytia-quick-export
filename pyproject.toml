@@ -4,7 +4,7 @@ classifiers = ["Operating System :: Windows"]
 description = ""
 name = "pytia-quick-export"
 readme = "README.md"
-version = "0.1.1"
+version = "0.1.2"
 
 [tool.poetry.dependencies]
 openpyxl = "3.0.10"

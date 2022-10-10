@@ -45,6 +45,7 @@ from app.vars import Variables
 from const import KEEP, TEMP_ATTACHMENTS, TEMP_EXPORT
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.names import get_data_export_name
+from models.data import DataModel
 from pytia.log import log
 from pytia.utilities.docket import DocketConfig
 from pytia.wrapper.documents.part_documents import PyPartDocument
@@ -52,6 +53,7 @@ from pytia_ui_tools.utils.files import file_utility
 from pytia_ui_tools.utils.qr import QR
 from resources import resource
 
+from .data import collect_data
 from .docket import export_docket
 from .drawing import export_drawing
 from .excel import export_excel
@@ -78,6 +80,8 @@ class Worker:
         self.doc_helper = doc_helper
         self.variables = variables
         self.frames = frames
+
+        self.data: DataModel
 
         self.project = (
             self.doc_helper.document.properties.get_by_name(
@@ -119,6 +123,7 @@ class Worker:
             root=self.main_ui,
             callback_variable=self.variables.progress,
         )
+        self.runner.add(self._collect_data, name=&#34;Collect data&#34;)
         self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
         if self.doc_helper.document.product.source == 1:  # Source: Made
             self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
@@ -137,14 +142,21 @@ class Worker:
         )
         self.ui_setter.normal()
 
+    def _collect_data(self) -&gt; None:
+        &#34;&#34;&#34;Retrieves the data from the document.&#34;&#34;&#34;
+        self.data = collect_data(
+            document=self.doc_helper.document,
+            selected_quantity=self.variables.quantity.get(),
+            selected_condition=self.variables.condition.get(),
+            selected_project=self.project,
+        )
+
     def _export_excel(self) -&gt; None:
         &#34;&#34;&#34;Exports the EXCEL file, containing all information about the document.&#34;&#34;&#34;
         export_excel(
             path=self.xlsx_path,
-            document=self.doc_helper.document,
-            project=self.project,
-            quantity=self.variables.quantity.get(),
-            condition=self.variables.condition.get(),
+            selected_project=self.project,
+            data=self.data,
         )
 
     def _export_stp_stl(self) -&gt; None:
@@ -176,7 +188,7 @@ class Worker:
             path=self.docket_path,
             document=self.doc_helper.document,
             config=DocketConfig.from_dict(resource.docket),
-            condition=self.variables.condition.get(),
+            selected_condition=self.variables.condition.get(),
             project=self.project,
             quantity=self.variables.quantity.get(),
             qr_path=qr_path,
@@ -194,14 +206,11 @@ class Worker:
         &#34;&#34;&#34;Sends the mail.&#34;&#34;&#34;
         if validators.email(self.variables.mail.get()):  # type: ignore
             export_mail(
-                project=self.project,
-                machine=self.machine,
-                partnumber=self.partnumber,
-                revision=self.revision,
-                condition=self.variables.condition.get(),
-                quantity=self.variables.quantity.get(),
+                data=self.data,
+                selected_project=self.project,
+                selected_condition=self.variables.condition.get(),
+                selected_receiver=self.variables.mail.get(),
                 note=self.variables.note.get(),
-                receiver=self.variables.mail.get(),
                 attachments_folder=self.attachments_folder,
                 data_folder=self.export_folder,
             )
@@ -231,6 +240,10 @@ class Worker:
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
+<dt><code class="name"><a title="pytia_quick_export.worker.data" href="data.html">pytia_quick_export.worker.data</a></code></dt>
+<dd>
+<div class="desc"><p>Helps collecting and handling the documents data.</p></div>
+</dd>
 <dt><code class="name"><a title="pytia_quick_export.worker.docket" href="docket.html">pytia_quick_export.worker.docket</a></code></dt>
 <dd>
 <div class="desc"><p>Export submodule. Holds utility functions for handling data exports.</p></div>
@@ -293,6 +306,8 @@ class Worker:
         self.variables = variables
         self.frames = frames
 
+        self.data: DataModel
+
         self.project = (
             self.doc_helper.document.properties.get_by_name(
                 resource.props.project
@@ -333,6 +348,7 @@ class Worker:
             root=self.main_ui,
             callback_variable=self.variables.progress,
         )
+        self.runner.add(self._collect_data, name=&#34;Collect data&#34;)
         self.runner.add(self._export_excel, name=&#34;EXCEL export&#34;)
         if self.doc_helper.document.product.source == 1:  # Source: Made
             self.runner.add(self._export_stp_stl, name=&#34;STEP/STL export&#34;)
@@ -351,14 +367,21 @@ class Worker:
         )
         self.ui_setter.normal()
 
+    def _collect_data(self) -&gt; None:
+        &#34;&#34;&#34;Retrieves the data from the document.&#34;&#34;&#34;
+        self.data = collect_data(
+            document=self.doc_helper.document,
+            selected_quantity=self.variables.quantity.get(),
+            selected_condition=self.variables.condition.get(),
+            selected_project=self.project,
+        )
+
     def _export_excel(self) -&gt; None:
         &#34;&#34;&#34;Exports the EXCEL file, containing all information about the document.&#34;&#34;&#34;
         export_excel(
             path=self.xlsx_path,
-            document=self.doc_helper.document,
-            project=self.project,
-            quantity=self.variables.quantity.get(),
-            condition=self.variables.condition.get(),
+            selected_project=self.project,
+            data=self.data,
         )
 
     def _export_stp_stl(self) -&gt; None:
@@ -390,7 +413,7 @@ class Worker:
             path=self.docket_path,
             document=self.doc_helper.document,
             config=DocketConfig.from_dict(resource.docket),
-            condition=self.variables.condition.get(),
+            selected_condition=self.variables.condition.get(),
             project=self.project,
             quantity=self.variables.quantity.get(),
             qr_path=qr_path,
@@ -408,14 +431,11 @@ class Worker:
         &#34;&#34;&#34;Sends the mail.&#34;&#34;&#34;
         if validators.email(self.variables.mail.get()):  # type: ignore
             export_mail(
-                project=self.project,
-                machine=self.machine,
-                partnumber=self.partnumber,
-                revision=self.revision,
-                condition=self.variables.condition.get(),
-                quantity=self.variables.quantity.get(),
+                data=self.data,
+                selected_project=self.project,
+                selected_condition=self.variables.condition.get(),
+                selected_receiver=self.variables.mail.get(),
                 note=self.variables.note.get(),
-                receiver=self.variables.mail.get(),
                 attachments_folder=self.attachments_folder,
                 data_folder=self.export_folder,
             )
@@ -480,6 +500,7 @@ class Worker:
 </li>
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
+<li><code><a title="pytia_quick_export.worker.data" href="data.html">pytia_quick_export.worker.data</a></code></li>
 <li><code><a title="pytia_quick_export.worker.docket" href="docket.html">pytia_quick_export.worker.docket</a></code></li>
 <li><code><a title="pytia_quick_export.worker.drawing" href="drawing.html">pytia_quick_export.worker.drawing</a></code></li>
 <li><code><a title="pytia_quick_export.worker.excel" href="excel.html">pytia_quick_export.worker.excel</a></code></li>
