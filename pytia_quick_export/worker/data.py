@@ -23,6 +23,7 @@ def collect_data(
     """
     Collects the data from the document, and further:
 
+    - uses the header items depending on the document's source
     - takes the `header_items` from the excel.json config file and puts those items  and their \
         corresponding values into the DataModel object
     - translates all `header_items` according to the keywords.json config file
@@ -42,7 +43,11 @@ def collect_data(
     """
     lang = get_ui_language(parameters=document.product.parameters)
     keywords = asdict(resource.keywords.en if lang == "en" else resource.keywords.de)
-    items = resource.excel.header_items
+    items = (
+        resource.excel.header_items_made
+        if document.product.source == 1
+        else resource.excel.header_items_bought
+    )
     data: List[DatumModel] = []
 
     for index, item in enumerate(items):
