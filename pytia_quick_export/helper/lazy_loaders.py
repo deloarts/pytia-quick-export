@@ -6,7 +6,11 @@ import os
 import time
 from pathlib import Path
 
-from pytia.exceptions import PytiaDocumentNotSavedError, PytiaWrongDocumentTypeError
+from pytia.exceptions import (
+    PytiaDocumentNotSavedError,
+    PytiaValueError,
+    PytiaWrongDocumentTypeError,
+)
 from pytia.log import log
 from resources import resource
 
@@ -80,6 +84,9 @@ class LazyDocumentHelper:
             0
         ]
         self.name = self.document.document.name
+
+        if self.document.product.source not in [1, 2]:
+            raise PytiaValueError("The source of the current document is not set.")
 
     @property
     def path(self) -> Path:

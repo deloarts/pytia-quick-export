@@ -1,7 +1,7 @@
 {
     "header_row": 0,
     "data_row": 1,
-    "header_items": [
+    "header_items_made": [
         "pytia.project",
         "pytia.machine",
         "$number",
@@ -39,6 +39,25 @@
         "pytia.note_process_5",
         "pytia.process_6",
         "pytia.note_process_6"
+    ],
+    "header_items_bought": [
+        "pytia.project",
+        "pytia.machine",
+        "$number",
+        "$type",
+        "$quantity",
+        "$partnumber",
+        "$definition",
+        "$revision",
+        "pytia.mass",
+        "$source",
+        "pytia.manufacturer",
+        "pytia.supplier",
+        "pytia.spare_part_level",
+        "pytia.creator",
+        "pytia.modifier",
+        "$description",
+        "pytia.note_supplier"
     ],
     "font": "Monospac821 BT",
     "size": 8,

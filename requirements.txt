@@ -14,9 +14,7 @@ colorama==0.4.4; python_version >= "3.10" and python_version < "4.0" and python_
 decorator==5.1.1; python_version >= "3.5" \
     --hash=sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186 \
     --hash=sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330
-dill==0.3.5.1; python_full_version >= "3.7.0" \
-    --hash=sha256:33501d03270bbe410c72639b350e941882a8b0fd55357580fbc873fba0c59302 \
-    --hash=sha256:d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86
+dill==0.3.6; python_version >= "3.7" and python_full_version >= "3.6.2"
 distlib==0.3.6; python_version >= "3.7"
 easyprocess==1.1; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:82eed523a0a5eb12a81fa4eacd9f342caeb3f900eb4b798740e6696ad07e63f9 \

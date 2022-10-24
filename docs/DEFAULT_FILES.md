@@ -17,7 +17,7 @@ This file contains the configuration for the final bill of material excel file.
 {
     "header_row": 0,
     "data_row": 1,
-    "header_items": [
+    "header_items_made": [
         "pytia.project",
         "pytia.machine",
         "$number",
@@ -56,6 +56,25 @@ This file contains the configuration for the final bill of material excel file.
         "pytia.process_6",
         "pytia.note_process_6"
     ],
+    "header_items_bought": [
+        "pytia.project",
+        "pytia.machine",
+        "$number",
+        "$type",
+        "$quantity",
+        "$partnumber",
+        "$definition",
+        "$revision",
+        "pytia.mass",
+        "$source",
+        "pytia.manufacturer",
+        "pytia.supplier",
+        "pytia.spare_part_level",
+        "pytia.creator",
+        "pytia.modifier",
+        "$description",
+        "pytia.note_supplier"
+    ],
     "font": "Monospac821 BT",
     "size": 8,
     "header_color": "FFFFFF",
@@ -73,7 +92,8 @@ name | type | description
 --- | --- | ---
 header_row | `int` | The row number which shows the header. This value is zero-indexed, add `1` to match the row in Excel.
 data_row | `int` | The row number from which the data will be written. This value is zero-indexed, add `1` to match the row in Excel.
-header_items | `list` | A list of the header items that will be shown in the final export in the order of this list. These header items represent the properties of the parts and products. User-properties can be added by their name, CATIA properties and special properties must be added with a dollar sign `$` prefix (see keywords.json).
+header_items_made | `list` | A list of the header items if the document's source is made, that will be shown in the final export in the order of this list. These header items represent the properties of the parts and products. User-properties can be added by their name, CATIA properties and special properties must be added with a dollar sign `$` prefix (see keywords.json).
+header_items_bought | `list` | Same as header_items_made, but for documents with the source `bought`. If you don't need to separate between made and bought, just leave both lists with the same items.
 font | `str` | The font of the final bill of material.
 size | `int` | The font size of the final bill of material.
 header_color | `str` | The header font color of the final bill of material.

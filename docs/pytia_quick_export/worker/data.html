@@ -52,6 +52,7 @@ def collect_data(
     &#34;&#34;&#34;
     Collects the data from the document, and further:
 
+    - uses the header items depending on the document&#39;s source
     - takes the `header_items` from the excel.json config file and puts those items  and their \
         corresponding values into the DataModel object
     - translates all `header_items` according to the keywords.json config file
@@ -71,7 +72,11 @@ def collect_data(
     &#34;&#34;&#34;
     lang = get_ui_language(parameters=document.product.parameters)
     keywords = asdict(resource.keywords.en if lang == &#34;en&#34; else resource.keywords.de)
-    items = resource.excel.header_items
+    items = (
+        resource.excel.header_items_made
+        if document.product.source == 1
+        else resource.excel.header_items_bought
+    )
     data: List[DatumModel] = []
 
     for index, item in enumerate(items):
@@ -147,6 +152,7 @@ def collect_data(
 <dd>
 <div class="desc"><p>Collects the data from the document, and further:</p>
 <ul>
+<li>uses the header items depending on the document's source</li>
 <li>takes the <code>header_items</code> from the excel.json config file and puts those items
 and their
 corresponding values into the DataModel object</li>
@@ -183,6 +189,7 @@ the documents project-property won't be changed)</li>
     &#34;&#34;&#34;
     Collects the data from the document, and further:
 
+    - uses the header items depending on the document&#39;s source
     - takes the `header_items` from the excel.json config file and puts those items  and their \
         corresponding values into the DataModel object
     - translates all `header_items` according to the keywords.json config file
@@ -202,7 +209,11 @@ the documents project-property won't be changed)</li>
     &#34;&#34;&#34;
     lang = get_ui_language(parameters=document.product.parameters)
     keywords = asdict(resource.keywords.en if lang == &#34;en&#34; else resource.keywords.de)
-    items = resource.excel.header_items
+    items = (
+        resource.excel.header_items_made
+        if document.product.source == 1
+        else resource.excel.header_items_bought
+    )
     data: List[DatumModel] = []
 
     for index, item in enumerate(items):

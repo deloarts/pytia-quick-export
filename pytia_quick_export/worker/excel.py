@@ -3,6 +3,7 @@
 """
 from dataclasses import asdict
 from pathlib import Path
+from typing import Literal
 
 from helper.translators import translate_source, translate_type
 from models.data import DataModel
@@ -14,7 +15,12 @@ from pytia.log import log
 from resources import resource
 
 
-def export_excel(path: Path, selected_project: str, data: DataModel) -> None:
+def export_excel(
+    path: Path,
+    selected_project: str,
+    data: DataModel,
+    source: Literal["made", "bought"],
+) -> None:
     """
     Exports the EXCEL file containing all the information of the document.
     The EXCEL file will have two rows, the header and the data row.
@@ -24,6 +30,7 @@ def export_excel(path: Path, selected_project: str, data: DataModel) -> None:
         path (Path): The path into which to save the EXCEL (xlsx) file.
         selected_project (str): The project number (from the UI).
         data (DataModel): The documents data to write.
+        source (str): The source of the document (`made` or `bought`).
     """
     wb = Workbook()
     ws = wb.active

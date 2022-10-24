@@ -124,10 +124,14 @@ class Worker:
 
     def _export_excel(self) -> None:
         """Exports the EXCEL file, containing all information about the document."""
+        # Source: 0=Unknown, 1=Made, 2=Bought
+        source = self.doc_helper.document.product.source
+
         export_excel(
             path=self.xlsx_path,
             selected_project=self.project,
             data=self.data,
+            source="made" if source == 1 else "bought",
         )
 
     def _export_stp_stl(self) -> None:

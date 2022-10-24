@@ -176,7 +176,8 @@ class EXCEL:
 
     header_row: int | None
     data_row: int
-    header_items: List[str]
+    header_items_made: List[str]
+    header_items_bought: List[str]
     font: str
     size: int
     header_color: str
