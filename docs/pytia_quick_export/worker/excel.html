@@ -32,6 +32,7 @@
 &#34;&#34;&#34;
 from dataclasses import asdict
 from pathlib import Path
+from typing import Literal
 
 from helper.translators import translate_source, translate_type
 from models.data import DataModel
@@ -43,7 +44,12 @@ from pytia.log import log
 from resources import resource
 
 
-def export_excel(path: Path, selected_project: str, data: DataModel) -&gt; None:
+def export_excel(
+    path: Path,
+    selected_project: str,
+    data: DataModel,
+    source: Literal[&#34;made&#34;, &#34;bought&#34;],
+) -&gt; None:
     &#34;&#34;&#34;
     Exports the EXCEL file containing all the information of the document.
     The EXCEL file will have two rows, the header and the data row.
@@ -53,6 +59,7 @@ def export_excel(path: Path, selected_project: str, data: DataModel) -&gt; None:
         path (Path): The path into which to save the EXCEL (xlsx) file.
         selected_project (str): The project number (from the UI).
         data (DataModel): The documents data to write.
+        source (str): The source of the document (`made` or `bought`).
     &#34;&#34;&#34;
     wb = Workbook()
     ws = wb.active
@@ -154,7 +161,7 @@ def _style_worksheet(worksheet: Worksheet) -&gt; None:
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="pytia_quick_export.worker.excel.export_excel"><code class="name flex">
-<span>def <span class="ident">export_excel</span></span>(<span>path: pathlib.Path, selected_project: str, data: models.data.DataModel) ‑> None</span>
+<span>def <span class="ident">export_excel</span></span>(<span>path: pathlib.Path, selected_project: str, data: models.data.DataModel, source: Literal['made', 'bought']) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Exports the EXCEL file containing all the information of the document.
@@ -168,12 +175,19 @@ For configuration see the 'excel.json' resource file.</p>
 <dd>The project number (from the UI).</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>DataModel</code></dt>
 <dd>The documents data to write.</dd>
+<dt><strong><code>source</code></strong> :&ensp;<code>str</code></dt>
+<dd>The source of the document (<code>made</code> or <code>bought</code>).</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def export_excel(path: Path, selected_project: str, data: DataModel) -&gt; None:
+<pre><code class="python">def export_excel(
+    path: Path,
+    selected_project: str,
+    data: DataModel,
+    source: Literal[&#34;made&#34;, &#34;bought&#34;],
+) -&gt; None:
     &#34;&#34;&#34;
     Exports the EXCEL file containing all the information of the document.
     The EXCEL file will have two rows, the header and the data row.
@@ -183,6 +197,7 @@ For configuration see the 'excel.json' resource file.</p>
         path (Path): The path into which to save the EXCEL (xlsx) file.
         selected_project (str): The project number (from the UI).
         data (DataModel): The documents data to write.
+        source (str): The source of the document (`made` or `bought`).
     &#34;&#34;&#34;
     wb = Workbook()
     ws = wb.active

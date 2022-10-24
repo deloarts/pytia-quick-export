@@ -207,7 +207,8 @@ class EXCEL:
 
     header_row: int | None
     data_row: int
-    header_items: List[str]
+    header_items_made: List[str]
+    header_items_bought: List[str]
     font: str
     size: int
     header_color: str
@@ -469,7 +470,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.1.2', counter: int = 0, save_on_apply: bool = True)</span>
+<span>(</span><span>*, version: str = '0.2.0', counter: int = 0, save_on_apply: bool = True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -509,7 +510,7 @@ class AppData:
 </dd>
 <dt id="pytia_quick_export.resources.EXCEL"><code class="flex name class">
 <span>class <span class="ident">EXCEL</span></span>
-<span>(</span><span>*, header_row: int | None, data_row: int, header_items: List[str], font: str, size: int, header_color: str, header_bg_color: str, data_color_1: str, data_bg_color_1: str, data_color_2: str, data_bg_color_2: str)</span>
+<span>(</span><span>*, header_row: int | None, data_row: int, header_items_made: List[str], header_items_bought: List[str], font: str, size: int, header_color: str, header_bg_color: str, data_color_1: str, data_bg_color_1: str, data_color_2: str, data_bg_color_2: str)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Excel dataclass.</p></div>
@@ -523,7 +524,8 @@ class EXCEL:
 
     header_row: int | None
     data_row: int
-    header_items: List[str]
+    header_items_made: List[str]
+    header_items_bought: List[str]
     font: str
     size: int
     header_color: str
@@ -567,7 +569,11 @@ class EXCEL:
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
-<dt id="pytia_quick_export.resources.EXCEL.header_items"><code class="name">var <span class="ident">header_items</span> : List[str]</code></dt>
+<dt id="pytia_quick_export.resources.EXCEL.header_items_bought"><code class="name">var <span class="ident">header_items_bought</span> : List[str]</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.EXCEL.header_items_made"><code class="name">var <span class="ident">header_items_made</span> : List[str]</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -1708,7 +1714,8 @@ def values(self) -&gt; List[str]:
 <li><code><a title="pytia_quick_export.resources.EXCEL.font" href="#pytia_quick_export.resources.EXCEL.font">font</a></code></li>
 <li><code><a title="pytia_quick_export.resources.EXCEL.header_bg_color" href="#pytia_quick_export.resources.EXCEL.header_bg_color">header_bg_color</a></code></li>
 <li><code><a title="pytia_quick_export.resources.EXCEL.header_color" href="#pytia_quick_export.resources.EXCEL.header_color">header_color</a></code></li>
-<li><code><a title="pytia_quick_export.resources.EXCEL.header_items" href="#pytia_quick_export.resources.EXCEL.header_items">header_items</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_items_bought" href="#pytia_quick_export.resources.EXCEL.header_items_bought">header_items_bought</a></code></li>
+<li><code><a title="pytia_quick_export.resources.EXCEL.header_items_made" href="#pytia_quick_export.resources.EXCEL.header_items_made">header_items_made</a></code></li>
 <li><code><a title="pytia_quick_export.resources.EXCEL.header_row" href="#pytia_quick_export.resources.EXCEL.header_row">header_row</a></code></li>
 <li><code><a title="pytia_quick_export.resources.EXCEL.size" href="#pytia_quick_export.resources.EXCEL.size">size</a></code></li>
 </ul>
