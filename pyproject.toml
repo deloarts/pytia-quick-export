@@ -14,7 +14,7 @@ pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag 
 validators = "0.20.0"
 
 [tool.poetry.dev-dependencies]
-black = "^22.3.0"
+black = "22.10.0"
 packaging = "^21.3"
 pdoc3 = "^0.10.0"
 pre-commit = "^2.19.0"
