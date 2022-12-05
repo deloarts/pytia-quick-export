@@ -97,17 +97,7 @@ To be able to launch the app from within CATIA you need to provide a release fol
 
 > ❗️ Add this release folder to the **settings.json** file as value of the **paths.release** key.
 
-### 2.4 test
-
-Most tests require CATIA running. Test suite is pytest. For testing with poetry run:
-
-```powershell
-poetry run pytest
-```
-
-> ⚠️ Test discovery in VS Code only works when CATIA is running.
-
-### 2.5 build
+### 2.4 build
 
 > ❗️ Do not build the app with poetry! This package is not not meant to be used as an import, it should be used as an app.
 
@@ -117,7 +107,7 @@ To build the app and make it executable for the user run the [_build.py](_build.
 >
 > ✏️ The reason this app isn't compiled to an exe is performance. It takes way too long to load the UI if the app isn't launched as python zipfile.
 
-### 2.6 release
+### 2.5 release
 
 To release the app into the provided release folder run the [_release.py](_release.py) script.
 
@@ -127,50 +117,9 @@ You can always change the path of the release folder by editing the value from t
 
 > ⚠️ Once you built and released the app you cannot move the python app nor the catvbs script to another location, because absolute paths will be written to those files. If you have to move the location of the files you have to change the paths in the **settings.json** config file, build the app again and release it to the new destination.
 
-### 2.7 pre-commit hooks
-
-Don't forget to install the pre-commit hooks:
-
-```powershell
-pre-commit install
-```
-
-### 2.8 docs
-
-Documentation is done with [pdoc3](https://pdoc3.github.io/pdoc/).
-
-To update the documentation run:
-
-```powershell
-python -m pdoc --html --output-dir docs pytia_quick_export
-```
-
-For preview run:
-
-```powershell
-python -m pdoc --http : pytia_quick_export
-```
+### 2.6 docs
 
 You can find the documentation in the [docs folder](/docs).
-
-### 2.9 new revision checklist
-
-On a new revision, do the following:
-
-1. Update **dependency versions** in
-   - [pyproject.toml](pyproject.toml)
-   - [dependencies.json](pytia_quick_export/resources/dependencies.json)
-   - [README.md](README.md)
-2. Update **dependencies**: `poetry update`
-3. Update the **version** in
-   - [pyproject.toml](pyproject.toml)
-   - [__ init __.py](pytia_quick_export/__init__.py)
-   - [README.md](README.md)
-4. Run all **tests**: `poetry run pytest`
-5. Check **pylint** output: `poetry run pylint pytia_quick_export/`
-6. Update the **documentation**: `poetry run pdoc --force --html --output-dir docs pytia_quick_export`
-7. Update the **lockfile**: `poetry lock`
-8. Update the **requirements.txt**: `poetry export --dev -f requirements.txt -o requirements.txt`
 
 ## 3 usage
 
@@ -218,17 +167,152 @@ For a detailed description of the workspace config file, see [WORKSPACE_FILE](do
 
 The filename of the workspace file can be changed in the **settings.json** file, see [SAMPLE_FILES](docs/SAMPLE_FILES.md).
 
-## 5 license
+## 5 developing
+
+For developing you would, additionally to the system requirements, need to install:
+
+- [Poetry](https://python-poetry.org/docs/master/#installation)
+- [Git](https://git-scm.com/downloads) or [GitHub Desktop](https://desktop.github.com/)
+
+### 5.1 repository
+
+#### 5.1.1 cloning
+
+Clone the repo to your local machine:
+
+```powershell
+cd $HOME
+New-Item -Path '.\git\pytia-quick-export' -ItemType Directory
+cd .\git\pytia-quick-export\
+git clone git@github.com:deloarts/pytia-quick-export.git
+```
+
+Or use GitHub Desktop.
+
+#### 5.1.2 main branch protection
+
+> ❗️ Never develop new features and fixes in the main branch!
+
+The main branch is protected: it's not allowed to make changes directly to it. Create a new branch in order work on issues. The new branch should follow the naming convention from below.
+
+#### 5.1.3 branch naming convention
+
+1. Use grouping tokens at the beginning of your branch names, such as:
+    - feature: A new feature that will be added to the project
+    - fix: For bugfixes
+    - tests: Adding or updating tests
+    - docs: For updating the docs
+    - wip: Work in progress, won't be finished soon
+    - junk: Just for experimenting
+2. Use slashes `/` as delimiter in branch names (`feature/docket-export`)
+3. Avoid long descriptive names, rather refer to an issue
+4. Do not use bare numbers as leading parts (`fix/108` is bad, `fix/issue108` is good)
+
+#### 5.1.4 issues
+
+Use the issue templates for creating an issue. Please don't open a new issue if you haven't met the requirements and add as much information as possible. Further:
+
+- Format your code in an issue correctly with three backticks, see the [markdown guide](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+- Add the full error trace.
+- Do not add screenshots for code or traces.
+
+### 5.2 poetry
+
+#### 5.2.1 setup
+
+If you prefer the environment inside the projects root, use:
+
+```powershell
+poetry config virtualenvs.in-project true
+```
+
+> ⚠️ Make sure not to commit the virtual environment to GitHub. See [.gitignore](.gitignore) to find out which folders are ignored.
+
+#### 5.2.2 install
+
+Install all dependencies (assuming you are inside the projects root folder):
+
+```powershell
+poetry install
+```
+
+Check your active environment with:
+
+```powershell
+poetry env list
+poetry env info
+```
+
+Update packages with:
+
+```powershell
+poetry update
+```
+
+#### 5.2.3 tests
+
+Tests are done with pytest. For testing with poetry run:
+
+```powershell
+poetry run pytest
+```
+
+> ⚠️ Test discovery in VS Code only works when CATIA is running.
+
+### 5.3 pre-commit hooks
+
+Don't forget to install the pre-commit hooks:
+
+```powershell
+pre-commit install
+```
+
+### 5.4 docs
+
+Documentation is done with [pdoc3](https://pdoc3.github.io/pdoc/).
+
+To update the documentation run:
+
+```powershell
+python -m pdoc --html --output-dir docs pytia_bill_of_material
+```
+
+For preview run:
+
+```powershell
+python -m pdoc --http : pytia_bill_of_material
+```
+
+### 5.5 new revision checklist
+
+On a new revision, do the following:
+
+1. Update **dependency versions** in
+   - [pyproject.toml](pyproject.toml)
+   - [dependencies.json](pytia_quick_export/resources/dependencies.json)
+   - [README.md](README.md)
+2. Update **dependencies**: `poetry update`
+3. Update the **version** in
+   - [pyproject.toml](pyproject.toml)
+   - [__ init __.py](pytia_quick_export/__init__.py)
+   - [README.md](README.md)
+4. Run all **tests**: `poetry run pytest`
+5. Check **pylint** output: `poetry run pylint pytia_quick_export/`
+6. Update the **documentation**: `poetry run pdoc --force --html --output-dir docs pytia_quick_export`
+7. Update the **lockfile**: `poetry lock`
+8. Update the **requirements.txt**: `poetry export --dev -f requirements.txt -o requirements.txt`
+
+## 6 license
 
 [MIT License](LICENSE)
 
-## 6 changelog
+## 7 changelog
 
 **v0.2.0**: Add `made` and `bought` header to excel config.  
 **v0.1.2**: Update export & mail settings.  
 **v0.1.1**: Distinguish between source 'made' and 'bought'.  
 **v0.1.0**: Initial commit.  
 
-## 7 to dos
+## 8 to dos
 
 Using VS Code [Comment Anchors](https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors) to keep track of to-dos.
