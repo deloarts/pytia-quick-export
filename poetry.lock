@@ -147,15 +147,15 @@ test = ["pytest (>=6)"]
 
 [[package]]
 name = "filelock"
-version = "3.8.0"
+version = "3.8.1"
 description = "A platform independent file lock."
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-docs = ["furo (>=2022.6.21)", "sphinx (>=5.1.1)", "sphinx-autodoc-typehints (>=1.19.1)"]
-testing = ["covdefaults (>=2.2)", "coverage (>=6.4.2)", "pytest (>=7.1.2)", "pytest-cov (>=3)", "pytest-timeout (>=2.1)"]
+docs = ["furo (>=2022.9.29)", "sphinx (>=5.3)", "sphinx-autodoc-typehints (>=1.19.5)"]
+testing = ["covdefaults (>=2.2.2)", "coverage (>=6.5)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-timeout (>=2.1)"]
 
 [[package]]
 name = "identify"
@@ -397,6 +397,17 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 test = ["ipaddress", "mock", "unittest2", "enum34", "pywin32", "wmi"]
 
 [[package]]
+name = "pycatia"
+version = "0.5.7"
+description = "A python module to access the CATIA Measurable object."
+category = "main"
+optional = false
+python-versions = ">=3.9"
+
+[package.dependencies]
+pywin32 = ">=224"
+
+[[package]]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
@@ -482,7 +493,7 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.
 
 [[package]]
 name = "pytia"
-version = "0.2.5"
+version = "0.3.0"
 description = "A wrapper for the catia v5 api."
 category = "main"
 optional = false
@@ -493,13 +504,14 @@ develop = false
 click = "8.1.3"
 colorama = "0.4.4"
 psutil = "5.9.0"
+pycatia = "0.5.7"
 pywin32 = "304"
 
 [package.source]
 type = "git"
 url = "ssh://git@github.com/deloarts/pytia.git"
-reference = "v0.2.5"
-resolved_reference = "9ec75ebb5329a16e026c83039cb66a0a7a476c58"
+reference = "v0.3.0"
+resolved_reference = "45eda785d22050b88c859fb6e8678a5159a976a0"
 
 [[package]]
 name = "pytia-ui-tools"
@@ -616,7 +628,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "8a95bfcc96cc0911046c463243a2f4ec1b6dcfaa00901dd2c921b2419b9342ef"
+content-hash = "8a336b5282642c89b81fb08e60926343ed39b6a44959fa9f919f97c0ae640699"
 
 [metadata.files]
 astroid = []
@@ -778,6 +790,7 @@ psutil = [
     {file = "psutil-5.9.0-cp39-cp39-win_amd64.whl", hash = "sha256:7d190ee2eaef7831163f254dc58f6d2e2a22e27382b936aab51c835fc080c3d3"},
     {file = "psutil-5.9.0.tar.gz", hash = "sha256:869842dbd66bb80c3217158e629d6fceaecc3a3166d3d1faee515b05dd26ca25"},
 ]
+pycatia = []
 pycparser = []
 pygit2 = []
 pylint = [

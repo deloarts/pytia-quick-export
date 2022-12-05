@@ -19,6 +19,7 @@
         "pady",
         "partnumber",
         "pdoc",
+        "pycatia",
         "pygit",
         "pylint",
         "pylintrc",
