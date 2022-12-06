@@ -23,6 +23,7 @@ This file contains the configuration for the final bill of material excel file.
         "$number",
         "$type",
         "$quantity",
+        "%Unit=Pcs",
         "$partnumber",
         "$definition",
         "$revision",
@@ -62,6 +63,7 @@ This file contains the configuration for the final bill of material excel file.
         "$number",
         "$type",
         "$quantity",
+        "%Unit=Pcs",
         "$partnumber",
         "$definition",
         "$revision",
@@ -92,7 +94,7 @@ name | type | description
 --- | --- | ---
 header_row | `int` | The row number which shows the header. This value is zero-indexed, add `1` to match the row in Excel.
 data_row | `int` | The row number from which the data will be written. This value is zero-indexed, add `1` to match the row in Excel.
-header_items_made | `list` | A list of the header items if the document's source is made, that will be shown in the final export in the order of this list. These header items represent the properties of the parts and products. User-properties can be added by their name, CATIA properties and special properties must be added with a dollar sign `$` prefix (see keywords.json).
+header_items_made | `list` | A list of the header items that will be shown in the final export in the order of this list. These header items represent the properties of the parts and products:<ul><li>User-properties can be added by their name.</li><li>CATIA properties and special properties must be added with a dollar sign `$` prefix (see keywords.json).</li><li>Further it is possible to apply *fixed text*. This is done with the percentage symbol `%`, followed by the header name, followed by the equal sign `=` and then followed by the value of that fixed text. E.g: If you want a column **Unit** with the text **Pcs** in every item of the bom, you have to add `"%Unit=Pcs"` to the header_items list.</li><li>An item that starts with the percentage sign `%` but without an equal sign means that this is a placeholder column. The percentage sign will be removed from the items name in the final list.</li></ul>
 header_items_bought | `list` | Same as header_items_made, but for documents with the source `bought`. If you don't need to separate between made and bought, just leave both lists with the same items.
 font | `str` | The font of the final bill of material.
 size | `int` | The font size of the final bill of material.
