@@ -1,7 +1,7 @@
 # pytia quick export
 
 ![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
-![version](https://img.shields.io/badge/Version-0.2.0-orange.svg?style=for-the-badge)
+![version](https://img.shields.io/badge/Version-0.3.0-orange.svg?style=for-the-badge)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 ![catia](https://img.shields.io/badge/CATIA-V5%206R2017-blue.svg?style=for-the-badge)
@@ -119,8 +119,8 @@ Some dependencies are not publicly available on PyPi or GitHub (because they are
 
 | Name               | Link                                         | Version                                                                 |
 | ------------------ | -------------------------------------------- | ----------------------------------------------------------------------- |
-| **pytia**          | <https://github.com/deloarts/pytia>          | [0.3.0](https://github.com/deloarts/pytia/releases/tag/v0.3.0)          |
-| **pytia-ui-tools** | <https://github.com/deloarts/pytia-ui-tools> | [0.6.2](https://github.com/deloarts/pytia-ui-tools/releases/tag/v0.6.2) |
+| **pytia**          | <https://github.com/deloarts/pytia>          | [0.3.1](https://github.com/deloarts/pytia/releases/tag/v0.3.1)          |
+| **pytia-ui-tools** | <https://github.com/deloarts/pytia-ui-tools> | [0.6.3](https://github.com/deloarts/pytia-ui-tools/releases/tag/v0.6.3) |
 
 > ❗️ The folder where you provide the local dependencies must match the **paths.local_dependencies** entry of the **settings.json**. The user must have at least read access on this folder.
 >
@@ -343,6 +343,7 @@ On a new revision, do the following:
 
 ## 7 changelog
 
+**v0.3.0**: Add fixed text and placeholder to export.  
 **v0.2.0**: Add `made` and `bought` header to excel config.  
 **v0.1.2**: Update export & mail settings.  
 **v0.1.1**: Distinguish between source 'made' and 'bought'.  

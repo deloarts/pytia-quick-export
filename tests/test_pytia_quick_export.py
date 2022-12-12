@@ -1,9 +1,10 @@
 import os
 
 import toml
+
 from pytia_quick_export.const import APP_VERSION
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 directory = os.path.dirname(os.path.realpath("__file__"))
 with open(os.path.join(directory, "pyproject.toml"), "r") as f:
