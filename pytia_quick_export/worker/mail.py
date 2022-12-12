@@ -32,7 +32,7 @@ def export_mail(
     if outlook is None:
         raise PytiaApplicationError("Outlook is not available on this machine.")
 
-    mail = outlook.CreateItem(0)
+    mail = outlook.CreateItem(0)  # FIXME: This fails if Outlook isn't running
     mail.To = selected_receiver
     mail.Subject = f"{selected_project} | {resource.settings.mails.subject}"
     mail.HTMLBody = _render_template(

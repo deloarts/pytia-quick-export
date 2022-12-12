@@ -35,7 +35,7 @@ from pathlib import Path
 from typing import Literal
 
 from helper.translators import translate_source, translate_type
-from models.data import DataModel
+from models.data import DataModel, DatumModel
 from openpyxl.cell import Cell
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.workbook import Workbook
@@ -83,20 +83,41 @@ def _write_data(
         worksheet (Worksheet): The EXCEL worksheet.
         data (DataModel): The documents data to write.
     &#34;&#34;&#34;
-
     for datum in data.data:
-        # Header
-        if resource.excel.header_row is not None:
-            header_cell = worksheet.cell(resource.excel.header_row + 1, datum.index + 1)
-            if isinstance(header_cell, Cell):
-                header_cell.value = datum.name
-                log.info(f&#34;Wrote header {datum.name!r} to worksheet.&#34;)
-        # Data
-        if datum.value is not None:
-            datum_cell = worksheet.cell(resource.excel.data_row + 1, datum.index + 1)
-            if isinstance(datum_cell, Cell):
-                datum_cell.value = datum.value
-                log.info(f&#34;Wrote value {datum.value!r} to worksheet.&#34;)
+        _write_header(worksheet=worksheet, datum=datum)
+        _write_datum(worksheet=worksheet, datum=datum)
+
+
+def _write_header(worksheet: Worksheet, datum: DatumModel) -&gt; None:
+    &#34;&#34;&#34;
+    Writes a single header item to the EXCEL worksheet.
+
+    Args:
+        worksheet (Worksheet): The EXCEL worksheet.
+        datum (DatumModel): The datum model from which to create the header.
+    &#34;&#34;&#34;
+    if resource.excel.header_row is not None:
+        header_cell = worksheet.cell(resource.excel.header_row + 1, datum.index + 1)
+        cell_value = datum.name
+        if isinstance(header_cell, Cell):
+            header_cell.value = cell_value
+            log.info(f&#34;Wrote header {cell_value!r} to worksheet.&#34;)
+
+
+def _write_datum(worksheet: Worksheet, datum: DatumModel) -&gt; None:
+    &#34;&#34;&#34;
+    Writes a single datum to the EXCEL worksheet.
+
+    Args:
+        worksheet (Worksheet): The EXCEL worksheet.
+        datum (DatumModel): The datum model from which to write the data.
+    &#34;&#34;&#34;
+    if datum.value is not None:
+        datum_cell = worksheet.cell(resource.excel.data_row + 1, datum.index + 1)
+        cell_value = datum.value
+        if isinstance(datum_cell, Cell):
+            datum_cell.value = cell_value
+            log.info(f&#34;Wrote value {cell_value!r} to worksheet.&#34;)
 
 
 def _style_worksheet(worksheet: Worksheet) -&gt; None:

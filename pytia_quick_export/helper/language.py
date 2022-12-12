@@ -4,8 +4,8 @@
 
 from typing import Literal
 
+from pycatia.knowledge_interfaces.parameters import Parameters
 from pytia.exceptions import PytiaLanguageError
-from pytia.framework.knowledge_interfaces.parameters import Parameters
 from pytia.log import log
 from resources import resource
 

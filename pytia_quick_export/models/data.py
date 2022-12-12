@@ -9,7 +9,7 @@ from typing import List
 @dataclass(slots=True, kw_only=True)
 class DatumModel:
     index: int
-    name: str
+    name: str  # Represents the header item name
     value: str | None
 
 

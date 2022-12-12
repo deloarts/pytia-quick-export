@@ -54,6 +54,8 @@ def collect_data(
         value = None
         name = item
 
+        # Look for catia properties.
+        # Those must be prefixed with the dollar sign, see keywords.json
         if item.startswith("$"):
             keyword_item = item.split("$")[-1]
 
@@ -77,7 +79,21 @@ def collect_data(
             elif keyword_item == "quantity":
                 value = str(selected_quantity)
 
-        # Look for user properties and handle them
+        # Look for fixed text elements
+        # With this it's possible to apply standard text to certain columns.
+        elif item.startswith("%") and "=" in item:
+            name = item.split("%")[-1].split("=")[0]
+            value = item.split("=")[-1]
+
+        # Look for placeholder text
+        # Items that start with a percentage sign are only placeholder columns.
+        # This might no be needed, but it saves some time because this method doesn't
+        # need to look for an existing property.
+        elif item.startswith("%"):
+            name = item.split("%")[-1]
+            value = None
+
+        # Look for user properties and handle them.
         elif document.properties.exists(item):
             if (
                 selected_condition == resource.settings.condition.mod.name
