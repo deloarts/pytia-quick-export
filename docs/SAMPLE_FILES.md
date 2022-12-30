@@ -53,7 +53,6 @@ This file contains the basic settings for the app.
     },
     "paths": {
         "catia": "C:\\CATIA\\V5-6R2017\\B27",
-        "local_dependencies": "C:\\pytia\\local_deps",
         "release": "C:\\pytia\\release"
     },
     "files": {
@@ -92,7 +91,6 @@ condition.new.name | `str` | The name of the condition 'new'. This is more an op
 condition.mod.name | `str` | The name of the condition 'modification'.
 condition.mod.overwrite | `Dict[str]` | An dict-object that holds all property names as keys and the property values as values, which are going to be overwritten when the condition is 'modification'.<br><br>Example: When the condition is 'modification', you don't want a part to have all process steps, you only want it to be milled as first process. This case is shown in the sample file.
 paths.catia | `str` | The absolute path to the CATIA executables.
-paths.local_dependencies | `str` | The folder where local local_dependencies (python wheel files) for the installer are stored.
 paths.release | `str` | The folder where the launcher and the app are released into.
 file.bom_export | `str` | The standard name for the final bill of material. If a bom_name is set in the **workspace** file, the workspace-bom-name will be used.
 files.app | `str` | The name of the released python app file.
