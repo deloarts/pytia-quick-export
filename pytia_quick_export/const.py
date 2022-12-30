@@ -25,8 +25,8 @@ LOG = "app.log"
 PID = os.getpid()
 PID_FILE = f"{TEMP}\\{PYTIA_QUICK_EXPORT}.pid"
 VENV = f"\\.env\\{APP_VERSION}"
-VENV_PYTHON = VENV + "\\Scripts\\python.exe"
-VENV_PYTHONW = VENV + "\\Scripts\\pythonw.exe"
+VENV_PYTHON = Path(VENV, "Scripts\\python.exe")
+VENV_PYTHONW = Path(VENV, "Scripts\\pythonw.exe")
 PY_VERSION = APPDATA + "\\pyversion.txt"
 
 CONFIG_APPDATA = "config.json"
@@ -46,7 +46,7 @@ PROP_DRAWING_PATH = "pytia.drawing_path"
 TEMPLATE_DOCKET = "docket.CATDrawing"
 TEMPLATE_MAIL = "mail.html"
 
-WEB_PIP = "www.pypi.org"
+WEB_PIP = "https://www.pypi.org"
 
 KEEP = "Keep"
 

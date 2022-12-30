@@ -34,12 +34,6 @@ def test_users():
         logon_list.append(user.logon)
 
 
-def test_local_dependencies_folder():
-    from pytia_quick_export.resources import resource
-
-    assert os.path.isdir(resource.settings.paths.local_dependencies)
-
-
 def test_release_folder():
     from pytia_quick_export.resources import resource
 
