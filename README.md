@@ -11,20 +11,19 @@
 
 Check out the pytia ecosystem:
 
-- [pytia](https://github.com/deloarts/pytia): The heart of this project.
-- [pytia-property-manager](https://github.com/deloarts/pytia-property-manager): An app to edit part and product properties.
-- [pytia-bounding-box](https://github.com/deloarts/pytia-bounding-box): For retrieving the bounding box of a part.
-- [pytia-bill-of-material](https://github.com/deloarts/pytia-bill-of-material): Exports the bill of material and data of a product.
-- [pytia-title-block](https://github.com/deloarts/pytia-title-block): An app to edit a drawing's title block.
-- [pytia-quick-export](https://github.com/deloarts/pytia-quick-export): Single file export with useful features.
-- [pytia-ui-tools](https://github.com/deloarts/pytia-ui-tools): A toolbox for all pytia apps.
+- **pytia** ([web](https://pytia.deloarts.com/), [repo](https://github.com/deloarts/pytia)): The heart of this project.
+- **pytia-property-manager** ([web](https://pytia.deloarts.com/property-manager/v0.html), [repo](https://github.com/deloarts/pytia-property-manager)) : An app to edit part and product properties.
+- **pytia-bounding-box** ([web](https://pytia.deloarts.com/bounding-box/v0.html), [repo](https://github.com/deloarts/pytia-bounding-box)): For retrieving the bounding box of a part.
+- **pytia-bill-of-material** ([web](https://pytia.deloarts.com/bill-of-material/v0.html), [repo](https://github.com/deloarts/pytia-bill-of-material)): Exports the bill of material and data of a product.
+- **pytia-title-block** ([web](https://pytia.deloarts.com/title-block/v0.html), [repo](https://github.com/deloarts/pytia-title-block)): An app to edit a drawing's title block.
+- **pytia-quick-export** ([web](https://pytia.deloarts.com/quick-export/v0.html), [repo](https://github.com/deloarts/pytia-quick-export)): Single file export with useful features.
+- **pytia-ui-tools** ([web](https://pytia.deloarts.com/), [repo](https://github.com/deloarts/pytia-ui-tools)): A toolbox for all pytia apps.
 
 Table of contents:
 
 - [pytia quick export](#pytia-quick-export)
   - [1 installation](#1-installation)
     - [1.1 user](#11-user)
-    - [1.2 developer](#12-developer)
   - [2 setup](#2-setup)
     - [2.1 resource files](#21-resource-files)
       - [2.1.1 default files](#211-default-files)
@@ -58,12 +57,15 @@ Table of contents:
 
 ### 1.1 user
 
+> ✏️ For a guided installation visit [https://pytia.deloarts.com](https://pytia.deloarts.com/installation/v0.html)
+
 On the users machine you need to install the following:
 
 - CATIA
 - [Python](https://www.python.org/downloads/)
+- [Git](https://gitforwindows.org/)
 
-When the user starts the app it will automatically install all its requirements. Further the app also updates outdated dependencies if needed. The apps environment will be created in the users appdata-folder: `C:\Users\User\AppData\Roaming\pytia\pytia_quick_export`
+When the user starts the app it will automatically install all its requirements. Further the app also updates outdated dependencies if needed. The apps environment will be created in the users appdata-folder: `C:\Users\User\AppData\Roaming\pytia\pytia_property_manager`
 
 Recommended python install options for the user:
 
@@ -72,20 +74,6 @@ python-installer.exe /passive PrependPath=1 Include_doc=0 Include_test=0 SimpleI
 ```
 
 For convenience there is a powershell script that will install the required python version for you, see [assets/python_installer.ps1](assets/python_installer.ps1).
-
-### 1.2 developer
-
-On the developers machine (this is you) install the following:
-
-- CATIA
-- [Python](https://www.python.org/downloads/)
-- [Poetry](https://python-poetry.org/docs/master/)
-
-> ✏️ Use poetry to install all dependencies and dev-dependencies to work on this project.
->
-> 🔒 Some dependencies are from private repos. You need to have [ssh-access](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to those repositories. Test your ssh connection with `ssh -T git@github.com`
->
-> ❗️ Never develop new features and fixes in the main branch!
 
 ## 2 setup
 
