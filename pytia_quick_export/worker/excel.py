@@ -120,7 +120,7 @@ def _style_worksheet(worksheet: Worksheet) -> None:
 
         # Set font and height for the header row
         if isinstance(resource.excel.header_row, int):
-            worksheet.row_dimensions[resource.excel.header_row + 1].height = 20
+            worksheet.row_dimensions[resource.excel.header_row + 1].height = 20  # type: ignore
             column_cells[resource.excel.header_row].font = Font(
                 name=resource.excel.font,
                 size=resource.excel.size,
@@ -138,7 +138,7 @@ def _style_worksheet(worksheet: Worksheet) -> None:
 
         # Set cell width
         length = max(len(str(cell.value)) * 1.1 for cell in column_cells)
-        worksheet.column_dimensions[column_cells[0].column_letter].width = (
+        worksheet.column_dimensions[column_cells[0].column_letter].width = (  # type: ignore
             length if length > 2 else 2
         )
 
