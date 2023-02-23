@@ -82,7 +82,6 @@ class SettingsPaths:
     """Dataclass for paths (settings.json)."""
 
     catia: Path
-    local_dependencies: Path
     release: Path
 
 

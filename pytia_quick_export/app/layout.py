@@ -3,12 +3,11 @@
 """
 from tkinter import DISABLED, PhotoImage, Tk, ttk
 
+from app.frames import Frames
+from app.vars import Variables
 from pytia_ui_tools.widgets.entries import NumberEntry
 from pytia_ui_tools.widgets.texts import ScrolledText
 from resources import resource
-
-from app.frames import Frames
-from app.vars import Variables
 
 
 class Layout:
@@ -256,7 +255,6 @@ class Layout:
         )
         # endregion
 
-        # region FRAME Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         lbl_info = ttk.Label(
             frames.footer,
             text="",
