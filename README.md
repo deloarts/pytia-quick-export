@@ -1,7 +1,7 @@
 # pytia quick export
 
 ![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
-![version](https://img.shields.io/badge/Version-0.3.0-orange.svg?style=for-the-badge)
+![version](https://img.shields.io/badge/Version-0.4.0-orange.svg?style=for-the-badge)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 ![catia](https://img.shields.io/badge/CATIA-V5%206R2017-blue.svg?style=for-the-badge)
@@ -283,13 +283,13 @@ Documentation is done with [pdoc3](https://pdoc3.github.io/pdoc/).
 To update the documentation run:
 
 ```powershell
-python -m pdoc --html --output-dir docs pytia_bill_of_material
+python -m pdoc --html --output-dir docs pytia_quick_export
 ```
 
 For preview run:
 
 ```powershell
-python -m pdoc --http : pytia_bill_of_material
+python -m pdoc --http : pytia_quick_export
 ```
 
 ### 5.5 new revision checklist
@@ -317,6 +317,7 @@ On a new revision, do the following:
 
 ## 7 changelog
 
+**v0.4.0**: Add custom header text to export.  
 **v0.3.0**: Add fixed text and placeholder to export.  
 **v0.2.0**: Add `made` and `bought` header to excel config.  
 **v0.1.2**: Update export & mail settings.  
