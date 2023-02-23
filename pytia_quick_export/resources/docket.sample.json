@@ -51,7 +51,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.base_size",
+            "name": "property.base_size",
             "value": "pytia.base_size",
             "view": "bg"
         },
@@ -151,7 +151,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_1",
+            "name": "property.process_1",
             "value": "pytia.process_1",
             "view": "bg"
         },
@@ -161,7 +161,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_1",
+            "name": "property.note_process_1",
             "value": "pytia.note_process_1",
             "view": "bg"
         },
@@ -176,7 +176,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_2",
+            "name": "property.process_2",
             "value": "pytia.process_2",
             "view": "bg"
         },
@@ -186,7 +186,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_2",
+            "name": "property.note_process_2",
             "value": "pytia.note_process_2",
             "view": "bg"
         },
@@ -201,7 +201,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_3",
+            "name": "property.process_3",
             "value": "pytia.process_3",
             "view": "bg"
         },
@@ -211,7 +211,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_3",
+            "name": "property.note_process_3",
             "value": "pytia.note_process_3",
             "view": "bg"
         },
@@ -226,7 +226,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_4",
+            "name": "property.process_4",
             "value": "pytia.process_4",
             "view": "bg"
         },
@@ -236,7 +236,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_4",
+            "name": "property.note_process_4",
             "value": "pytia.note_process_4",
             "view": "bg"
         },
@@ -251,7 +251,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_5",
+            "name": "property.process_5",
             "value": "pytia.process_5",
             "view": "bg"
         },
@@ -261,7 +261,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_5",
+            "name": "property.note_process_5",
             "value": "pytia.note_process_5",
             "view": "bg"
         },
@@ -276,7 +276,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.process_6",
+            "name": "property.process_6",
             "value": "pytia.process_6",
             "view": "bg"
         },
@@ -286,7 +286,7 @@
             "view": "bg"
         },
         {
-            "name": "arg.note_process_6",
+            "name": "property.note_process_6",
             "value": "pytia.note_process_6",
             "view": "bg"
         },

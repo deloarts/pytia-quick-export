@@ -3,7 +3,7 @@
 """
 
 from dataclasses import asdict
-from typing import List
+from typing import List, Literal
 
 from helper.language import get_ui_language
 from helper.translators import translate_source, translate_type
@@ -41,86 +41,144 @@ def collect_data(
     Returns:
         DataModel: The data as DataModel object.
     """
-    lang = get_ui_language(parameters=document.product.parameters)
-    keywords = asdict(resource.keywords.en if lang == "en" else resource.keywords.de)
-    items = (
+    header_items = (
         resource.excel.header_items_made
         if document.product.source == 1
         else resource.excel.header_items_bought
     )
     data: List[DatumModel] = []
 
-    for index, item in enumerate(items):
-        value = None
-        name = item
-
-        # Look for catia properties.
-        # Those must be prefixed with the dollar sign, see keywords.json
-        if item.startswith("$"):
-            keyword_item = item.split("$")[-1]
-
-            # Translate the keyword item
-            if (kw_key := item.split("$")[1]) in keywords:
-                name = keywords[kw_key]
-
-            # Look for CATIA standard properties and handle them
-            if keyword_item == "partnumber":
-                value = document.product.part_number
-            elif keyword_item == "revision":
-                value = document.product.revision
-            elif keyword_item == "definition":
-                value = document.product.definition
-            elif keyword_item == "source":
-                value = translate_source(document.product.source, lang)
-            elif keyword_item == "description":
-                value = document.product.description_reference
-            elif keyword_item == "type":
-                value = translate_type(document.product.is_catpart(), lang)
-            elif keyword_item == "quantity":
-                value = str(selected_quantity)
+    for index, header_item in enumerate(header_items):
+        log.info(f"Gathering data from item {header_item!r}...")
+        value = ""
+        name = None
 
         # Look for fixed text elements
-        # With this it's possible to apply standard text to certain columns.
-        elif item.startswith("%") and "=" in item:
-            name = item.split("%")[-1].split("=")[0]
-            value = item.split("=")[-1]
+        if "=" in header_item:
+            name, value = get_fixed_text(header_item)
 
-        # Look for placeholder text
-        # Items that start with a percentage sign are only placeholder columns.
-        # This might no be needed, but it saves some time because this method doesn't
-        # need to look for an existing property.
-        elif item.startswith("%"):
-            name = item.split("%")[-1]
-            value = None
+        # Look for property elements
+        elif ":" in header_item:
+            name, value = get_property(
+                header_item=header_item,
+                document=document,
+                selected_quantity=selected_quantity,
+                selected_condition=selected_condition,
+                selected_project=selected_project,
+            )
 
-        # Look for user properties and handle them.
-        elif document.properties.exists(item):
-            if (
-                selected_condition == resource.settings.condition.mod.name
-                and item in resource.settings.condition.mod.overwrite
-            ):
-                value = resource.settings.condition.mod.overwrite[item]
-            elif item == resource.props.project:
-                value = selected_project
-            elif (
-                item == resource.props.creator
-                and resource.settings.export.apply_username
-                and resource.logon_exists(
-                    creator_logon := document.properties.get_by_name(item).value
-                )
-            ):
-                value = resource.get_user_by_logon(creator_logon).name
-            elif (
-                item == resource.props.modifier
-                and resource.settings.export.apply_username
-                and resource.logon_exists(
-                    modifier_logon := document.properties.get_by_name(item).value
-                )
-            ):
-                value = resource.get_user_by_logon(modifier_logon).name
-            else:
-                value = document.properties.get_by_name(item).value
+        # Look for placeholder columns
+        else:
+            name = header_item
 
         data.append(DatumModel(index=index, name=name, value=value))
 
     return DataModel(data)
+
+
+def get_fixed_text(header_item: str) -> tuple:
+    """
+    Returns the name and value of a fixed text from the given header name.
+    This is bound to the rules for the header_items_made and header_items_bought from
+    the excel.json (see DEFAULT_FILES.md).
+
+    Args:
+        header_item (str): The header item from which to retrieve the property name \
+            and data.
+
+    Returns:
+        tuple: The name (column name) and the fixed text for the item.
+    """
+    name, value = header_item.split("=")
+    return name, value
+
+
+def get_property(
+    header_item: str,
+    document: PyProductDocument | PyPartDocument,
+    selected_quantity: int | str,
+    selected_condition: str,
+    selected_project: str,
+) -> tuple:
+    """
+    Returns the name and value of a property from the given header name.
+    This is bound to the rules for the header_items_made and header_items_bought from
+    the excel.json (see DEFAULT_FILES.md).
+
+    Args:
+        header_item (str): The header item from which to retrieve the property name \
+            and data.
+        document (PyProductDocument | PyPartDocument): The doc from which to retrieve \
+            the data.
+        selected_quantity (int | str): The quantity from the UI.
+        selected_condition (str): The condition from the UI.
+        selected_project (str): The project from the UI.
+
+    Returns:
+        tuple: The name (column name) and the data from the property.
+    """
+    lang = get_ui_language(parameters=document.product.parameters)
+    keywords = asdict(resource.keywords.en if lang == "en" else resource.keywords.de)
+
+    name, value = header_item.split(":")
+    if value.startswith("$"):
+        keyword_item = value.split("$")[-1]
+
+        # Translate the keyword item
+        if (kw_key := value.split("$")[1]) in keywords:
+            name = keywords[kw_key]
+
+        # Look for CATIA standard properties and handle them
+        if keyword_item == "partnumber":
+            value = document.product.part_number
+        elif keyword_item == "revision":
+            value = document.product.revision
+        elif keyword_item == "definition":
+            value = document.product.definition
+        elif keyword_item == "source":
+            value = translate_source(document.product.source, lang)
+        elif keyword_item == "description":
+            value = document.product.description_reference
+        elif keyword_item == "type":
+            value = translate_type(document.product.is_catpart(), lang)
+        elif keyword_item == "quantity":
+            value = str(selected_quantity)
+
+    # Look for user properties and handle them.
+    elif document.properties.exists(value):
+        # Apply rule for overwriting data depending on the selected condition
+        if (
+            selected_condition == resource.settings.condition.mod.name
+            and value in resource.settings.condition.mod.overwrite
+        ):
+            value = resource.settings.condition.mod.overwrite[value]
+
+        # Apply the project number
+        elif value == resource.props.project:
+            value = selected_project
+
+        # Apply (translate) the username
+        elif (
+            value == resource.props.creator
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                creator_logon := document.properties.get_by_name(value).value
+            )
+        ):
+            value = resource.get_user_by_logon(creator_logon).name
+        elif (
+            value == resource.props.modifier
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                modifier_logon := document.properties.get_by_name(value).value
+            )
+        ):
+            value = resource.get_user_by_logon(modifier_logon).name
+
+        # Get the properties' value by the name
+        else:
+            value = document.properties.get_by_name(value).value
+    else:
+        value = ""
+
+    return name, value
