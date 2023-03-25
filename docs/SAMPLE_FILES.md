@@ -90,8 +90,8 @@ export.lock_drawing_views | `bool` | Whether to lock all drawing views after the
 condition.new.name | `str` | The name of the condition 'new'. This is more an option if you don't want to use english words on the docket or in the Excel file.
 condition.mod.name | `str` | The name of the condition 'modification'.
 condition.mod.overwrite | `Dict[str]` | An dict-object that holds all property names as keys and the property values as values, which are going to be overwritten when the condition is 'modification'.<br><br>Example: When the condition is 'modification', you don't want a part to have all process steps, you only want it to be milled as first process. This case is shown in the sample file.
-paths.catia | `str` | The absolute path to the CATIA executables.
-paths.release | `str` | The folder where the launcher and the app are released into.
+paths.catia | `str` | The absolute path to the CATIA executables. Environment variables will be expanded to their respective values. E.g: `%ONEDRIVE%\\CATIA\\Apps` will be resolved to `C:\\Users\\...\\OneDrive\\CATIA\\Apps`.
+paths.release | `str` | The folder where the launcher and the app are released into. Environment variables will be expanded to their respective values. E.g: `%ONEDRIVE%\\CATIA\\Apps` will be resolved to `C:\\Users\\...\\OneDrive\\CATIA\\Apps`.
 file.bom_export | `str` | The standard name for the final bill of material. If a bom_name is set in the **workspace** file, the workspace-bom-name will be used.
 files.app | `str` | The name of the released python app file.
 files.launcher | `str` | The name of the release catvbs launcher file.
