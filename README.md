@@ -1,7 +1,7 @@
 # pytia quick export
 
 ![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
-![version](https://img.shields.io/badge/Version-0.4.1-orange.svg?style=for-the-badge)
+![version](https://img.shields.io/badge/Version-0.4.2-orange.svg?style=for-the-badge)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 ![catia](https://img.shields.io/badge/CATIA-V5%206R2017-blue.svg?style=for-the-badge)
@@ -317,6 +317,7 @@ On a new revision, do the following:
 
 ## 7 changelog
 
+**v0.4.2**: Fix launcher path.  
 **v0.4.1**: Expand environment variables in path settings.  
 **v0.4.0**: Add custom header text to export.  
 **v0.3.0**: Add fixed text and placeholder to export.  
