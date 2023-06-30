@@ -1,7 +1,7 @@
 [tool.poetry]
 authors = ["Philip Delorenzo <git@deloarts.com>"]
 classifiers = ["Operating System :: Microsoft :: Windows"]
-description = ""
+description = "A tool for exporting data from a CATPart or CATProduct."
 name = "pytia-quick-export"
 readme = "README.md"
 version = "0.4.2"
