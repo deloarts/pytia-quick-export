@@ -5,14 +5,13 @@
 
 import tkinter as tk
 
+from app.layout import Layout
+from app.vars import Variables
 from helper.outlook import get_outlook
-from helper.verifier import verify_user_input
+from helper.verifier import verify_user_input_for_export, verify_user_input_for_upload
 from pytia.log import log
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from resources import resource
-
-from app.layout import Layout
-from app.vars import Variables
 
 
 class UISetter:
@@ -24,6 +23,7 @@ class UISetter:
         layout: Layout,
         variables: Variables,
         workspace: Workspace,
+        source: int,
     ) -> None:
         """Inits the UI Setter class for the main window.
 
@@ -31,11 +31,14 @@ class UISetter:
             root (tk.Tk): The main window object.
             layout (Layout): The layout of the main window.
             variables (Variables): The variables of the main window.
-        """ """"""
+            workspace (Workspace): The workspace object.
+            source (int [0, 1, 2]): The source of the document.
+        """
         self.root = root
         self.layout = layout
         self.vars = variables
         self.workspace = workspace
+        self.source = source
 
     def normal(self) -> None:
         """Sets the UI to state 'normal'."""
@@ -60,9 +63,14 @@ class UISetter:
         self.layout.button_browse_folder.configure(state=tk.NORMAL)
         self.layout.button_abort.configure(state=tk.NORMAL)
 
-        verify_user_input(
+        verify_user_input_for_export(
             variables=self.vars, layout=self.layout
         )  # This sets the export button
+        verify_user_input_for_upload(
+            variables=self.vars,
+            layout=self.layout,
+            source=self.source,
+        )  # This sets the upload button
 
         self.root.config(cursor="arrow")
         self.root.update_idletasks()
@@ -81,6 +89,7 @@ class UISetter:
         self.layout.input_folder.configure(state=tk.DISABLED)
         self.layout.button_browse_folder.configure(state=tk.DISABLED)
         self.layout.button_export.configure(state=tk.DISABLED)
+        self.layout.button_upload.configure(state=tk.DISABLED)
 
         self.root.config(cursor="arrow")
         self.root.update_idletasks()

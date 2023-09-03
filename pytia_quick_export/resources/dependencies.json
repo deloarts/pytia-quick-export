@@ -18,5 +18,10 @@
         "name": "openpyxl",
         "version": "3.0.10",
         "wheel": null
+    },
+    {
+        "name": "requests",
+        "version": "2.31.0",
+        "wheel": null
     }
 ]

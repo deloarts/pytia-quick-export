@@ -1,0 +1,32 @@
+{
+    "name": "Glados",
+    "ip": "10.0.0.1",
+    "port": 5000,
+    "api": {
+        "login": {
+            "method": "post",
+            "url": "/api/pat/v1/login/test-personal-access-token",
+            "api_header": "api_key_header",
+            "response_username_key": "full_name"
+        },
+        "bought": {
+            "create": {
+                "method": "post",
+                "url": "/api/pat/v1/items/bought",
+                "schema": {
+                    "project": "pytia.project",
+                    "machine": "pytia.machine",
+                    "quantity": "$quantity",
+                    "unit": "%STK",
+                    "partnumber": "$partnumber",
+                    "definition": "$definition",
+                    "group_1": "pytia.group",
+                    "supplier": "pytia.supplier",
+                    "manufacturer": "pytia.manufacturer",
+                    "note_general": "pytia.note_general",
+                    "note_supplier": "pytia.note_supplier"
+                }
+            }
+        }
+    }
+}

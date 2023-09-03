@@ -103,6 +103,11 @@ class LazyDocumentHelper:
         """Returns the part number of the document."""
         return self.document.product.part_number
 
+    @property
+    def source(self) -> int:
+        """Returns the source of the document."""
+        return self.document.product.source
+
     def _lock_catia(self, value: bool) -> None:
         """
         Sets the lock-state of catia.

@@ -31,6 +31,7 @@ PY_VERSION = APPDATA + "\\pyversion.txt"
 
 CONFIG_APPDATA = "config.json"
 CONFIG_SETTINGS = "settings.json"
+CONFIG_RPS = "rps.json"
 CONFIG_KEYWORDS = "keywords.json"
 CONFIG_DEPS = "dependencies.json"
 CONFIG_DEPS_DEFAULT = "dependencies.default.json"

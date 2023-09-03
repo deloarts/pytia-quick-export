@@ -23,6 +23,7 @@ settings.json
 users.json
 excel.json
 docket.json
+rps.json
 
 # Template files
 docket.CATDrawing
