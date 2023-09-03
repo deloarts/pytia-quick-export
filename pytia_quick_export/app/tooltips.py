@@ -2,14 +2,13 @@
     Tooltips submodule for the app.
 """
 
+from app.layout import Layout
+from app.vars import Variables
 from const import KEEP
 from helper.outlook import get_outlook
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.widgets.tooltips import ToolTip
 from resources import resource
-
-from app.layout import Layout
-from app.vars import Variables
 
 
 class ToolTips:
@@ -100,4 +99,18 @@ class ToolTips:
         if get_outlook() is None:
             mail_tooltip += "\n\nDisabled, because MS Outlook is not available."
         ToolTip(widget=layout.input_mail, text=mail_tooltip)
+        # endregion
+
+        # region UPLOAD
+        if resource.settings.export.enable_rps:
+            upload_tooltip = (
+                f"Upload the data of the item directly to {resource.rps.name}.\n\n"
+                "The following conditions have to be met, to enable a direct upload:\n"
+                " - The source of the document must be 'bought'\n"
+                " - A project number must be selected\n"
+                f" - The condition must be {resource.settings.condition.new.name!r}\n"
+                " - The quantity must be greater than zero\n"
+                " - Your personal access token must be setup\n"
+            )
+            ToolTip(widget=layout.button_upload, text=upload_tooltip)
         # endregion

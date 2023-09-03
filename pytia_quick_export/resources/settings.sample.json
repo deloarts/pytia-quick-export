@@ -10,7 +10,9 @@
     },
     "export": {
         "apply_username": true,
-        "lock_drawing_views": true
+        "lock_drawing_views": true,
+        "enable_rps": false,
+        "close_app_after": true
     },
     "condition": {
         "new": {

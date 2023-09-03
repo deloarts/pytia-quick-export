@@ -11,9 +11,8 @@ import json
 import os
 import tkinter.messagebox as tkmsg
 from dataclasses import asdict, dataclass, field, fields
-from json.decoder import JSONDecodeError
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from const import (
     APP_VERSION,
@@ -25,6 +24,7 @@ from const import (
     CONFIG_KEYWORDS,
     CONFIG_PROPS,
     CONFIG_PROPS_DEFAULT,
+    CONFIG_RPS,
     CONFIG_SETTINGS,
     CONFIG_USERS,
     LOGON,
@@ -48,7 +48,9 @@ class SettingsExport:
     """Dataclass for export settings."""
 
     apply_username: bool
-    lock_drawing_views: bool  # TODO: This isn't used yet
+    lock_drawing_views: bool
+    enable_rps: bool
+    close_app_after: bool
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
@@ -138,6 +140,60 @@ class Settings:  # pylint: disable=R0902
         self.paths = SettingsPaths(**dict(self.paths))  # type: ignore
         self.urls = SettingsUrls(**dict(self.urls))  # type: ignore
         self.mails = SettingsMails(**dict(self.mails))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiLogin:
+    """Dataclass for rps-api-definition-logins (rps.json)."""
+
+    method: Literal["get", "post", "put"]
+    url: str
+    api_header: str
+    response_username_key: str | None
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiPayload:
+    """Dataclass for rps-api-definition-details (rps.json)."""
+
+    method: Literal["get", "post", "put"]
+    url: str
+    schema: dict
+
+
+@dataclass(slots=True, kw_only=True)
+class RpsApiBought:
+    """Dataclass for rps-api-definition for bought items (rps.json)."""
+
+    create: RpsApiPayload
+
+    def __post_init__(self) -> None:
+        self.create = RpsApiPayload(**dict(self.create))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class RpsApi:
+    """Dataclass for rps-api-definition (rps.json)."""
+
+    login: RpsApiLogin
+    bought: RpsApiBought
+
+    def __post_init__(self) -> None:
+        self.login = RpsApiLogin(**dict(self.login))  # type: ignore
+        self.bought = RpsApiBought(**dict(self.bought))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class Rps:
+    """Dataclass for rps (rps.json)."""
+
+    name: str
+    ip: str
+    port: int
+    api: RpsApi
+
+    def __post_init__(self) -> None:
+        self.api = RpsApi(**dict(self.api))  # type: ignore
 
 
 @dataclass(slots=True, kw_only=True)
@@ -246,7 +302,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
-    save_on_apply: bool = True
+    personal_access_token: str = ""
 
     def __post_init__(self) -> None:
         self.version = (
@@ -260,6 +316,7 @@ class Resources:  # pylint: disable=R0902
 
     def __init__(self) -> None:
         self._read_settings()
+        self._read_rps()
         self._read_users()
         self._read_keywords()
         self._read_excel()
@@ -273,6 +330,11 @@ class Resources:  # pylint: disable=R0902
     def settings(self) -> Settings:
         """settings.json"""
         return self._settings
+
+    @property
+    def rps(self) -> Rps:
+        """rps.json"""
+        return self._rps
 
     @property
     def keywords(self) -> Keywords:
@@ -313,6 +375,12 @@ class Resources:  # pylint: disable=R0902
         """Reads the settings json from the resources folder."""
         with importlib.resources.open_binary("resources", CONFIG_SETTINGS) as f:
             self._settings = Settings(**json.load(f))
+
+    def _read_rps(self) -> None:
+        """Reads the rps json from the resources folder."""
+        if self._settings.export.enable_rps:
+            with importlib.resources.open_binary("resources", CONFIG_RPS) as f:
+                self._rps = Rps(**json.load(f))
 
     def _read_keywords(self) -> None:
         """Reads the keywords json from the resources folder."""
@@ -355,7 +423,7 @@ class Resources:  # pylint: disable=R0902
             with open(appdata_file, "r", encoding="utf8") as f:
                 try:
                     value = AppData(**json.load(f))
-                except JSONDecodeError:
+                except Exception:
                     value = AppData()
                     tkmsg.showwarning(
                         title="Configuration warning",

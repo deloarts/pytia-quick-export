@@ -268,8 +268,14 @@ class Layout:
         )
         self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky="e")
 
+        self._btn_upload = ttk.Button(
+            frames.footer, text="Upload", style="Footer.TButton", state=DISABLED
+        )
+        if resource.settings.export.enable_rps:
+            self._btn_upload.grid(row=0, column=2, padx=(5, 2), pady=0, sticky="e")
+
         self._btn_abort = ttk.Button(frames.footer, text="Exit", style="Footer.TButton")
-        self._btn_abort.grid(row=0, column=2, padx=(2, 0), pady=0, sticky="e")
+        self._btn_abort.grid(row=0, column=3, padx=(2, 0), pady=0, sticky="e")
 
     @property
     def input_project(self) -> ttk.Combobox:
@@ -310,6 +316,10 @@ class Layout:
     @property
     def button_export(self) -> ttk.Button:
         return self._btn_export
+
+    @property
+    def button_upload(self) -> ttk.Button:
+        return self._btn_upload
 
     @property
     def button_abort(self) -> ttk.Button:

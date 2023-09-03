@@ -6,6 +6,18 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import font, ttk
 
+from app.callbacks import Callbacks
+from app.controller import Controller
+from app.frames import Frames
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.tooltips import ToolTips
+from app.traces import Traces
+from app.vars import Variables
+from const import APP_VERSION, LOG, LOGS
+from helper.lazy_loaders import LazyDocumentHelper
+from helper.messages import show_help
+from helper.rps import Rps
 from pytia.exceptions import (
     PytiaBodyEmptyError,
     PytiaDifferentDocumentError,
@@ -19,18 +31,6 @@ from pytia_ui_tools.handlers.error_handler import ErrorHandler
 from pytia_ui_tools.handlers.mail_handler import MailHandler
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.window_manager import WindowManager
-
-from app.callbacks import Callbacks
-from app.controller import Controller
-from app.frames import Frames
-from app.layout import Layout
-from app.state_setter import UISetter
-from app.tooltips import ToolTips
-from app.traces import Traces
-from app.vars import Variables
-from const import APP_VERSION, LOG, LOGS
-from helper.lazy_loaders import LazyDocumentHelper
-from helper.messages import show_help
 from resources import resource
 
 
@@ -38,7 +38,7 @@ class GUI(tk.Tk):
     """The user interface of the app."""
 
     WIDTH = 350
-    HEIGHT = 400
+    HEIGHT = 430
 
     def __init__(self) -> None:
         """Inits the main window."""
@@ -128,7 +128,11 @@ class GUI(tk.Tk):
             self.title(f"{self.title()}  -  {ws_title} (Workspace)")
 
         self.set_ui = UISetter(
-            root=self, layout=self.layout, variables=self.vars, workspace=self.workspace
+            root=self,
+            layout=self.layout,
+            variables=self.vars,
+            workspace=self.workspace,
+            source=self.doc_helper.source,
         )
 
         controller = Controller(
@@ -150,6 +154,7 @@ class GUI(tk.Tk):
         """Key bindings."""
         self.bind("<Escape>", lambda _: self.destroy())
         self.bind("<F1>", lambda _: show_help())
+        self.bind("<F6>", lambda _: Rps.setup_personal_access_token(self))
         # FIXME: There is a bug on the middle mouse button, where, when the button is clicked,
         # selected text will be inserted into a widget, when the cursor hovers above the widget.
         # I can't find the source of the bug, this is a to do.
@@ -173,6 +178,7 @@ class GUI(tk.Tk):
             variables=self.vars,
             state_setter=self.set_ui,
             layout=self.layout,
+            source=self.doc_helper.source,
         )
 
     def tooltips(self) -> None:

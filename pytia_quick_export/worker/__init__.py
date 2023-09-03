@@ -16,6 +16,7 @@ from app.vars import Variables
 from const import KEEP, TEMP_ATTACHMENTS, TEMP_EXPORT
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.names import get_data_export_name
+from helper.translators import translate_project
 from models.data import DataModel
 from pytia.log import log
 from pytia.utilities.docket import DocketConfig
@@ -54,12 +55,8 @@ class Worker:
 
         self.data: DataModel
 
-        self.project = (
-            self.doc_helper.document.properties.get_by_name(
-                resource.props.project
-            ).value
-            if self.variables.project.get() == KEEP
-            else self.variables.project.get()
+        self.project = translate_project(
+            project=self.variables.project, doc_helper=self.doc_helper
         )
         self.machine = self.doc_helper.document.properties.get_by_name(
             resource.props.machine
@@ -108,15 +105,20 @@ class Worker:
         """Runs all tasks."""
         os.makedirs(self.export_folder)
         self.runner.run_tasks()
+
         tkmsg.showinfo(
             title=resource.settings.title, message="Export completed successfully."
         )
-        self.ui_setter.normal()
+
+        if resource.settings.export.close_app_after:
+            self.main_ui.after(200, self.main_ui.destroy)
+        else:
+            self.ui_setter.normal()
 
     def _collect_data(self) -> None:
         """Retrieves the data from the document."""
         self.data = collect_data(
-            document=self.doc_helper.document,
+            doc_helper=self.doc_helper,
             selected_quantity=self.variables.quantity.get(),
             selected_condition=self.variables.condition.get(),
             selected_project=self.project,
