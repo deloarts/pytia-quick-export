@@ -28,6 +28,7 @@
 </summary>
 <pre><code class="python">import os
 from tkinter import DISABLED, NORMAL
+from tkinter import messagebox as tkmsg
 
 import validators
 from app.layout import Layout
@@ -35,7 +36,7 @@ from app.vars import Variables
 from resources import resource
 
 
-def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
+def verify_user_input_for_export(variables: Variables, layout: Layout) -&gt; None:
     &#34;&#34;&#34;
     Verifies the user input and sets the export button accordingly.
 
@@ -65,7 +66,32 @@ def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
     ):
         layout.button_export.configure(state=NORMAL)
     else:
-        layout.button_export.configure(state=DISABLED)</code></pre>
+        layout.button_export.configure(state=DISABLED)
+
+
+def verify_user_input_for_upload(
+    variables: Variables, layout: Layout, source: int
+) -&gt; None:
+    &#34;&#34;&#34;
+    Verifies the user input and sets the upload button accordingly.
+
+    Args:
+        variables (Variables): The main UIs variables.
+        layout (Layout): The layout of the main UI.
+        source (int [0, 1, 2]): The source of the document.
+    &#34;&#34;&#34;
+    if all(
+        [
+            resource.settings.export.enable_rps,
+            len(variables.project.get()) &gt; 0,
+            variables.condition.get() == resource.settings.condition.new.name,
+            int(variables.quantity.get()) &gt; 0,
+            source == 2,
+        ]
+    ):
+        layout.button_upload.configure(state=NORMAL)
+    else:
+        layout.button_upload.configure(state=DISABLED)</code></pre>
 </details>
 </section>
 <section>
@@ -75,8 +101,8 @@ def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pytia_quick_export.helper.verifier.verify_user_input"><code class="name flex">
-<span>def <span class="ident">verify_user_input</span></span>(<span>variables: app.vars.Variables, layout: app.layout.Layout) ‑> None</span>
+<dt id="pytia_quick_export.helper.verifier.verify_user_input_for_export"><code class="name flex">
+<span>def <span class="ident">verify_user_input_for_export</span></span>(<span>variables: app.vars.Variables, layout: app.layout.Layout) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Verifies the user input and sets the export button accordingly.</p>
@@ -91,7 +117,7 @@ def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
+<pre><code class="python">def verify_user_input_for_export(variables: Variables, layout: Layout) -&gt; None:
     &#34;&#34;&#34;
     Verifies the user input and sets the export button accordingly.
 
@@ -124,6 +150,49 @@ def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
         layout.button_export.configure(state=DISABLED)</code></pre>
 </details>
 </dd>
+<dt id="pytia_quick_export.helper.verifier.verify_user_input_for_upload"><code class="name flex">
+<span>def <span class="ident">verify_user_input_for_upload</span></span>(<span>variables: app.vars.Variables, layout: app.layout.Layout, source: int) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Verifies the user input and sets the upload button accordingly.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>variables</code></strong> :&ensp;<code>Variables</code></dt>
+<dd>The main UIs variables.</dd>
+<dt><strong><code>layout</code></strong> :&ensp;<code>Layout</code></dt>
+<dd>The layout of the main UI.</dd>
+<dt><strong><code>source</code></strong> :&ensp;<code>int [0, 1, 2]</code></dt>
+<dd>The source of the document.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def verify_user_input_for_upload(
+    variables: Variables, layout: Layout, source: int
+) -&gt; None:
+    &#34;&#34;&#34;
+    Verifies the user input and sets the upload button accordingly.
+
+    Args:
+        variables (Variables): The main UIs variables.
+        layout (Layout): The layout of the main UI.
+        source (int [0, 1, 2]): The source of the document.
+    &#34;&#34;&#34;
+    if all(
+        [
+            resource.settings.export.enable_rps,
+            len(variables.project.get()) &gt; 0,
+            variables.condition.get() == resource.settings.condition.new.name,
+            int(variables.quantity.get()) &gt; 0,
+            source == 2,
+        ]
+    ):
+        layout.button_upload.configure(state=NORMAL)
+    else:
+        layout.button_upload.configure(state=DISABLED)</code></pre>
+</details>
+</dd>
 </dl>
 </section>
 <section>
@@ -142,7 +211,8 @@ def verify_user_input(variables: Variables, layout: Layout) -&gt; None:
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="pytia_quick_export.helper.verifier.verify_user_input" href="#pytia_quick_export.helper.verifier.verify_user_input">verify_user_input</a></code></li>
+<li><code><a title="pytia_quick_export.helper.verifier.verify_user_input_for_export" href="#pytia_quick_export.helper.verifier.verify_user_input_for_export">verify_user_input_for_export</a></code></li>
+<li><code><a title="pytia_quick_export.helper.verifier.verify_user_input_for_upload" href="#pytia_quick_export.helper.verifier.verify_user_input_for_upload">verify_user_input_for_upload</a></code></li>
 </ul>
 </li>
 </ul>

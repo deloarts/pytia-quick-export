@@ -5,17 +5,17 @@
 from pathlib import Path, WindowsPath
 from tkinter import Tk, filedialog
 
+from app.frames import Frames
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.vars import Variables
 from helper.lazy_loaders import LazyDocumentHelper
+from helper.rps import Rps
 from pytia.log import log
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.helper.values import add_current_value_to_combobox_list
 from resources import resource
 from worker import Worker
-
-from app.frames import Frames
-from app.layout import Layout
-from app.state_setter import UISetter
-from app.vars import Variables
 
 
 class Callbacks:
@@ -62,6 +62,7 @@ class Callbacks:
         self.layout.button_decrease_qty.configure(command=self.on_btn_decrease_qty)
         self.layout.button_browse_folder.configure(command=self.on_btn_export_folder)
         self.layout.button_export.configure(command=self.on_btn_export)
+        self.layout.button_upload.configure(command=self.on_btn_upload)
         self.layout.button_abort.configure(command=self.on_btn_abort)
 
     def _bind_widget_callbacks(self) -> None:
@@ -95,7 +96,7 @@ class Callbacks:
         Event handler for the Export button. Verifies the user input and saves the changes to the
         documents properties.
         """
-        log.info("Callback for button 'Save'.")
+        log.info("Callback for button 'Export'.")
         self.set_ui.working()
         worker = Worker(
             main_ui=self.root,
@@ -106,6 +107,21 @@ class Callbacks:
             frames=self.frames,
         )
         self.root.after(100, worker.run)
+
+    def on_btn_upload(self) -> None:
+        """
+        Event handler for the Upload button. Verifies the user input and saves the changes to the
+        documents properties.
+        """
+        log.info("Callback for button 'Upload'.")
+        self.set_ui.working()
+        rps = Rps(
+            main_ui=self.root,
+            ui_setter=self.set_ui,
+            doc_helper=self.doc_helper,
+            variables=self.vars,
+        )
+        self.root.after(100, rps.upload_bought_item)
 
     def on_btn_abort(self) -> None:
         """Callback function for the abort button. Closes the app."""

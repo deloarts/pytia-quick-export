@@ -26,7 +26,9 @@ This file contains the basic settings for the app.
     },
     "export": {
         "apply_username": true,
-        "lock_drawing_views": true
+        "lock_drawing_views": true,
+        "enable_rps": false,
+        "close_app_after": true
     },
     "condition": {
         "new": {
@@ -87,6 +89,8 @@ restrictions.allow_outside_workspace | `bool` | If set to `false` a **workspace*
 restrictions.strict_project | `bool` | If set to `true` the project number must be present in the **workspace** file, otherwise the changes to the properties cannot be saved. If no workspace file is found, or no **projects** list-item is inside the workspace file, then this is omitted, and any project number can be written to the documents properties.
 export.apply_username | `bool` | Whether to translate the username or not.
 export.lock_drawing_views | `bool` | Whether to lock all drawing views after the export or not.
+export.enable_rps | `bool` | Whether to use the RPS upload feature. Warning: This feature is in a very early stage and may not work properly.
+export.close_app_after | `bool` | Whether to terminate the app after the export or the upload.
 condition.new.name | `str` | The name of the condition 'new'. This is more an option if you don't want to use english words on the docket or in the Excel file.
 condition.mod.name | `str` | The name of the condition 'modification'.
 condition.mod.overwrite | `Dict[str]` | An dict-object that holds all property names as keys and the property values as values, which are going to be overwritten when the condition is 'modification'.<br><br>Example: When the condition is 'modification', you don't want a part to have all process steps, you only want it to be milled as first process. This case is shown in the sample file.
@@ -147,5 +151,16 @@ Note: Currently the following arg-values are available:
 - modifier
 - publisher
 
-- **Location**: [/pytia_quick_export/resources/docket.sample.json](../pytia_quick_export/resources/users.sample.json)
+- **Location**: [/pytia_quick_export/resources/docket.sample.json](../pytia_quick_export/resources/docket.sample.json)
 - **Rename to**: `docket.json`
+
+## 4 rps.sample.json
+
+This file contains the configuration for the rps upload feature.
+
+> ⚠️ This feature is in a very early stage and thus only works very limited. A detailed documentation will follow later.
+> 
+> ✏️ It is NOT necessary to use this config file if the `settings.json/export.enable_rps` value is set to `false`. This way you can disable this feature entirely and you don't have to setup the rps details.
+
+- **Location**: [/pytia_quick_export/resources/rps.sample.json](../pytia_quick_export/resources/rps.sample.json)
+- **Rename to**: `rps.json`

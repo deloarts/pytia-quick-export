@@ -297,8 +297,14 @@ class Layout:
         )
         self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
 
+        self._btn_upload = ttk.Button(
+            frames.footer, text=&#34;Upload&#34;, style=&#34;Footer.TButton&#34;, state=DISABLED
+        )
+        if resource.settings.export.enable_rps:
+            self._btn_upload.grid(row=0, column=2, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
+
         self._btn_abort = ttk.Button(frames.footer, text=&#34;Exit&#34;, style=&#34;Footer.TButton&#34;)
-        self._btn_abort.grid(row=0, column=2, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
+        self._btn_abort.grid(row=0, column=3, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
 
     @property
     def input_project(self) -&gt; ttk.Combobox:
@@ -339,6 +345,10 @@ class Layout:
     @property
     def button_export(self) -&gt; ttk.Button:
         return self._btn_export
+
+    @property
+    def button_upload(self) -&gt; ttk.Button:
+        return self._btn_upload
 
     @property
     def button_abort(self) -&gt; ttk.Button:
@@ -636,8 +646,14 @@ class Layout:
         )
         self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
 
+        self._btn_upload = ttk.Button(
+            frames.footer, text=&#34;Upload&#34;, style=&#34;Footer.TButton&#34;, state=DISABLED
+        )
+        if resource.settings.export.enable_rps:
+            self._btn_upload.grid(row=0, column=2, padx=(5, 2), pady=0, sticky=&#34;e&#34;)
+
         self._btn_abort = ttk.Button(frames.footer, text=&#34;Exit&#34;, style=&#34;Footer.TButton&#34;)
-        self._btn_abort.grid(row=0, column=2, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
+        self._btn_abort.grid(row=0, column=3, padx=(2, 0), pady=0, sticky=&#34;e&#34;)
 
     @property
     def input_project(self) -&gt; ttk.Combobox:
@@ -678,6 +694,10 @@ class Layout:
     @property
     def button_export(self) -&gt; ttk.Button:
         return self._btn_export
+
+    @property
+    def button_upload(self) -&gt; ttk.Button:
+        return self._btn_upload
 
     @property
     def button_abort(self) -&gt; ttk.Button:
@@ -758,6 +778,18 @@ def button_export(self) -&gt; ttk.Button:
 <pre><code class="python">@property
 def button_increase_qty(self) -&gt; ttk.Button:
     return self._btn_qty_increase</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.app.layout.Layout.button_upload"><code class="name">var <span class="ident">button_upload</span> : tkinter.ttk.Button</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def button_upload(self) -&gt; ttk.Button:
+    return self._btn_upload</code></pre>
 </details>
 </dd>
 <dt id="pytia_quick_export.app.layout.Layout.help_note"><code class="name">var <span class="ident">help_note</span> : tkinter.ttk.Label</code></dt>
@@ -872,6 +904,7 @@ def input_quantity(self) -&gt; NumberEntry:
 <li><code><a title="pytia_quick_export.app.layout.Layout.button_decrease_qty" href="#pytia_quick_export.app.layout.Layout.button_decrease_qty">button_decrease_qty</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.button_export" href="#pytia_quick_export.app.layout.Layout.button_export">button_export</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.button_increase_qty" href="#pytia_quick_export.app.layout.Layout.button_increase_qty">button_increase_qty</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.button_upload" href="#pytia_quick_export.app.layout.Layout.button_upload">button_upload</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.help_note" href="#pytia_quick_export.app.layout.Layout.help_note">help_note</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.input_condition" href="#pytia_quick_export.app.layout.Layout.input_condition">input_condition</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.input_folder" href="#pytia_quick_export.app.layout.Layout.input_folder">input_folder</a></code></li>

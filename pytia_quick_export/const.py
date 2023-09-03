@@ -5,7 +5,7 @@
 import os
 from pathlib import Path
 
-__version__ = "0.4.2"
+__version__ = "0.5.0"
 
 PYTIA = "pytia"
 PYTIA_QUICK_EXPORT = "pytia_quick_export"
@@ -31,6 +31,7 @@ PY_VERSION = APPDATA + "\\pyversion.txt"
 
 CONFIG_APPDATA = "config.json"
 CONFIG_SETTINGS = "settings.json"
+CONFIG_RPS = "rps.json"
 CONFIG_KEYWORDS = "keywords.json"
 CONFIG_DEPS = "dependencies.json"
 CONFIG_DEPS_DEFAULT = "dependencies.default.json"

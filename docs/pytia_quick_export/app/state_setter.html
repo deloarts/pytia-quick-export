@@ -36,14 +36,13 @@ The UI is mainly managed by the 'source' of the document.</p>
 
 import tkinter as tk
 
+from app.layout import Layout
+from app.vars import Variables
 from helper.outlook import get_outlook
-from helper.verifier import verify_user_input
+from helper.verifier import verify_user_input_for_export, verify_user_input_for_upload
 from pytia.log import log
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from resources import resource
-
-from app.layout import Layout
-from app.vars import Variables
 
 
 class UISetter:
@@ -55,6 +54,7 @@ class UISetter:
         layout: Layout,
         variables: Variables,
         workspace: Workspace,
+        source: int,
     ) -&gt; None:
         &#34;&#34;&#34;Inits the UI Setter class for the main window.
 
@@ -62,11 +62,14 @@ class UISetter:
             root (tk.Tk): The main window object.
             layout (Layout): The layout of the main window.
             variables (Variables): The variables of the main window.
-        &#34;&#34;&#34; &#34;&#34;&#34;&#34;&#34;&#34;
+            workspace (Workspace): The workspace object.
+            source (int [0, 1, 2]): The source of the document.
+        &#34;&#34;&#34;
         self.root = root
         self.layout = layout
         self.vars = variables
         self.workspace = workspace
+        self.source = source
 
     def normal(self) -&gt; None:
         &#34;&#34;&#34;Sets the UI to state &#39;normal&#39;.&#34;&#34;&#34;
@@ -91,9 +94,14 @@ class UISetter:
         self.layout.button_browse_folder.configure(state=tk.NORMAL)
         self.layout.button_abort.configure(state=tk.NORMAL)
 
-        verify_user_input(
+        verify_user_input_for_export(
             variables=self.vars, layout=self.layout
         )  # This sets the export button
+        verify_user_input_for_upload(
+            variables=self.vars,
+            layout=self.layout,
+            source=self.source,
+        )  # This sets the upload button
 
         self.root.config(cursor=&#34;arrow&#34;)
         self.root.update_idletasks()
@@ -112,6 +120,7 @@ class UISetter:
         self.layout.input_folder.configure(state=tk.DISABLED)
         self.layout.button_browse_folder.configure(state=tk.DISABLED)
         self.layout.button_export.configure(state=tk.DISABLED)
+        self.layout.button_upload.configure(state=tk.DISABLED)
 
         self.root.config(cursor=&#34;arrow&#34;)
         self.root.update_idletasks()
@@ -137,7 +146,7 @@ class UISetter:
 <dl>
 <dt id="pytia_quick_export.app.state_setter.UISetter"><code class="flex name class">
 <span>class <span class="ident">UISetter</span></span>
-<span>(</span><span>root: tkinter.Tk, layout: app.layout.Layout, variables: app.vars.Variables, workspace: pytia_ui_tools.handlers.workspace_handler.Workspace)</span>
+<span>(</span><span>root: tkinter.Tk, layout: app.layout.Layout, variables: app.vars.Variables, workspace: pytia_ui_tools.handlers.workspace_handler.Workspace, source: int)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>UI Setter class for the main window.</p>
@@ -150,6 +159,10 @@ class UISetter:
 <dd>The layout of the main window.</dd>
 <dt><strong><code>variables</code></strong> :&ensp;<code>Variables</code></dt>
 <dd>The variables of the main window.</dd>
+<dt><strong><code>workspace</code></strong> :&ensp;<code>Workspace</code></dt>
+<dd>The workspace object.</dd>
+<dt><strong><code>source</code></strong> :&ensp;<code>int [0, 1, 2]</code></dt>
+<dd>The source of the document.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -164,6 +177,7 @@ class UISetter:
         layout: Layout,
         variables: Variables,
         workspace: Workspace,
+        source: int,
     ) -&gt; None:
         &#34;&#34;&#34;Inits the UI Setter class for the main window.
 
@@ -171,11 +185,14 @@ class UISetter:
             root (tk.Tk): The main window object.
             layout (Layout): The layout of the main window.
             variables (Variables): The variables of the main window.
-        &#34;&#34;&#34; &#34;&#34;&#34;&#34;&#34;&#34;
+            workspace (Workspace): The workspace object.
+            source (int [0, 1, 2]): The source of the document.
+        &#34;&#34;&#34;
         self.root = root
         self.layout = layout
         self.vars = variables
         self.workspace = workspace
+        self.source = source
 
     def normal(self) -&gt; None:
         &#34;&#34;&#34;Sets the UI to state &#39;normal&#39;.&#34;&#34;&#34;
@@ -200,9 +217,14 @@ class UISetter:
         self.layout.button_browse_folder.configure(state=tk.NORMAL)
         self.layout.button_abort.configure(state=tk.NORMAL)
 
-        verify_user_input(
+        verify_user_input_for_export(
             variables=self.vars, layout=self.layout
         )  # This sets the export button
+        verify_user_input_for_upload(
+            variables=self.vars,
+            layout=self.layout,
+            source=self.source,
+        )  # This sets the upload button
 
         self.root.config(cursor=&#34;arrow&#34;)
         self.root.update_idletasks()
@@ -221,6 +243,7 @@ class UISetter:
         self.layout.input_folder.configure(state=tk.DISABLED)
         self.layout.button_browse_folder.configure(state=tk.DISABLED)
         self.layout.button_export.configure(state=tk.DISABLED)
+        self.layout.button_upload.configure(state=tk.DISABLED)
 
         self.root.config(cursor=&#34;arrow&#34;)
         self.root.update_idletasks()
@@ -259,6 +282,7 @@ class UISetter:
     self.layout.input_folder.configure(state=tk.DISABLED)
     self.layout.button_browse_folder.configure(state=tk.DISABLED)
     self.layout.button_export.configure(state=tk.DISABLED)
+    self.layout.button_upload.configure(state=tk.DISABLED)
 
     self.root.config(cursor=&#34;arrow&#34;)
     self.root.update_idletasks()</code></pre>
@@ -296,9 +320,14 @@ class UISetter:
     self.layout.button_browse_folder.configure(state=tk.NORMAL)
     self.layout.button_abort.configure(state=tk.NORMAL)
 
-    verify_user_input(
+    verify_user_input_for_export(
         variables=self.vars, layout=self.layout
     )  # This sets the export button
+    verify_user_input_for_upload(
+        variables=self.vars,
+        layout=self.layout,
+        source=self.source,
+    )  # This sets the upload button
 
     self.root.config(cursor=&#34;arrow&#34;)
     self.root.update_idletasks()</code></pre>

@@ -3,19 +3,20 @@
 """
 
 from dataclasses import asdict
-from typing import List, Literal
+from typing import List
 
 from helper.language import get_ui_language
-from helper.translators import translate_source, translate_type
+from helper.lazy_loaders import LazyDocumentHelper
+from helper.translators import (
+    translate_property_value,
+)
 from models.data import DataModel, DatumModel
 from pytia.log import log
-from pytia.wrapper.documents.part_documents import PyPartDocument
-from pytia.wrapper.documents.product_documents import PyProductDocument
 from resources import resource
 
 
 def collect_data(
-    document: PyProductDocument | PyPartDocument,
+    doc_helper: LazyDocumentHelper,
     selected_quantity: int | str,
     selected_condition: str,
     selected_project: str,
@@ -33,7 +34,8 @@ def collect_data(
         the documents project-property won't be changed)
 
     Args:
-        document (PyProductDocument | PyPartDocument): The doc from which to retrieve the data.
+        doc_helper (LazyDocumentHelper): The doc helper instance from which to \
+            retrieve the data.
         selected_quantity (int | str): The quantity from the UI.
         selected_condition (str): The condition from the UI.
         selected_project (str): The project from the UI.
@@ -43,7 +45,7 @@ def collect_data(
     """
     header_items = (
         resource.excel.header_items_made
-        if document.product.source == 1
+        if doc_helper.source == 1
         else resource.excel.header_items_bought
     )
     data: List[DatumModel] = []
@@ -61,7 +63,7 @@ def collect_data(
         elif ":" in header_item:
             name, value = get_property(
                 header_item=header_item,
-                document=document,
+                doc_helper=doc_helper,
                 selected_quantity=selected_quantity,
                 selected_condition=selected_condition,
                 selected_project=selected_project,
@@ -95,7 +97,7 @@ def get_fixed_text(header_item: str) -> tuple:
 
 def get_property(
     header_item: str,
-    document: PyProductDocument | PyPartDocument,
+    doc_helper: LazyDocumentHelper,
     selected_quantity: int | str,
     selected_condition: str,
     selected_project: str,
@@ -108,8 +110,8 @@ def get_property(
     Args:
         header_item (str): The header item from which to retrieve the property name \
             and data.
-        document (PyProductDocument | PyPartDocument): The doc from which to retrieve \
-            the data.
+        doc_helper (LazyDocumentHelper): The doc helper instance from which to \
+            retrieve the data.
         selected_quantity (int | str): The quantity from the UI.
         selected_condition (str): The condition from the UI.
         selected_project (str): The project from the UI.
@@ -117,68 +119,22 @@ def get_property(
     Returns:
         tuple: The name (column name) and the data from the property.
     """
-    lang = get_ui_language(parameters=document.product.parameters)
+    lang = get_ui_language(parameters=doc_helper.document.product.parameters)
     keywords = asdict(resource.keywords.en if lang == "en" else resource.keywords.de)
 
     name, value = header_item.split(":")
-    if value.startswith("$"):
-        keyword_item = value.split("$")[-1]
 
-        # Translate the keyword item
-        if (kw_key := value.split("$")[1]) in keywords:
-            name = keywords[kw_key]
+    # Translate name, if keyword
+    if value.startswith("$") and (kw_key := value.split("$")[1]) in keywords:
+        name = keywords[kw_key]
 
-        # Look for CATIA standard properties and handle them
-        if keyword_item == "partnumber":
-            value = document.product.part_number
-        elif keyword_item == "revision":
-            value = document.product.revision
-        elif keyword_item == "definition":
-            value = document.product.definition
-        elif keyword_item == "source":
-            value = translate_source(document.product.source, lang)
-        elif keyword_item == "description":
-            value = document.product.description_reference
-        elif keyword_item == "type":
-            value = translate_type(document.product.is_catpart(), lang)
-        elif keyword_item == "quantity":
-            value = str(selected_quantity)
-
-    # Look for user properties and handle them.
-    elif document.properties.exists(value):
-        # Apply rule for overwriting data depending on the selected condition
-        if (
-            selected_condition == resource.settings.condition.mod.name
-            and value in resource.settings.condition.mod.overwrite
-        ):
-            value = resource.settings.condition.mod.overwrite[value]
-
-        # Apply the project number
-        elif value == resource.props.project:
-            value = selected_project
-
-        # Apply (translate) the username
-        elif (
-            value == resource.props.creator
-            and resource.settings.export.apply_username
-            and resource.logon_exists(
-                creator_logon := document.properties.get_by_name(value).value
-            )
-        ):
-            value = resource.get_user_by_logon(creator_logon).name
-        elif (
-            value == resource.props.modifier
-            and resource.settings.export.apply_username
-            and resource.logon_exists(
-                modifier_logon := document.properties.get_by_name(value).value
-            )
-        ):
-            value = resource.get_user_by_logon(modifier_logon).name
-
-        # Get the properties' value by the name
-        else:
-            value = document.properties.get_by_name(value).value
-    else:
-        value = ""
+    # Translate the value
+    value = translate_property_value(
+        value=value,
+        selected_quantity=selected_quantity,
+        selected_condition=selected_condition,
+        selected_project=selected_project,
+        doc_helper=doc_helper,
+    )
 
     return name, value
