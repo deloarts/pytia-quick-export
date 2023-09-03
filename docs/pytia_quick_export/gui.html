@@ -35,6 +35,18 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import font, ttk
 
+from app.callbacks import Callbacks
+from app.controller import Controller
+from app.frames import Frames
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.tooltips import ToolTips
+from app.traces import Traces
+from app.vars import Variables
+from const import APP_VERSION, LOG, LOGS
+from helper.lazy_loaders import LazyDocumentHelper
+from helper.messages import show_help
+from helper.rps import Rps
 from pytia.exceptions import (
     PytiaBodyEmptyError,
     PytiaDifferentDocumentError,
@@ -48,18 +60,6 @@ from pytia_ui_tools.handlers.error_handler import ErrorHandler
 from pytia_ui_tools.handlers.mail_handler import MailHandler
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.window_manager import WindowManager
-
-from app.callbacks import Callbacks
-from app.controller import Controller
-from app.frames import Frames
-from app.layout import Layout
-from app.state_setter import UISetter
-from app.tooltips import ToolTips
-from app.traces import Traces
-from app.vars import Variables
-from const import APP_VERSION, LOG, LOGS
-from helper.lazy_loaders import LazyDocumentHelper
-from helper.messages import show_help
 from resources import resource
 
 
@@ -67,7 +67,7 @@ class GUI(tk.Tk):
     &#34;&#34;&#34;The user interface of the app.&#34;&#34;&#34;
 
     WIDTH = 350
-    HEIGHT = 400
+    HEIGHT = 430
 
     def __init__(self) -&gt; None:
         &#34;&#34;&#34;Inits the main window.&#34;&#34;&#34;
@@ -157,7 +157,11 @@ class GUI(tk.Tk):
             self.title(f&#34;{self.title()}  -  {ws_title} (Workspace)&#34;)
 
         self.set_ui = UISetter(
-            root=self, layout=self.layout, variables=self.vars, workspace=self.workspace
+            root=self,
+            layout=self.layout,
+            variables=self.vars,
+            workspace=self.workspace,
+            source=self.doc_helper.source,
         )
 
         controller = Controller(
@@ -179,6 +183,7 @@ class GUI(tk.Tk):
         &#34;&#34;&#34;Key bindings.&#34;&#34;&#34;
         self.bind(&#34;&lt;Escape&gt;&#34;, lambda _: self.destroy())
         self.bind(&#34;&lt;F1&gt;&#34;, lambda _: show_help())
+        self.bind(&#34;&lt;F6&gt;&#34;, lambda _: Rps.setup_personal_access_token(self))
         # FIXME: There is a bug on the middle mouse button, where, when the button is clicked,
         # selected text will be inserted into a widget, when the cursor hovers above the widget.
         # I can&#39;t find the source of the bug, this is a to do.
@@ -202,6 +207,7 @@ class GUI(tk.Tk):
             variables=self.vars,
             state_setter=self.set_ui,
             layout=self.layout,
+            source=self.doc_helper.source,
         )
 
     def tooltips(self) -&gt; None:
@@ -232,7 +238,7 @@ class GUI(tk.Tk):
     &#34;&#34;&#34;The user interface of the app.&#34;&#34;&#34;
 
     WIDTH = 350
-    HEIGHT = 400
+    HEIGHT = 430
 
     def __init__(self) -&gt; None:
         &#34;&#34;&#34;Inits the main window.&#34;&#34;&#34;
@@ -322,7 +328,11 @@ class GUI(tk.Tk):
             self.title(f&#34;{self.title()}  -  {ws_title} (Workspace)&#34;)
 
         self.set_ui = UISetter(
-            root=self, layout=self.layout, variables=self.vars, workspace=self.workspace
+            root=self,
+            layout=self.layout,
+            variables=self.vars,
+            workspace=self.workspace,
+            source=self.doc_helper.source,
         )
 
         controller = Controller(
@@ -344,6 +354,7 @@ class GUI(tk.Tk):
         &#34;&#34;&#34;Key bindings.&#34;&#34;&#34;
         self.bind(&#34;&lt;Escape&gt;&#34;, lambda _: self.destroy())
         self.bind(&#34;&lt;F1&gt;&#34;, lambda _: show_help())
+        self.bind(&#34;&lt;F6&gt;&#34;, lambda _: Rps.setup_personal_access_token(self))
         # FIXME: There is a bug on the middle mouse button, where, when the button is clicked,
         # selected text will be inserted into a widget, when the cursor hovers above the widget.
         # I can&#39;t find the source of the bug, this is a to do.
@@ -367,6 +378,7 @@ class GUI(tk.Tk):
             variables=self.vars,
             state_setter=self.set_ui,
             layout=self.layout,
+            source=self.doc_helper.source,
         )
 
     def tooltips(self) -&gt; None:
@@ -405,6 +417,7 @@ class GUI(tk.Tk):
     &#34;&#34;&#34;Key bindings.&#34;&#34;&#34;
     self.bind(&#34;&lt;Escape&gt;&#34;, lambda _: self.destroy())
     self.bind(&#34;&lt;F1&gt;&#34;, lambda _: show_help())
+    self.bind(&#34;&lt;F6&gt;&#34;, lambda _: Rps.setup_personal_access_token(self))
     # FIXME: There is a bug on the middle mouse button, where, when the button is clicked,
     # selected text will be inserted into a widget, when the cursor hovers above the widget.
     # I can&#39;t find the source of the bug, this is a to do.
@@ -477,6 +490,7 @@ class GUI(tk.Tk):
         variables=self.vars,
         state_setter=self.set_ui,
         layout=self.layout,
+        source=self.doc_helper.source,
     )</code></pre>
 </details>
 </dd>

@@ -132,6 +132,11 @@ class LazyDocumentHelper:
         &#34;&#34;&#34;Returns the part number of the document.&#34;&#34;&#34;
         return self.document.product.part_number
 
+    @property
+    def source(self) -&gt; int:
+        &#34;&#34;&#34;Returns the source of the document.&#34;&#34;&#34;
+        return self.document.product.source
+
     def _lock_catia(self, value: bool) -&gt; None:
         &#34;&#34;&#34;
         Sets the lock-state of catia.
@@ -259,6 +264,11 @@ document changes all operations will be made on the original document.</p>
         &#34;&#34;&#34;Returns the part number of the document.&#34;&#34;&#34;
         return self.document.product.part_number
 
+    @property
+    def source(self) -&gt; int:
+        &#34;&#34;&#34;Returns the source of the document.&#34;&#34;&#34;
+        return self.document.product.source
+
     def _lock_catia(self, value: bool) -&gt; None:
         &#34;&#34;&#34;
         Sets the lock-state of catia.
@@ -317,6 +327,19 @@ def path(self) -&gt; Path:
     return Path(self.document.document.full_name)</code></pre>
 </details>
 </dd>
+<dt id="pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.source"><code class="name">var <span class="ident">source</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Returns the source of the document.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def source(self) -&gt; int:
+    &#34;&#34;&#34;Returns the source of the document.&#34;&#34;&#34;
+    return self.document.product.source</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -341,6 +364,7 @@ def path(self) -&gt; Path:
 <li><code><a title="pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.folder" href="#pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.folder">folder</a></code></li>
 <li><code><a title="pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.partnumber" href="#pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.partnumber">partnumber</a></code></li>
 <li><code><a title="pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.path" href="#pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.path">path</a></code></li>
+<li><code><a title="pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.source" href="#pytia_quick_export.helper.lazy_loaders.LazyDocumentHelper.source">source</a></code></li>
 </ul>
 </li>
 </ul>

@@ -26,8 +26,12 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from typing import Literal
+<pre><code class="python">from tkinter import StringVar
+from typing import Literal
 
+from const import KEEP
+from helper.language import get_ui_language
+from helper.lazy_loaders import LazyDocumentHelper
 from pytia.exceptions import PytiaValueError
 from resources import resource
 
@@ -94,7 +98,85 @@ def translate_type(is_part: bool, language: Literal[&#34;en&#34;, &#34;de&#34;])
         resource.keywords.en.assembly
         if language == &#34;en&#34;
         else resource.keywords.de.assembly
-    )</code></pre>
+    )
+
+
+def translate_project(project: StringVar, doc_helper: LazyDocumentHelper) -&gt; str:
+    return (
+        doc_helper.document.properties.get_by_name(resource.props.project).value
+        if project.get() == KEEP
+        else project.get()
+    )
+
+
+def translate_property_value(
+    value: str,
+    selected_quantity: int | str,
+    selected_condition: str,
+    selected_project: str,
+    doc_helper: LazyDocumentHelper,
+) -&gt; str:
+    lang = get_ui_language(parameters=doc_helper.document.product.parameters)
+
+    if value.startswith(&#34;$&#34;):
+        keyword_item = value.split(&#34;$&#34;)[-1]
+
+        # Look for CATIA standard properties and handle them
+        if keyword_item == &#34;partnumber&#34;:
+            value = doc_helper.document.product.part_number
+        elif keyword_item == &#34;revision&#34;:
+            value = doc_helper.document.product.revision
+        elif keyword_item == &#34;definition&#34;:
+            value = doc_helper.document.product.definition
+        elif keyword_item == &#34;source&#34;:
+            value = translate_source(doc_helper.document.product.source, lang)
+        elif keyword_item == &#34;description&#34;:
+            value = doc_helper.document.product.description_reference
+        elif keyword_item == &#34;type&#34;:
+            value = translate_type(doc_helper.document.product.is_catpart(), lang)
+        elif keyword_item == &#34;quantity&#34;:
+            value = str(selected_quantity)
+
+    # Look for user properties and handle them.
+    elif doc_helper.document.properties.exists(value):
+        # Apply rule for overwriting data depending on the selected condition
+        if (
+            selected_condition == resource.settings.condition.mod.name
+            and value in resource.settings.condition.mod.overwrite
+        ):
+            value = resource.settings.condition.mod.overwrite[value]
+
+        # Apply the project number
+        elif value == resource.props.project:
+            value = selected_project
+
+        # Apply (translate) the username
+        elif (
+            value == resource.props.creator
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                creator_logon := doc_helper.document.properties.get_by_name(value).value
+            )
+        ):
+            value = resource.get_user_by_logon(creator_logon).name
+        elif (
+            value == resource.props.modifier
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                modifier_logon := doc_helper.document.properties.get_by_name(
+                    value
+                ).value
+            )
+        ):
+            value = resource.get_user_by_logon(modifier_logon).name
+
+        # Get the properties&#39; value by the name
+        else:
+            value = doc_helper.document.properties.get_by_name(value).value
+    else:
+        value = &#34;&#34;
+
+    return value</code></pre>
 </details>
 </section>
 <section>
@@ -104,6 +186,102 @@ def translate_type(is_part: bool, language: Literal[&#34;en&#34;, &#34;de&#34;])
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="pytia_quick_export.helper.translators.translate_project"><code class="name flex">
+<span>def <span class="ident">translate_project</span></span>(<span>project: tkinter.StringVar, doc_helper: helper.lazy_loaders.LazyDocumentHelper) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def translate_project(project: StringVar, doc_helper: LazyDocumentHelper) -&gt; str:
+    return (
+        doc_helper.document.properties.get_by_name(resource.props.project).value
+        if project.get() == KEEP
+        else project.get()
+    )</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.helper.translators.translate_property_value"><code class="name flex">
+<span>def <span class="ident">translate_property_value</span></span>(<span>value: str, selected_quantity: int | str, selected_condition: str, selected_project: str, doc_helper: helper.lazy_loaders.LazyDocumentHelper) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def translate_property_value(
+    value: str,
+    selected_quantity: int | str,
+    selected_condition: str,
+    selected_project: str,
+    doc_helper: LazyDocumentHelper,
+) -&gt; str:
+    lang = get_ui_language(parameters=doc_helper.document.product.parameters)
+
+    if value.startswith(&#34;$&#34;):
+        keyword_item = value.split(&#34;$&#34;)[-1]
+
+        # Look for CATIA standard properties and handle them
+        if keyword_item == &#34;partnumber&#34;:
+            value = doc_helper.document.product.part_number
+        elif keyword_item == &#34;revision&#34;:
+            value = doc_helper.document.product.revision
+        elif keyword_item == &#34;definition&#34;:
+            value = doc_helper.document.product.definition
+        elif keyword_item == &#34;source&#34;:
+            value = translate_source(doc_helper.document.product.source, lang)
+        elif keyword_item == &#34;description&#34;:
+            value = doc_helper.document.product.description_reference
+        elif keyword_item == &#34;type&#34;:
+            value = translate_type(doc_helper.document.product.is_catpart(), lang)
+        elif keyword_item == &#34;quantity&#34;:
+            value = str(selected_quantity)
+
+    # Look for user properties and handle them.
+    elif doc_helper.document.properties.exists(value):
+        # Apply rule for overwriting data depending on the selected condition
+        if (
+            selected_condition == resource.settings.condition.mod.name
+            and value in resource.settings.condition.mod.overwrite
+        ):
+            value = resource.settings.condition.mod.overwrite[value]
+
+        # Apply the project number
+        elif value == resource.props.project:
+            value = selected_project
+
+        # Apply (translate) the username
+        elif (
+            value == resource.props.creator
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                creator_logon := doc_helper.document.properties.get_by_name(value).value
+            )
+        ):
+            value = resource.get_user_by_logon(creator_logon).name
+        elif (
+            value == resource.props.modifier
+            and resource.settings.export.apply_username
+            and resource.logon_exists(
+                modifier_logon := doc_helper.document.properties.get_by_name(
+                    value
+                ).value
+            )
+        ):
+            value = resource.get_user_by_logon(modifier_logon).name
+
+        # Get the properties&#39; value by the name
+        else:
+            value = doc_helper.document.properties.get_by_name(value).value
+    else:
+        value = &#34;&#34;
+
+    return value</code></pre>
+</details>
+</dd>
 <dt id="pytia_quick_export.helper.translators.translate_source"><code class="name flex">
 <span>def <span class="ident">translate_source</span></span>(<span>value: int, language: Literal['en', 'de']) ‑> str</span>
 </code></dt>
@@ -237,6 +415,8 @@ def translate_type(is_part: bool, language: Literal[&#34;en&#34;, &#34;de&#34;])
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
+<li><code><a title="pytia_quick_export.helper.translators.translate_project" href="#pytia_quick_export.helper.translators.translate_project">translate_project</a></code></li>
+<li><code><a title="pytia_quick_export.helper.translators.translate_property_value" href="#pytia_quick_export.helper.translators.translate_property_value">translate_property_value</a></code></li>
 <li><code><a title="pytia_quick_export.helper.translators.translate_source" href="#pytia_quick_export.helper.translators.translate_source">translate_source</a></code></li>
 <li><code><a title="pytia_quick_export.helper.translators.translate_type" href="#pytia_quick_export.helper.translators.translate_type">translate_type</a></code></li>
 </ul>

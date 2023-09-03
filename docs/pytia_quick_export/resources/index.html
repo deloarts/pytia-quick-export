@@ -42,9 +42,8 @@ import json
 import os
 import tkinter.messagebox as tkmsg
 from dataclasses import asdict, dataclass, field, fields
-from json.decoder import JSONDecodeError
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Literal, Optional
 
 from const import (
     APP_VERSION,
@@ -56,6 +55,7 @@ from const import (
     CONFIG_KEYWORDS,
     CONFIG_PROPS,
     CONFIG_PROPS_DEFAULT,
+    CONFIG_RPS,
     CONFIG_SETTINGS,
     CONFIG_USERS,
     LOGON,
@@ -79,7 +79,9 @@ class SettingsExport:
     &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
 
     apply_username: bool
-    lock_drawing_views: bool  # TODO: This isn&#39;t used yet
+    lock_drawing_views: bool
+    enable_rps: bool
+    close_app_after: bool
 
 
 @dataclass(slots=True, kw_only=True, frozen=True)
@@ -169,6 +171,60 @@ class Settings:  # pylint: disable=R0902
         self.paths = SettingsPaths(**dict(self.paths))  # type: ignore
         self.urls = SettingsUrls(**dict(self.urls))  # type: ignore
         self.mails = SettingsMails(**dict(self.mails))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiLogin:
+    &#34;&#34;&#34;Dataclass for rps-api-definition-logins (rps.json).&#34;&#34;&#34;
+
+    method: Literal[&#34;get&#34;, &#34;post&#34;, &#34;put&#34;]
+    url: str
+    api_header: str
+    response_username_key: str | None
+
+
+@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiPayload:
+    &#34;&#34;&#34;Dataclass for rps-api-definition-details (rps.json).&#34;&#34;&#34;
+
+    method: Literal[&#34;get&#34;, &#34;post&#34;, &#34;put&#34;]
+    url: str
+    schema: dict
+
+
+@dataclass(slots=True, kw_only=True)
+class RpsApiBought:
+    &#34;&#34;&#34;Dataclass for rps-api-definition for bought items (rps.json).&#34;&#34;&#34;
+
+    create: RpsApiPayload
+
+    def __post_init__(self) -&gt; None:
+        self.create = RpsApiPayload(**dict(self.create))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class RpsApi:
+    &#34;&#34;&#34;Dataclass for rps-api-definition (rps.json).&#34;&#34;&#34;
+
+    login: RpsApiLogin
+    bought: RpsApiBought
+
+    def __post_init__(self) -&gt; None:
+        self.login = RpsApiLogin(**dict(self.login))  # type: ignore
+        self.bought = RpsApiBought(**dict(self.bought))  # type: ignore
+
+
+@dataclass(slots=True, kw_only=True)
+class Rps:
+    &#34;&#34;&#34;Dataclass for rps (rps.json).&#34;&#34;&#34;
+
+    name: str
+    ip: str
+    port: int
+    api: RpsApi
+
+    def __post_init__(self) -&gt; None:
+        self.api = RpsApi(**dict(self.api))  # type: ignore
 
 
 @dataclass(slots=True, kw_only=True)
@@ -277,7 +333,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
-    save_on_apply: bool = True
+    personal_access_token: str = &#34;&#34;
 
     def __post_init__(self) -&gt; None:
         self.version = (
@@ -291,6 +347,7 @@ class Resources:  # pylint: disable=R0902
 
     def __init__(self) -&gt; None:
         self._read_settings()
+        self._read_rps()
         self._read_users()
         self._read_keywords()
         self._read_excel()
@@ -304,6 +361,11 @@ class Resources:  # pylint: disable=R0902
     def settings(self) -&gt; Settings:
         &#34;&#34;&#34;settings.json&#34;&#34;&#34;
         return self._settings
+
+    @property
+    def rps(self) -&gt; Rps:
+        &#34;&#34;&#34;rps.json&#34;&#34;&#34;
+        return self._rps
 
     @property
     def keywords(self) -&gt; Keywords:
@@ -344,6 +406,12 @@ class Resources:  # pylint: disable=R0902
         &#34;&#34;&#34;Reads the settings json from the resources folder.&#34;&#34;&#34;
         with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_SETTINGS) as f:
             self._settings = Settings(**json.load(f))
+
+    def _read_rps(self) -&gt; None:
+        &#34;&#34;&#34;Reads the rps json from the resources folder.&#34;&#34;&#34;
+        if self._settings.export.enable_rps:
+            with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_RPS) as f:
+                self._rps = Rps(**json.load(f))
 
     def _read_keywords(self) -&gt; None:
         &#34;&#34;&#34;Reads the keywords json from the resources folder.&#34;&#34;&#34;
@@ -386,7 +454,7 @@ class Resources:  # pylint: disable=R0902
             with open(appdata_file, &#34;r&#34;, encoding=&#34;utf8&#34;) as f:
                 try:
                     value = AppData(**json.load(f))
-                except JSONDecodeError:
+                except Exception:
                     value = AppData()
                     tkmsg.showwarning(
                         title=&#34;Configuration warning&#34;,
@@ -481,7 +549,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.4.2', counter: int = 0, save_on_apply: bool = True)</span>
+<span>(</span><span>*, version: str = '0.5.0', counter: int = 0, personal_access_token: str = '')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -495,7 +563,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
-    save_on_apply: bool = True
+    personal_access_token: str = &#34;&#34;
 
     def __post_init__(self) -&gt; None:
         self.version = (
@@ -509,7 +577,7 @@ class AppData:
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
-<dt id="pytia_quick_export.resources.AppData.save_on_apply"><code class="name">var <span class="ident">save_on_apply</span> : bool</code></dt>
+<dt id="pytia_quick_export.resources.AppData.personal_access_token"><code class="name">var <span class="ident">personal_access_token</span> : str</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -848,6 +916,7 @@ def values(self) -&gt; List[str]:
 
     def __init__(self) -&gt; None:
         self._read_settings()
+        self._read_rps()
         self._read_users()
         self._read_keywords()
         self._read_excel()
@@ -861,6 +930,11 @@ def values(self) -&gt; List[str]:
     def settings(self) -&gt; Settings:
         &#34;&#34;&#34;settings.json&#34;&#34;&#34;
         return self._settings
+
+    @property
+    def rps(self) -&gt; Rps:
+        &#34;&#34;&#34;rps.json&#34;&#34;&#34;
+        return self._rps
 
     @property
     def keywords(self) -&gt; Keywords:
@@ -901,6 +975,12 @@ def values(self) -&gt; List[str]:
         &#34;&#34;&#34;Reads the settings json from the resources folder.&#34;&#34;&#34;
         with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_SETTINGS) as f:
             self._settings = Settings(**json.load(f))
+
+    def _read_rps(self) -&gt; None:
+        &#34;&#34;&#34;Reads the rps json from the resources folder.&#34;&#34;&#34;
+        if self._settings.export.enable_rps:
+            with importlib.resources.open_binary(&#34;resources&#34;, CONFIG_RPS) as f:
+                self._rps = Rps(**json.load(f))
 
     def _read_keywords(self) -&gt; None:
         &#34;&#34;&#34;Reads the keywords json from the resources folder.&#34;&#34;&#34;
@@ -943,7 +1023,7 @@ def values(self) -&gt; List[str]:
             with open(appdata_file, &#34;r&#34;, encoding=&#34;utf8&#34;) as f:
                 try:
                     value = AppData(**json.load(f))
-                except JSONDecodeError:
+                except Exception:
                     value = AppData()
                     tkmsg.showwarning(
                         title=&#34;Configuration warning&#34;,
@@ -1081,6 +1161,19 @@ def keywords(self) -&gt; Keywords:
 def props(self) -&gt; Props:
     &#34;&#34;&#34;properties.json&#34;&#34;&#34;
     return self._props</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.rps"><code class="name">var <span class="ident">rps</span> : <a title="pytia_quick_export.resources.Rps" href="#pytia_quick_export.resources.Rps">Rps</a></code></dt>
+<dd>
+<div class="desc"><p>rps.json</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rps(self) -&gt; Rps:
+    &#34;&#34;&#34;rps.json&#34;&#34;&#34;
+    return self._rps</code></pre>
 </details>
 </dd>
 <dt id="pytia_quick_export.resources.Resources.settings"><code class="name">var <span class="ident">settings</span> : <a title="pytia_quick_export.resources.Settings" href="#pytia_quick_export.resources.Settings">Settings</a></code></dt>
@@ -1252,6 +1345,181 @@ current session if logon is omitted.</p>
 </dd>
 </dl>
 </dd>
+<dt id="pytia_quick_export.resources.Rps"><code class="flex name class">
+<span>class <span class="ident">Rps</span></span>
+<span>(</span><span>*, name: str, ip: str, port: int, api: <a title="pytia_quick_export.resources.RpsApi" href="#pytia_quick_export.resources.RpsApi">RpsApi</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for rps (rps.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class Rps:
+    &#34;&#34;&#34;Dataclass for rps (rps.json).&#34;&#34;&#34;
+
+    name: str
+    ip: str
+    port: int
+    api: RpsApi
+
+    def __post_init__(self) -&gt; None:
+        self.api = RpsApi(**dict(self.api))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.Rps.api"><code class="name">var <span class="ident">api</span> : <a title="pytia_quick_export.resources.RpsApi" href="#pytia_quick_export.resources.RpsApi">RpsApi</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Rps.ip"><code class="name">var <span class="ident">ip</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Rps.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.Rps.port"><code class="name">var <span class="ident">port</span> : int</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApi"><code class="flex name class">
+<span>class <span class="ident">RpsApi</span></span>
+<span>(</span><span>*, login: <a title="pytia_quick_export.resources.RpsApiLogin" href="#pytia_quick_export.resources.RpsApiLogin">RpsApiLogin</a>, bought: <a title="pytia_quick_export.resources.RpsApiBought" href="#pytia_quick_export.resources.RpsApiBought">RpsApiBought</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for rps-api-definition (rps.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class RpsApi:
+    &#34;&#34;&#34;Dataclass for rps-api-definition (rps.json).&#34;&#34;&#34;
+
+    login: RpsApiLogin
+    bought: RpsApiBought
+
+    def __post_init__(self) -&gt; None:
+        self.login = RpsApiLogin(**dict(self.login))  # type: ignore
+        self.bought = RpsApiBought(**dict(self.bought))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.RpsApi.bought"><code class="name">var <span class="ident">bought</span> : <a title="pytia_quick_export.resources.RpsApiBought" href="#pytia_quick_export.resources.RpsApiBought">RpsApiBought</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApi.login"><code class="name">var <span class="ident">login</span> : <a title="pytia_quick_export.resources.RpsApiLogin" href="#pytia_quick_export.resources.RpsApiLogin">RpsApiLogin</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiBought"><code class="flex name class">
+<span>class <span class="ident">RpsApiBought</span></span>
+<span>(</span><span>*, create: <a title="pytia_quick_export.resources.RpsApiPayload" href="#pytia_quick_export.resources.RpsApiPayload">RpsApiPayload</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for rps-api-definition for bought items (rps.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True)
+class RpsApiBought:
+    &#34;&#34;&#34;Dataclass for rps-api-definition for bought items (rps.json).&#34;&#34;&#34;
+
+    create: RpsApiPayload
+
+    def __post_init__(self) -&gt; None:
+        self.create = RpsApiPayload(**dict(self.create))  # type: ignore</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.RpsApiBought.create"><code class="name">var <span class="ident">create</span> : <a title="pytia_quick_export.resources.RpsApiPayload" href="#pytia_quick_export.resources.RpsApiPayload">RpsApiPayload</a></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiLogin"><code class="flex name class">
+<span>class <span class="ident">RpsApiLogin</span></span>
+<span>(</span><span>*, method: Literal['get', 'post', 'put'], url: str, api_header: str, response_username_key: str | None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for rps-api-definition-logins (rps.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiLogin:
+    &#34;&#34;&#34;Dataclass for rps-api-definition-logins (rps.json).&#34;&#34;&#34;
+
+    method: Literal[&#34;get&#34;, &#34;post&#34;, &#34;put&#34;]
+    url: str
+    api_header: str
+    response_username_key: str | None</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.RpsApiLogin.api_header"><code class="name">var <span class="ident">api_header</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiLogin.method"><code class="name">var <span class="ident">method</span> : Literal['get', 'post', 'put']</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiLogin.response_username_key"><code class="name">var <span class="ident">response_username_key</span> : str | None</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiLogin.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiPayload"><code class="flex name class">
+<span>class <span class="ident">RpsApiPayload</span></span>
+<span>(</span><span>*, method: Literal['get', 'post', 'put'], url: str, schema: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Dataclass for rps-api-definition-details (rps.json).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass(slots=True, kw_only=True, frozen=True)
+class RpsApiPayload:
+    &#34;&#34;&#34;Dataclass for rps-api-definition-details (rps.json).&#34;&#34;&#34;
+
+    method: Literal[&#34;get&#34;, &#34;post&#34;, &#34;put&#34;]
+    url: str
+    schema: dict</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pytia_quick_export.resources.RpsApiPayload.method"><code class="name">var <span class="ident">method</span> : Literal['get', 'post', 'put']</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiPayload.schema"><code class="name">var <span class="ident">schema</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.RpsApiPayload.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+</dd>
 <dt id="pytia_quick_export.resources.Settings"><code class="flex name class">
 <span>class <span class="ident">Settings</span></span>
 <span>(</span><span>*, title: str, debug: bool, restrictions: <a title="pytia_quick_export.resources.SettingsRestrictions" href="#pytia_quick_export.resources.SettingsRestrictions">SettingsRestrictions</a>, export: <a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a>, condition: <a title="pytia_quick_export.resources.SettingsCondition" href="#pytia_quick_export.resources.SettingsCondition">SettingsCondition</a>, paths: <a title="pytia_quick_export.resources.SettingsPaths" href="#pytia_quick_export.resources.SettingsPaths">SettingsPaths</a>, files: <a title="pytia_quick_export.resources.SettingsFiles" href="#pytia_quick_export.resources.SettingsFiles">SettingsFiles</a>, urls: <a title="pytia_quick_export.resources.SettingsUrls" href="#pytia_quick_export.resources.SettingsUrls">SettingsUrls</a>, mails: <a title="pytia_quick_export.resources.SettingsMails" href="#pytia_quick_export.resources.SettingsMails">SettingsMails</a>)</span>
@@ -1413,7 +1681,7 @@ class SettingsConditionNew:
 </dd>
 <dt id="pytia_quick_export.resources.SettingsExport"><code class="flex name class">
 <span>class <span class="ident">SettingsExport</span></span>
-<span>(</span><span>*, apply_username: bool, lock_drawing_views: bool)</span>
+<span>(</span><span>*, apply_username: bool, lock_drawing_views: bool, enable_rps: bool, close_app_after: bool)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for export settings.</p></div>
@@ -1426,11 +1694,21 @@ class SettingsExport:
     &#34;&#34;&#34;Dataclass for export settings.&#34;&#34;&#34;
 
     apply_username: bool
-    lock_drawing_views: bool  # TODO: This isn&#39;t used yet</code></pre>
+    lock_drawing_views: bool
+    enable_rps: bool
+    close_app_after: bool</code></pre>
 </details>
 <h3>Instance variables</h3>
 <dl>
 <dt id="pytia_quick_export.resources.SettingsExport.apply_username"><code class="name">var <span class="ident">apply_username</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsExport.close_app_after"><code class="name">var <span class="ident">close_app_after</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.SettingsExport.enable_rps"><code class="name">var <span class="ident">enable_rps</span> : bool</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -1714,7 +1992,7 @@ def values(self) -&gt; List[str]:
 <h4><code><a title="pytia_quick_export.resources.AppData" href="#pytia_quick_export.resources.AppData">AppData</a></code></h4>
 <ul class="">
 <li><code><a title="pytia_quick_export.resources.AppData.counter" href="#pytia_quick_export.resources.AppData.counter">counter</a></code></li>
-<li><code><a title="pytia_quick_export.resources.AppData.save_on_apply" href="#pytia_quick_export.resources.AppData.save_on_apply">save_on_apply</a></code></li>
+<li><code><a title="pytia_quick_export.resources.AppData.personal_access_token" href="#pytia_quick_export.resources.AppData.personal_access_token">personal_access_token</a></code></li>
 <li><code><a title="pytia_quick_export.resources.AppData.version" href="#pytia_quick_export.resources.AppData.version">version</a></code></li>
 </ul>
 </li>
@@ -1793,8 +2071,48 @@ def values(self) -&gt; List[str]:
 <li><code><a title="pytia_quick_export.resources.Resources.keywords" href="#pytia_quick_export.resources.Resources.keywords">keywords</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.logon_exists" href="#pytia_quick_export.resources.Resources.logon_exists">logon_exists</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.props" href="#pytia_quick_export.resources.Resources.props">props</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.rps" href="#pytia_quick_export.resources.Resources.rps">rps</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.settings" href="#pytia_quick_export.resources.Resources.settings">settings</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.users" href="#pytia_quick_export.resources.Resources.users">users</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.Rps" href="#pytia_quick_export.resources.Rps">Rps</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.Rps.api" href="#pytia_quick_export.resources.Rps.api">api</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Rps.ip" href="#pytia_quick_export.resources.Rps.ip">ip</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Rps.name" href="#pytia_quick_export.resources.Rps.name">name</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Rps.port" href="#pytia_quick_export.resources.Rps.port">port</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.RpsApi" href="#pytia_quick_export.resources.RpsApi">RpsApi</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.RpsApi.bought" href="#pytia_quick_export.resources.RpsApi.bought">bought</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApi.login" href="#pytia_quick_export.resources.RpsApi.login">login</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.RpsApiBought" href="#pytia_quick_export.resources.RpsApiBought">RpsApiBought</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.RpsApiBought.create" href="#pytia_quick_export.resources.RpsApiBought.create">create</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.RpsApiLogin" href="#pytia_quick_export.resources.RpsApiLogin">RpsApiLogin</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.RpsApiLogin.api_header" href="#pytia_quick_export.resources.RpsApiLogin.api_header">api_header</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApiLogin.method" href="#pytia_quick_export.resources.RpsApiLogin.method">method</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApiLogin.response_username_key" href="#pytia_quick_export.resources.RpsApiLogin.response_username_key">response_username_key</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApiLogin.url" href="#pytia_quick_export.resources.RpsApiLogin.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pytia_quick_export.resources.RpsApiPayload" href="#pytia_quick_export.resources.RpsApiPayload">RpsApiPayload</a></code></h4>
+<ul class="">
+<li><code><a title="pytia_quick_export.resources.RpsApiPayload.method" href="#pytia_quick_export.resources.RpsApiPayload.method">method</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApiPayload.schema" href="#pytia_quick_export.resources.RpsApiPayload.schema">schema</a></code></li>
+<li><code><a title="pytia_quick_export.resources.RpsApiPayload.url" href="#pytia_quick_export.resources.RpsApiPayload.url">url</a></code></li>
 </ul>
 </li>
 <li>
@@ -1835,6 +2153,8 @@ def values(self) -&gt; List[str]:
 <h4><code><a title="pytia_quick_export.resources.SettingsExport" href="#pytia_quick_export.resources.SettingsExport">SettingsExport</a></code></h4>
 <ul class="">
 <li><code><a title="pytia_quick_export.resources.SettingsExport.apply_username" href="#pytia_quick_export.resources.SettingsExport.apply_username">apply_username</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsExport.close_app_after" href="#pytia_quick_export.resources.SettingsExport.close_app_after">close_app_after</a></code></li>
+<li><code><a title="pytia_quick_export.resources.SettingsExport.enable_rps" href="#pytia_quick_export.resources.SettingsExport.enable_rps">enable_rps</a></code></li>
 <li><code><a title="pytia_quick_export.resources.SettingsExport.lock_drawing_views" href="#pytia_quick_export.resources.SettingsExport.lock_drawing_views">lock_drawing_views</a></code></li>
 </ul>
 </li>

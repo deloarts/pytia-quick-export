@@ -4,7 +4,7 @@ classifiers = ["Operating System :: Microsoft :: Windows"]
 description = "A tool for exporting data from a CATPart or CATProduct."
 name = "pytia-quick-export"
 readme = "README.md"
-version = "0.4.2"
+version = "0.5.0"
 
 [tool.poetry.dependencies]
 openpyxl = "3.0.10"

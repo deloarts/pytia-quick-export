@@ -34,17 +34,17 @@
 from pathlib import Path, WindowsPath
 from tkinter import Tk, filedialog
 
+from app.frames import Frames
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.vars import Variables
 from helper.lazy_loaders import LazyDocumentHelper
+from helper.rps import Rps
 from pytia.log import log
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.helper.values import add_current_value_to_combobox_list
 from resources import resource
 from worker import Worker
-
-from app.frames import Frames
-from app.layout import Layout
-from app.state_setter import UISetter
-from app.vars import Variables
 
 
 class Callbacks:
@@ -91,6 +91,7 @@ class Callbacks:
         self.layout.button_decrease_qty.configure(command=self.on_btn_decrease_qty)
         self.layout.button_browse_folder.configure(command=self.on_btn_export_folder)
         self.layout.button_export.configure(command=self.on_btn_export)
+        self.layout.button_upload.configure(command=self.on_btn_upload)
         self.layout.button_abort.configure(command=self.on_btn_abort)
 
     def _bind_widget_callbacks(self) -&gt; None:
@@ -124,7 +125,7 @@ class Callbacks:
         Event handler for the Export button. Verifies the user input and saves the changes to the
         documents properties.
         &#34;&#34;&#34;
-        log.info(&#34;Callback for button &#39;Save&#39;.&#34;)
+        log.info(&#34;Callback for button &#39;Export&#39;.&#34;)
         self.set_ui.working()
         worker = Worker(
             main_ui=self.root,
@@ -135,6 +136,21 @@ class Callbacks:
             frames=self.frames,
         )
         self.root.after(100, worker.run)
+
+    def on_btn_upload(self) -&gt; None:
+        &#34;&#34;&#34;
+        Event handler for the Upload button. Verifies the user input and saves the changes to the
+        documents properties.
+        &#34;&#34;&#34;
+        log.info(&#34;Callback for button &#39;Upload&#39;.&#34;)
+        self.set_ui.working()
+        rps = Rps(
+            main_ui=self.root,
+            ui_setter=self.set_ui,
+            doc_helper=self.doc_helper,
+            variables=self.vars,
+        )
+        self.root.after(100, rps.upload_bought_item)
 
     def on_btn_abort(self) -&gt; None:
         &#34;&#34;&#34;Callback function for the abort button. Closes the app.&#34;&#34;&#34;
@@ -241,6 +257,7 @@ class Callbacks:
         self.layout.button_decrease_qty.configure(command=self.on_btn_decrease_qty)
         self.layout.button_browse_folder.configure(command=self.on_btn_export_folder)
         self.layout.button_export.configure(command=self.on_btn_export)
+        self.layout.button_upload.configure(command=self.on_btn_upload)
         self.layout.button_abort.configure(command=self.on_btn_abort)
 
     def _bind_widget_callbacks(self) -&gt; None:
@@ -274,7 +291,7 @@ class Callbacks:
         Event handler for the Export button. Verifies the user input and saves the changes to the
         documents properties.
         &#34;&#34;&#34;
-        log.info(&#34;Callback for button &#39;Save&#39;.&#34;)
+        log.info(&#34;Callback for button &#39;Export&#39;.&#34;)
         self.set_ui.working()
         worker = Worker(
             main_ui=self.root,
@@ -285,6 +302,21 @@ class Callbacks:
             frames=self.frames,
         )
         self.root.after(100, worker.run)
+
+    def on_btn_upload(self) -&gt; None:
+        &#34;&#34;&#34;
+        Event handler for the Upload button. Verifies the user input and saves the changes to the
+        documents properties.
+        &#34;&#34;&#34;
+        log.info(&#34;Callback for button &#39;Upload&#39;.&#34;)
+        self.set_ui.working()
+        rps = Rps(
+            main_ui=self.root,
+            ui_setter=self.set_ui,
+            doc_helper=self.doc_helper,
+            variables=self.vars,
+        )
+        self.root.after(100, rps.upload_bought_item)
 
     def on_btn_abort(self) -&gt; None:
         &#34;&#34;&#34;Callback function for the abort button. Closes the app.&#34;&#34;&#34;
@@ -366,7 +398,7 @@ documents properties.</p></div>
     Event handler for the Export button. Verifies the user input and saves the changes to the
     documents properties.
     &#34;&#34;&#34;
-    log.info(&#34;Callback for button &#39;Save&#39;.&#34;)
+    log.info(&#34;Callback for button &#39;Export&#39;.&#34;)
     self.set_ui.working()
     worker = Worker(
         main_ui=self.root,
@@ -430,6 +462,32 @@ into which to export the files.</p></div>
         self.vars.quantity.set(&#34;1&#34;)</code></pre>
 </details>
 </dd>
+<dt id="pytia_quick_export.app.callbacks.Callbacks.on_btn_upload"><code class="name flex">
+<span>def <span class="ident">on_btn_upload</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Event handler for the Upload button. Verifies the user input and saves the changes to the
+documents properties.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def on_btn_upload(self) -&gt; None:
+    &#34;&#34;&#34;
+    Event handler for the Upload button. Verifies the user input and saves the changes to the
+    documents properties.
+    &#34;&#34;&#34;
+    log.info(&#34;Callback for button &#39;Upload&#39;.&#34;)
+    self.set_ui.working()
+    rps = Rps(
+        main_ui=self.root,
+        ui_setter=self.set_ui,
+        doc_helper=self.doc_helper,
+        variables=self.vars,
+    )
+    self.root.after(100, rps.upload_bought_item)</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -456,6 +514,7 @@ into which to export the files.</p></div>
 <li><code><a title="pytia_quick_export.app.callbacks.Callbacks.on_btn_export" href="#pytia_quick_export.app.callbacks.Callbacks.on_btn_export">on_btn_export</a></code></li>
 <li><code><a title="pytia_quick_export.app.callbacks.Callbacks.on_btn_export_folder" href="#pytia_quick_export.app.callbacks.Callbacks.on_btn_export_folder">on_btn_export_folder</a></code></li>
 <li><code><a title="pytia_quick_export.app.callbacks.Callbacks.on_btn_increase_qty" href="#pytia_quick_export.app.callbacks.Callbacks.on_btn_increase_qty">on_btn_increase_qty</a></code></li>
+<li><code><a title="pytia_quick_export.app.callbacks.Callbacks.on_btn_upload" href="#pytia_quick_export.app.callbacks.Callbacks.on_btn_upload">on_btn_upload</a></code></li>
 </ul>
 </li>
 </ul>
