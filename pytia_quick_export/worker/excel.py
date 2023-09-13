@@ -1,11 +1,9 @@
 """
     Export submodule. Holds utility functions for handling data exports.
 """
-from dataclasses import asdict
 from pathlib import Path
 from typing import Literal
 
-from helper.translators import translate_source, translate_type
 from models.data import DataModel, DatumModel
 from openpyxl.cell import Cell
 from openpyxl.styles import Alignment, Font, PatternFill

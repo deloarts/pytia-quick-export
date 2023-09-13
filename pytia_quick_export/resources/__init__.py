@@ -28,6 +28,7 @@ from const import (
     CONFIG_SETTINGS,
     CONFIG_USERS,
     LOGON,
+    STYLES,
 )
 from resources.utils import expand_env_vars
 
@@ -302,6 +303,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
+    theme: str = STYLES[0]
     personal_access_token: str = ""
 
     def __post_init__(self) -> None:
