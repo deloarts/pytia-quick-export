@@ -10,13 +10,19 @@ from app.state_setter import UISetter
 from app.vars import Variables
 from helper.verifier import verify_user_input_for_export, verify_user_input_for_upload
 from pytia.log import log
+from ttkbootstrap import Style
 
 
 class Traces:
     """The Traces class. Responsible for all variable traces in the main window."""
 
     def __init__(
-        self, variables: Variables, state_setter: UISetter, layout: Layout, source: int
+        self,
+        variables: Variables,
+        state_setter: UISetter,
+        layout: Layout,
+        style: Style,
+        source: int,
     ) -> None:
         """
         Inits the Traces class. Adds the main windows' variable traces.
@@ -24,11 +30,14 @@ class Traces:
         Args:
             vars (Variables): The main window's variables.
             state_setter (UISetter): The state setter of the main window.
+            layout (Layout): The apps layout instance.
+            style (Style): The ttkbootstrap style instance.
             source (int [0, 1, 2]): The source of the document.
         """
         self.vars = variables
         self.set_ui = state_setter
         self.layout = layout
+        self.style = style
         self.source = source
 
         self._add_traces()
@@ -70,7 +79,7 @@ class Traces:
     def trace_mail(self, *_) -> None:
         """Mail variable trace. Verifies the user input for setting the export button."""
         self.layout.input_mail.configure(
-            foreground="black" if validators.email(self.vars.mail.get()) else "red"  # type: ignore
+            foreground=self.style.colors.fg if validators.email(self.vars.mail.get()) else self.style.colors.danger  # type: ignore
         )
         verify_user_input_for_export(variables=self.vars, layout=self.layout)
 
@@ -80,5 +89,5 @@ class Traces:
             os.path.isdir(self.vars.folder.get())
             and os.path.isabs(self.vars.folder.get())
         )
-        self.layout.input_folder.configure(foreground="black" if is_dir else "red")
+        self.layout.input_folder.configure(foreground=self.style.colors.fg if is_dir else self.style.colors.danger)  # type: ignore
         verify_user_input_for_export(variables=self.vars, layout=self.layout)

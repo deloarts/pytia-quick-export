@@ -1,13 +1,17 @@
 """
     The layout of the app.
 """
-from tkinter import DISABLED, PhotoImage, Tk, ttk
+from tkinter import DISABLED, Tk
 
 from app.frames import Frames
 from app.vars import Variables
+from const import STYLES
+from helper.appearance import set_appearance_menu
+from helper.messages import show_help
 from pytia_ui_tools.widgets.entries import NumberEntry
 from pytia_ui_tools.widgets.texts import ScrolledText
 from resources import resource
+from ttkbootstrap import Button, Combobox, Entry, Label, Menu
 
 
 class Layout:
@@ -26,10 +30,22 @@ class Layout:
             variables (Variables): The variables of the main window.
         """
 
-        self.help_png = PhotoImage(data=resource.get_png("help.png"))
+        # region MENU
+        menubar = Menu(root)
+
+        self._appearance_menu = Menu(menubar, tearoff=False)
+        for style in STYLES:
+            self._appearance_menu.add_command(label=style)
+
+        menubar.add_cascade(label="Help", command=show_help)
+        menubar.add_cascade(label="Appearance", menu=self._appearance_menu)
+
+        set_appearance_menu(self._appearance_menu)
+        root.configure(menu=menubar)
+        # endregion
 
         # region PROJECT
-        lbl_project = ttk.Label(
+        lbl_project = Label(
             frames.data_frame,
             text="Project",
             width=12,
@@ -41,7 +57,7 @@ class Layout:
             pady=(Layout.MARGIN_Y, 2),
             sticky="nsew",
         )
-        self._combo_project = ttk.Combobox(
+        self._combo_project = Combobox(
             frames.data_frame,
             values=[],
             textvariable=variables.project,
@@ -52,19 +68,16 @@ class Layout:
             column=1,
             padx=(5, Layout.MARGIN_X),
             pady=(Layout.MARGIN_Y, 2),
-            ipadx=2,
-            ipady=2,
             sticky="nsew",
             columnspan=3,
         )
         # endregion
 
         # region CONDITION
-        lbl_condition = ttk.Label(
+        lbl_condition = Label(
             frames.data_frame,
             text="Condition",
             width=12,
-            # font=("Segoe UI", 9, "bold"),
         )
         lbl_condition.grid(
             row=1,
@@ -73,7 +86,7 @@ class Layout:
             pady=(2, 2),
             sticky="nsew",
         )
-        self._combo_condition = ttk.Combobox(
+        self._combo_condition = Combobox(
             frames.data_frame,
             textvariable=variables.condition,
             state=DISABLED,
@@ -83,19 +96,16 @@ class Layout:
             column=1,
             padx=(5, Layout.MARGIN_X),
             pady=(2, 2),
-            ipadx=2,
-            ipady=2,
             sticky="nsew",
             columnspan=3,
         )
         # endregion
 
         # region QUANTITY
-        lbl_quantity = ttk.Label(
+        lbl_quantity = Label(
             frames.data_frame,
             text="Quantity",
             width=12,
-            # font=("Segoe UI", 9, "bold"),
         )
         lbl_quantity.grid(
             row=2,
@@ -114,40 +124,40 @@ class Layout:
             column=1,
             padx=(5, 2),
             pady=(2, 2),
-            ipadx=2,
-            ipady=2,
             sticky="nsew",
         )
-        self._btn_qty_increase = ttk.Button(
+        self._btn_qty_increase = Button(
             frames.data_frame,
             text="+",
-            width=4,
+            style="outline",
+            width=3,
             state=DISABLED,
         )
         self._btn_qty_increase.grid(
             row=2,
             column=2,
             padx=(2, 2),
-            pady=(1, 1),
+            pady=(2, 2),
             sticky="nsew",
         )
-        self._btn_qty_decrease = ttk.Button(
+        self._btn_qty_decrease = Button(
             frames.data_frame,
             text="-",
-            width=4,
+            style="outline",
+            width=3,
             state=DISABLED,
         )
         self._btn_qty_decrease.grid(
             row=2,
             column=3,
             padx=(2, Layout.MARGIN_X),
-            pady=(1, 1),
+            pady=(2, 2),
             sticky="nsew",
         )
         # endregion
 
         # region NOT
-        lbl_note = ttk.Label(
+        lbl_note = Label(
             frames.data_frame,
             text="Note",
             width=12,
@@ -159,33 +169,28 @@ class Layout:
             pady=(6, 2),
             sticky="new",
         )
+
         self._input_note = ScrolledText(
             parent=frames.data_frame,
             textvariable=variables.note,
             state=DISABLED,
             height=3,
-            font=("Segoe UI", 9),
         )
         self._input_note.grid(
             row=3,
             column=1,
-            padx=(5, Layout.MARGIN_X),
-            pady=(2, Layout.MARGIN_Y),
-            ipadx=2,
-            ipady=2,
+            padx=(3, Layout.MARGIN_X - 1),
+            pady=(1, Layout.MARGIN_Y),
             sticky="nsew",
             columnspan=3,
         )
-        self._lbl_help_note = ttk.Label(image=self.help_png)
-        self._lbl_help_note.place(x=55, y=130)
         # endregion
 
         # region MAIL
-        lbl_mail = ttk.Label(
+        lbl_mail = Label(
             frames.export_frame,
             text="Mail Address",
             width=12,
-            # font=("Segoe UI", 9, "bold"),
         )
         lbl_mail.grid(
             row=0,
@@ -194,7 +199,7 @@ class Layout:
             pady=(Layout.MARGIN_Y, 2),
             sticky="nsew",
         )
-        self._combo_mail = ttk.Combobox(
+        self._combo_mail = Combobox(
             frames.export_frame,
             values=[],
             textvariable=variables.mail,
@@ -205,17 +210,13 @@ class Layout:
             column=1,
             padx=(5, Layout.MARGIN_X),
             pady=(Layout.MARGIN_Y, 2),
-            ipadx=2,
-            ipady=2,
             sticky="nsew",
             columnspan=3,
         )
         # endregion
 
         # region FOLDER
-        lbl_export_folder = ttk.Label(
-            frames.export_frame, text="Export Folder", width=12
-        )
+        lbl_export_folder = Label(frames.export_frame, text="Export Folder", width=12)
         lbl_export_folder.grid(
             row=1,
             column=0,
@@ -224,7 +225,7 @@ class Layout:
             sticky="nsew",
         )
 
-        self._entry_export_folder = ttk.Entry(
+        self._entry_export_folder = Entry(
             frames.export_frame,
             textvariable=variables.folder,
             state=DISABLED,
@@ -234,28 +235,27 @@ class Layout:
             column=1,
             padx=(5, 2),
             pady=(2, Layout.MARGIN_Y),
-            ipadx=2,
-            ipady=2,
             sticky="nsew",
             columnspan=2,
         )
 
-        self._btn_browse_export_folder = ttk.Button(
+        self._btn_browse_export_folder = Button(
             frames.export_frame,
             text="...",
-            width=4,
+            style="outline",
+            width=3,
             state=DISABLED,
         )
         self._btn_browse_export_folder.grid(
             row=1,
             column=3,
             padx=(2, Layout.MARGIN_X),
-            pady=(1, Layout.MARGIN_Y - 1),
+            pady=(2, Layout.MARGIN_Y),
             sticky="nsew",
         )
         # endregion
 
-        lbl_info = ttk.Label(
+        lbl_info = Label(
             frames.footer,
             text="",
         )
@@ -263,26 +263,43 @@ class Layout:
             row=0, column=0, padx=(0, 5), pady=0, ipadx=2, ipady=2, sticky="nsew"
         )
 
-        self._btn_export = ttk.Button(
-            frames.footer, text="Export", style="Footer.TButton", state=DISABLED
+        self._btn_export = Button(
+            frames.footer,
+            text="Export",
+            style="outline",
+            width=10,
+            state=DISABLED,
         )
         self._btn_export.grid(row=0, column=1, padx=(5, 2), pady=0, sticky="e")
 
-        self._btn_upload = ttk.Button(
-            frames.footer, text="Upload", style="Footer.TButton", state=DISABLED
+        self._btn_upload = Button(
+            frames.footer,
+            text="Upload",
+            style="outline",
+            width=10,
+            state=DISABLED,
         )
         if resource.settings.export.enable_rps:
-            self._btn_upload.grid(row=0, column=2, padx=(5, 2), pady=0, sticky="e")
+            self._btn_upload.grid(row=0, column=2, padx=(2, 2), pady=0, sticky="e")
 
-        self._btn_abort = ttk.Button(frames.footer, text="Exit", style="Footer.TButton")
+        self._btn_abort = Button(
+            frames.footer,
+            text="Exit",
+            style="outline",
+            width=10,
+        )
         self._btn_abort.grid(row=0, column=3, padx=(2, 0), pady=0, sticky="e")
 
     @property
-    def input_project(self) -> ttk.Combobox:
+    def appearance_menu(self) -> Menu:
+        return self._appearance_menu
+
+    @property
+    def input_project(self) -> Combobox:
         return self._combo_project
 
     @property
-    def input_condition(self) -> ttk.Combobox:
+    def input_condition(self) -> Combobox:
         return self._combo_condition
 
     @property
@@ -290,11 +307,11 @@ class Layout:
         return self._entry_quantity
 
     @property
-    def button_increase_qty(self) -> ttk.Button:
+    def button_increase_qty(self) -> Button:
         return self._btn_qty_increase
 
     @property
-    def button_decrease_qty(self) -> ttk.Button:
+    def button_decrease_qty(self) -> Button:
         return self._btn_qty_decrease
 
     @property
@@ -302,29 +319,25 @@ class Layout:
         return self._input_note
 
     @property
-    def input_mail(self) -> ttk.Combobox:
+    def input_mail(self) -> Combobox:
         return self._combo_mail
 
     @property
-    def input_folder(self) -> ttk.Entry:
+    def input_folder(self) -> Entry:
         return self._entry_export_folder
 
     @property
-    def button_browse_folder(self) -> ttk.Button:
+    def button_browse_folder(self) -> Button:
         return self._btn_browse_export_folder
 
     @property
-    def button_export(self) -> ttk.Button:
+    def button_export(self) -> Button:
         return self._btn_export
 
     @property
-    def button_upload(self) -> ttk.Button:
+    def button_upload(self) -> Button:
         return self._btn_upload
 
     @property
-    def button_abort(self) -> ttk.Button:
+    def button_abort(self) -> Button:
         return self._btn_abort
-
-    @property
-    def help_note(self) -> ttk.Label:
-        return self._lbl_help_note

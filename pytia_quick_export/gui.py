@@ -4,8 +4,9 @@
 
 import tkinter as tk
 from pathlib import Path
-from tkinter import font, ttk
+from tkinter import font
 
+import ttkbootstrap as ttk
 from app.callbacks import Callbacks
 from app.controller import Controller
 from app.frames import Frames
@@ -38,11 +39,12 @@ class GUI(tk.Tk):
     """The user interface of the app."""
 
     WIDTH = 350
-    HEIGHT = 430
+    HEIGHT = 450
 
     def __init__(self) -> None:
         """Inits the main window."""
-        tk.Tk.__init__(self)
+        ttk.tk.Tk.__init__(self)
+        self.style = ttk.Style(theme=resource.appdata.theme)
 
         # CLASS VARS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.doc_helper: LazyDocumentHelper  # Instantiate later for performance improvement
@@ -101,11 +103,6 @@ class GUI(tk.Tk):
         y_coordinate = int((screen_height / 2) - (GUI.HEIGHT / 2) - 20)
         self.geometry(f"{GUI.WIDTH}x{GUI.HEIGHT}+{x_coordinate}+{y_coordinate}")
         self.minsize(width=GUI.WIDTH, height=GUI.HEIGHT)
-
-        # STYLES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        style = ttk.Style(self)
-        style.configure("LabelFrames.TLabelframe.Label", foreground="grey")
-        style.configure("Footer.TButton", width=14)
 
         self.update()
         self.window_manager.remove_window_buttons()
@@ -178,6 +175,7 @@ class GUI(tk.Tk):
             variables=self.vars,
             state_setter=self.set_ui,
             layout=self.layout,
+            style=self.style,
             source=self.doc_helper.source,
         )
 

@@ -5,7 +5,7 @@
 import os
 from pathlib import Path
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 PYTIA = "pytia"
 PYTIA_QUICK_EXPORT = "pytia_quick_export"
@@ -51,6 +51,26 @@ WEB_PIP = "https://www.pypi.org"
 
 KEEP = "Keep"
 
+STYLES = [
+    "cosmo",
+    "litera",
+    "flatly",
+    "journal",
+    "lumen",
+    "minty",
+    "pulse",
+    "sandstone",
+    "united",
+    "yeti",
+    "morph",
+    "simplex",
+    "cerculean",
+    "solar",
+    "superhero",
+    "darkly",
+    "cyborg",
+    "vapor",
+]
 
 os.makedirs(TEMP_EXPORT, exist_ok=True)
 os.makedirs(TEMP_ATTACHMENTS, exist_ok=True)
