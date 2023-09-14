@@ -31,25 +31,23 @@
     Frames submodule for the main window.
 &#34;&#34;&#34;
 
-from tkinter import Tk, ttk
+from tkinter import Tk
+
+from ttkbootstrap import Frame, Labelframe
 
 
 class Frames:
     &#34;&#34;&#34;Frames class for the main window. Holds all ttk frames.&#34;&#34;&#34;
 
     def __init__(self, root: Tk) -&gt; None:
-        self._frame_data = ttk.Labelframe(
-            master=root, style=&#34;LabelFrames.TLabelframe&#34;, text=&#34;Data&#34;
-        )
+        self._frame_data = Labelframe(master=root, text=&#34;Data&#34;)
         self._frame_data.grid(
             row=0, column=0, sticky=&#34;nsew&#34;, padx=(10, 10), pady=(10, 5)
         )
         self._frame_data.grid_columnconfigure(1, weight=1)
         self._frame_data.grid_rowconfigure(3, weight=1)
 
-        self._frame_export = ttk.Labelframe(
-            master=root, style=&#34;LabelFrames.TLabelframe&#34;, text=&#34;Export&#34;
-        )
+        self._frame_export = Labelframe(master=root, text=&#34;Export&#34;)
         self._frame_export.grid(
             row=1, column=0, sticky=&#34;nsew&#34;, padx=(10, 10), pady=(5, 10)
         )
@@ -58,20 +56,20 @@ class Frames:
         root.grid_columnconfigure(0, weight=1)
         root.grid_rowconfigure(0, weight=1)
 
-        self._frame_footer = ttk.Frame(master=root, height=30, style=&#34;Footer.TFrame&#34;)
+        self._frame_footer = Frame(master=root, height=30)
         self._frame_footer.grid(row=2, column=0, sticky=&#34;swe&#34;, padx=10, pady=(5, 10))
         self._frame_footer.grid_columnconfigure(1, weight=1)
 
     @property
-    def export_frame(self) -&gt; ttk.Labelframe:
+    def export_frame(self) -&gt; Labelframe:
         return self._frame_export
 
     @property
-    def data_frame(self) -&gt; ttk.Labelframe:
+    def data_frame(self) -&gt; Labelframe:
         return self._frame_data
 
     @property
-    def footer(self) -&gt; ttk.Frame:
+    def footer(self) -&gt; Frame:
         return self._frame_footer</code></pre>
 </details>
 </section>
@@ -98,18 +96,14 @@ class Frames:
     &#34;&#34;&#34;Frames class for the main window. Holds all ttk frames.&#34;&#34;&#34;
 
     def __init__(self, root: Tk) -&gt; None:
-        self._frame_data = ttk.Labelframe(
-            master=root, style=&#34;LabelFrames.TLabelframe&#34;, text=&#34;Data&#34;
-        )
+        self._frame_data = Labelframe(master=root, text=&#34;Data&#34;)
         self._frame_data.grid(
             row=0, column=0, sticky=&#34;nsew&#34;, padx=(10, 10), pady=(10, 5)
         )
         self._frame_data.grid_columnconfigure(1, weight=1)
         self._frame_data.grid_rowconfigure(3, weight=1)
 
-        self._frame_export = ttk.Labelframe(
-            master=root, style=&#34;LabelFrames.TLabelframe&#34;, text=&#34;Export&#34;
-        )
+        self._frame_export = Labelframe(master=root, text=&#34;Export&#34;)
         self._frame_export.grid(
             row=1, column=0, sticky=&#34;nsew&#34;, padx=(10, 10), pady=(5, 10)
         )
@@ -118,20 +112,20 @@ class Frames:
         root.grid_columnconfigure(0, weight=1)
         root.grid_rowconfigure(0, weight=1)
 
-        self._frame_footer = ttk.Frame(master=root, height=30, style=&#34;Footer.TFrame&#34;)
+        self._frame_footer = Frame(master=root, height=30)
         self._frame_footer.grid(row=2, column=0, sticky=&#34;swe&#34;, padx=10, pady=(5, 10))
         self._frame_footer.grid_columnconfigure(1, weight=1)
 
     @property
-    def export_frame(self) -&gt; ttk.Labelframe:
+    def export_frame(self) -&gt; Labelframe:
         return self._frame_export
 
     @property
-    def data_frame(self) -&gt; ttk.Labelframe:
+    def data_frame(self) -&gt; Labelframe:
         return self._frame_data
 
     @property
-    def footer(self) -&gt; ttk.Frame:
+    def footer(self) -&gt; Frame:
         return self._frame_footer</code></pre>
 </details>
 <h3>Instance variables</h3>
@@ -144,7 +138,7 @@ class Frames:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def data_frame(self) -&gt; ttk.Labelframe:
+def data_frame(self) -&gt; Labelframe:
     return self._frame_data</code></pre>
 </details>
 </dd>
@@ -156,7 +150,7 @@ def data_frame(self) -&gt; ttk.Labelframe:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def export_frame(self) -&gt; ttk.Labelframe:
+def export_frame(self) -&gt; Labelframe:
     return self._frame_export</code></pre>
 </details>
 </dd>
@@ -168,7 +162,7 @@ def export_frame(self) -&gt; ttk.Labelframe:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def footer(self) -&gt; ttk.Frame:
+def footer(self) -&gt; Frame:
     return self._frame_footer</code></pre>
 </details>
 </dd>

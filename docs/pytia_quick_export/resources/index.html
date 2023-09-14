@@ -59,6 +59,7 @@ from const import (
     CONFIG_SETTINGS,
     CONFIG_USERS,
     LOGON,
+    STYLES,
 )
 from resources.utils import expand_env_vars
 
@@ -333,6 +334,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
+    theme: str = STYLES[0]
     personal_access_token: str = &#34;&#34;
 
     def __post_init__(self) -&gt; None:
@@ -549,7 +551,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.5.0', counter: int = 0, personal_access_token: str = '')</span>
+<span>(</span><span>*, version: str = '0.6.0', counter: int = 0, theme: str = 'cosmo', personal_access_token: str = '')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -563,6 +565,7 @@ class AppData:
 
     version: str = field(default=APP_VERSION)
     counter: int = 0
+    theme: str = STYLES[0]
     personal_access_token: str = &#34;&#34;
 
     def __post_init__(self) -&gt; None:
@@ -578,6 +581,10 @@ class AppData:
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
 <dt id="pytia_quick_export.resources.AppData.personal_access_token"><code class="name">var <span class="ident">personal_access_token</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pytia_quick_export.resources.AppData.theme"><code class="name">var <span class="ident">theme</span> : str</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -1993,6 +2000,7 @@ def values(self) -&gt; List[str]:
 <ul class="">
 <li><code><a title="pytia_quick_export.resources.AppData.counter" href="#pytia_quick_export.resources.AppData.counter">counter</a></code></li>
 <li><code><a title="pytia_quick_export.resources.AppData.personal_access_token" href="#pytia_quick_export.resources.AppData.personal_access_token">personal_access_token</a></code></li>
+<li><code><a title="pytia_quick_export.resources.AppData.theme" href="#pytia_quick_export.resources.AppData.theme">theme</a></code></li>
 <li><code><a title="pytia_quick_export.resources.AppData.version" href="#pytia_quick_export.resources.AppData.version">version</a></code></li>
 </ul>
 </li>

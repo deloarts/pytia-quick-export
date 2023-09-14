@@ -39,13 +39,19 @@ from app.state_setter import UISetter
 from app.vars import Variables
 from helper.verifier import verify_user_input_for_export, verify_user_input_for_upload
 from pytia.log import log
+from ttkbootstrap import Style
 
 
 class Traces:
     &#34;&#34;&#34;The Traces class. Responsible for all variable traces in the main window.&#34;&#34;&#34;
 
     def __init__(
-        self, variables: Variables, state_setter: UISetter, layout: Layout, source: int
+        self,
+        variables: Variables,
+        state_setter: UISetter,
+        layout: Layout,
+        style: Style,
+        source: int,
     ) -&gt; None:
         &#34;&#34;&#34;
         Inits the Traces class. Adds the main windows&#39; variable traces.
@@ -53,11 +59,14 @@ class Traces:
         Args:
             vars (Variables): The main window&#39;s variables.
             state_setter (UISetter): The state setter of the main window.
+            layout (Layout): The apps layout instance.
+            style (Style): The ttkbootstrap style instance.
             source (int [0, 1, 2]): The source of the document.
         &#34;&#34;&#34;
         self.vars = variables
         self.set_ui = state_setter
         self.layout = layout
+        self.style = style
         self.source = source
 
         self._add_traces()
@@ -99,7 +108,7 @@ class Traces:
     def trace_mail(self, *_) -&gt; None:
         &#34;&#34;&#34;Mail variable trace. Verifies the user input for setting the export button.&#34;&#34;&#34;
         self.layout.input_mail.configure(
-            foreground=&#34;black&#34; if validators.email(self.vars.mail.get()) else &#34;red&#34;  # type: ignore
+            foreground=self.style.colors.fg if validators.email(self.vars.mail.get()) else self.style.colors.danger  # type: ignore
         )
         verify_user_input_for_export(variables=self.vars, layout=self.layout)
 
@@ -109,7 +118,7 @@ class Traces:
             os.path.isdir(self.vars.folder.get())
             and os.path.isabs(self.vars.folder.get())
         )
-        self.layout.input_folder.configure(foreground=&#34;black&#34; if is_dir else &#34;red&#34;)
+        self.layout.input_folder.configure(foreground=self.style.colors.fg if is_dir else self.style.colors.danger)  # type: ignore
         verify_user_input_for_export(variables=self.vars, layout=self.layout)</code></pre>
 </details>
 </section>
@@ -124,7 +133,7 @@ class Traces:
 <dl>
 <dt id="pytia_quick_export.app.traces.Traces"><code class="flex name class">
 <span>class <span class="ident">Traces</span></span>
-<span>(</span><span>variables: app.vars.Variables, state_setter: app.state_setter.UISetter, layout: app.layout.Layout, source: int)</span>
+<span>(</span><span>variables: app.vars.Variables, state_setter: app.state_setter.UISetter, layout: app.layout.Layout, style: ttkbootstrap.style.Style, source: int)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The Traces class. Responsible for all variable traces in the main window.</p>
@@ -135,6 +144,10 @@ class Traces:
 <dd>The main window's variables.</dd>
 <dt><strong><code>state_setter</code></strong> :&ensp;<code>UISetter</code></dt>
 <dd>The state setter of the main window.</dd>
+<dt><strong><code>layout</code></strong> :&ensp;<code>Layout</code></dt>
+<dd>The apps layout instance.</dd>
+<dt><strong><code>style</code></strong> :&ensp;<code>Style</code></dt>
+<dd>The ttkbootstrap style instance.</dd>
 <dt><strong><code>source</code></strong> :&ensp;<code>int [0, 1, 2]</code></dt>
 <dd>The source of the document.</dd>
 </dl></div>
@@ -146,7 +159,12 @@ class Traces:
     &#34;&#34;&#34;The Traces class. Responsible for all variable traces in the main window.&#34;&#34;&#34;
 
     def __init__(
-        self, variables: Variables, state_setter: UISetter, layout: Layout, source: int
+        self,
+        variables: Variables,
+        state_setter: UISetter,
+        layout: Layout,
+        style: Style,
+        source: int,
     ) -&gt; None:
         &#34;&#34;&#34;
         Inits the Traces class. Adds the main windows&#39; variable traces.
@@ -154,11 +172,14 @@ class Traces:
         Args:
             vars (Variables): The main window&#39;s variables.
             state_setter (UISetter): The state setter of the main window.
+            layout (Layout): The apps layout instance.
+            style (Style): The ttkbootstrap style instance.
             source (int [0, 1, 2]): The source of the document.
         &#34;&#34;&#34;
         self.vars = variables
         self.set_ui = state_setter
         self.layout = layout
+        self.style = style
         self.source = source
 
         self._add_traces()
@@ -200,7 +221,7 @@ class Traces:
     def trace_mail(self, *_) -&gt; None:
         &#34;&#34;&#34;Mail variable trace. Verifies the user input for setting the export button.&#34;&#34;&#34;
         self.layout.input_mail.configure(
-            foreground=&#34;black&#34; if validators.email(self.vars.mail.get()) else &#34;red&#34;  # type: ignore
+            foreground=self.style.colors.fg if validators.email(self.vars.mail.get()) else self.style.colors.danger  # type: ignore
         )
         verify_user_input_for_export(variables=self.vars, layout=self.layout)
 
@@ -210,7 +231,7 @@ class Traces:
             os.path.isdir(self.vars.folder.get())
             and os.path.isabs(self.vars.folder.get())
         )
-        self.layout.input_folder.configure(foreground=&#34;black&#34; if is_dir else &#34;red&#34;)
+        self.layout.input_folder.configure(foreground=self.style.colors.fg if is_dir else self.style.colors.danger)  # type: ignore
         verify_user_input_for_export(variables=self.vars, layout=self.layout)</code></pre>
 </details>
 <h3>Methods</h3>
@@ -247,7 +268,7 @@ class Traces:
         os.path.isdir(self.vars.folder.get())
         and os.path.isabs(self.vars.folder.get())
     )
-    self.layout.input_folder.configure(foreground=&#34;black&#34; if is_dir else &#34;red&#34;)
+    self.layout.input_folder.configure(foreground=self.style.colors.fg if is_dir else self.style.colors.danger)  # type: ignore
     verify_user_input_for_export(variables=self.vars, layout=self.layout)</code></pre>
 </details>
 </dd>
@@ -263,7 +284,7 @@ class Traces:
 <pre><code class="python">def trace_mail(self, *_) -&gt; None:
     &#34;&#34;&#34;Mail variable trace. Verifies the user input for setting the export button.&#34;&#34;&#34;
     self.layout.input_mail.configure(
-        foreground=&#34;black&#34; if validators.email(self.vars.mail.get()) else &#34;red&#34;  # type: ignore
+        foreground=self.style.colors.fg if validators.email(self.vars.mail.get()) else self.style.colors.danger  # type: ignore
     )
     verify_user_input_for_export(variables=self.vars, layout=self.layout)</code></pre>
 </details>
