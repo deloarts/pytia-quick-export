@@ -44,7 +44,7 @@ class GUI(tk.Tk):
     def __init__(self) -> None:
         """Inits the main window."""
         ttk.tk.Tk.__init__(self)
-        ttk.Style(theme=resource.appdata.theme)
+        self.style = ttk.Style(theme=resource.appdata.theme)
 
         # CLASS VARS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.doc_helper: LazyDocumentHelper  # Instantiate later for performance improvement
@@ -175,6 +175,7 @@ class GUI(tk.Tk):
             variables=self.vars,
             state_setter=self.set_ui,
             layout=self.layout,
+            style=self.style,
             source=self.doc_helper.source,
         )
 
