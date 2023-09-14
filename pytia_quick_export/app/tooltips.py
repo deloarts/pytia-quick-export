@@ -83,7 +83,7 @@ class ToolTips:
 
         # region NOT
         ToolTip(
-            widget=layout.help_note,
+            widget=layout.input_note,
             text=(
                 "The note will only be visible in the e-mail body. If you want to leave a "
                 "permanent note, please use the PYTIA Property Manager."
@@ -99,6 +99,17 @@ class ToolTips:
         if get_outlook() is None:
             mail_tooltip += "\n\nDisabled, because MS Outlook is not available."
         ToolTip(widget=layout.input_mail, text=mail_tooltip)
+        # endregion
+
+        # region EXPORT
+        export_tooltip = (
+            "Exports the data of the item respectively to the export setting above.\n\n"
+            "The following conditions have to be met, to enable the export:\n"
+            " - A project number must be selected\n"
+            " - The condition must be set\n"
+            " - The quantity must be greater than zero\n"
+        )
+        ToolTip(widget=layout.button_export, text=export_tooltip)
         # endregion
 
         # region UPLOAD
