@@ -52,9 +52,21 @@ class Callbacks:
             and not resource.settings.restrictions.allow_all_users
         )
 
+        self._bind_menu_callbacks()
         self._bind_button_callbacks()
         self._bind_widget_callbacks()
         log.info("Callbacks initialized.")
+
+    def _bind_menu_callbacks(self) -> None:
+        """Binds all callbacks to the menubar."""
+        if self.layout.rps_menu:
+            self.layout.rps_menu.entryconfig(
+                0, command=lambda: Rps.setup_personal_access_token(self.root)
+            )
+            self.layout.rps_menu.entryconfig(
+                1, command=Rps.remove_personal_access_token
+            )
+            self.layout.rps_menu.entryconfig(2, command=Rps.test_login)
 
     def _bind_button_callbacks(self) -> None:
         """Binds all callbacks to the main windows buttons."""

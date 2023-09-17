@@ -37,10 +37,19 @@ class Rps:
             prompt=(f"Enter your personal access token for {resource.rps.name}."),
         )
         resource.appdata.personal_access_token = pat or ""
-        cls._test_login()
+        cls.test_login()
 
     @classmethod
-    def _test_login(cls) -> None:
+    def remove_personal_access_token(cls) -> None:
+        resource.appdata.personal_access_token = ""
+        resource.write_appdata()
+        tkmsg.showinfo(
+            title=resource.settings.title,
+            message=f"Removed personal access token for {resource.rps.name}.",
+        )
+
+    @classmethod
+    def test_login(cls) -> None:
         pat = resource.appdata.personal_access_token
 
         try:
