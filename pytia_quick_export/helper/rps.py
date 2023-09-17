@@ -31,6 +31,12 @@ class Rps:
 
     @classmethod
     def setup_personal_access_token(cls, root: Tk) -> None:
+        """Sets up the personal access token for the RPS upload. Writes the token to
+        the appdata config file.
+
+        Args:
+            root (Tk): The main app. Required for the prompt to be in front of the app.
+        """
         pat = simpledialog.askstring(
             parent=root,
             title=resource.settings.title,
@@ -41,6 +47,7 @@ class Rps:
 
     @classmethod
     def remove_personal_access_token(cls) -> None:
+        """Removes the personal access token from the appdata config file."""
         resource.appdata.personal_access_token = ""
         resource.write_appdata()
         tkmsg.showinfo(
@@ -50,6 +57,7 @@ class Rps:
 
     @classmethod
     def test_login(cls) -> None:
+        """Tests the access token for the RPS system. Shows respective information."""
         pat = resource.appdata.personal_access_token
 
         try:
@@ -100,11 +108,17 @@ class Rps:
             )
 
     def _process_schema(self) -> str:
-        # RPS schema keywords are:
-        #  - %: The prefix for fixed text
-        #  - $: The prefix for default or app specific properties
-        #  - No prefix: The property name
+        """Processes the schema for the RPS upload. The schema is defined in the
+        RPS config file.
 
+        RPS schema keywords are:
+         - %: The prefix for fixed text
+         - $: The prefix for default or app specific properties
+         - No prefix: The property name
+
+        Returns:
+            str: A valid json for the upload.
+        """
         data = {}
         schema = resource.rps.api.bought.create.schema
 
