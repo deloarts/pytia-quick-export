@@ -357,7 +357,7 @@ class Resources:  # pylint: disable=R0902
         self._read_props()
         self._read_appdata()
 
-        atexit.register(self._write_appdata)
+        atexit.register(self.write_appdata)
 
     @property
     def settings(self) -&gt; Settings:
@@ -467,7 +467,7 @@ class Resources:  # pylint: disable=R0902
         else:
             self._appdata = AppData()
 
-    def _write_appdata(self) -&gt; None:
+    def write_appdata(self) -&gt; None:
         &#34;&#34;&#34;Saves appdata config to file.&#34;&#34;&#34;
         os.makedirs(APPDATA, exist_ok=True)
         with open(f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;, &#34;w&#34;, encoding=&#34;utf8&#34;) as f:
@@ -551,7 +551,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.6.0', counter: int = 0, theme: str = 'cosmo', personal_access_token: str = '')</span>
+<span>(</span><span>*, version: str = '0.6.1', counter: int = 0, theme: str = 'cosmo', personal_access_token: str = '')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -931,7 +931,7 @@ def values(self) -&gt; List[str]:
         self._read_props()
         self._read_appdata()
 
-        atexit.register(self._write_appdata)
+        atexit.register(self.write_appdata)
 
     @property
     def settings(self) -&gt; Settings:
@@ -1041,7 +1041,7 @@ def values(self) -&gt; List[str]:
         else:
             self._appdata = AppData()
 
-    def _write_appdata(self) -&gt; None:
+    def write_appdata(self) -&gt; None:
         &#34;&#34;&#34;Saves appdata config to file.&#34;&#34;&#34;
         os.makedirs(APPDATA, exist_ok=True)
         with open(f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;, &#34;w&#34;, encoding=&#34;utf8&#34;) as f:
@@ -1348,6 +1348,22 @@ current session if logon is omitted.</p>
         if user.logon == logon:
             return True
     return False</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.resources.Resources.write_appdata"><code class="name flex">
+<span>def <span class="ident">write_appdata</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves appdata config to file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_appdata(self) -&gt; None:
+    &#34;&#34;&#34;Saves appdata config to file.&#34;&#34;&#34;
+    os.makedirs(APPDATA, exist_ok=True)
+    with open(f&#34;{APPDATA}\\{CONFIG_APPDATA}&#34;, &#34;w&#34;, encoding=&#34;utf8&#34;) as f:
+        json.dump(asdict(self._appdata), f)</code></pre>
 </details>
 </dd>
 </dl>
@@ -2082,6 +2098,7 @@ def values(self) -&gt; List[str]:
 <li><code><a title="pytia_quick_export.resources.Resources.rps" href="#pytia_quick_export.resources.Resources.rps">rps</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.settings" href="#pytia_quick_export.resources.Resources.settings">settings</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Resources.users" href="#pytia_quick_export.resources.Resources.users">users</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Resources.write_appdata" href="#pytia_quick_export.resources.Resources.write_appdata">write_appdata</a></code></li>
 </ul>
 </li>
 <li>
