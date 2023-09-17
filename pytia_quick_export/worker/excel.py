@@ -32,10 +32,11 @@ def export_excel(
     """
     wb = Workbook()
     ws = wb.active
+    assert ws
     ws.title = selected_project
 
-    _write_data(worksheet=ws, data=data)
-    _style_worksheet(worksheet=ws)
+    _write_data(worksheet=ws, data=data)  # type:ignore
+    _style_worksheet(worksheet=ws)  # type:ignore
 
     wb.save(str(path))
     log.info(f"Saved excel document to {str(path)!r}.")
@@ -93,7 +94,7 @@ def _style_worksheet(worksheet: Worksheet) -> None:
     """Styles the worksheet as stated in the excel.json config file."""
     for column_cells in worksheet.columns:
         # Set format, font and size
-        for index, cell in enumerate(column_cells):
+        for index, cell in enumerate(column_cells):  # type:ignore
             if index > resource.excel.data_row - 1:
                 color = (
                     resource.excel.data_color_1
@@ -119,23 +120,23 @@ def _style_worksheet(worksheet: Worksheet) -> None:
         # Set font and height for the header row
         if isinstance(resource.excel.header_row, int):
             worksheet.row_dimensions[resource.excel.header_row + 1].height = 20  # type: ignore
-            column_cells[resource.excel.header_row].font = Font(
+            column_cells[resource.excel.header_row].font = Font(  # type:ignore
                 name=resource.excel.font,
                 size=resource.excel.size,
                 bold=True,
                 color=resource.excel.header_color,
             )
-            column_cells[resource.excel.header_row].fill = PatternFill(
+            column_cells[resource.excel.header_row].fill = PatternFill(  # type:ignore
                 start_color=resource.excel.header_bg_color,
                 end_color=resource.excel.header_bg_color,
                 fill_type="solid",
             )
-            column_cells[resource.excel.header_row].alignment = Alignment(
-                horizontal="center", vertical="center"
-            )
+            column_cells[  # type:ignore
+                resource.excel.header_row
+            ].alignment = Alignment(horizontal="center", vertical="center")
 
         # Set cell width
-        length = max(len(str(cell.value)) * 1.1 for cell in column_cells)
+        length = max(len(str(cell.value)) * 1.1 for cell in column_cells)  # type:ignore
         worksheet.column_dimensions[column_cells[0].column_letter].width = (  # type: ignore
             length if length > 2 else 2
         )

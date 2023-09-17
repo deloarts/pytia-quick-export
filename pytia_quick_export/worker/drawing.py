@@ -2,6 +2,7 @@
     Export submodule. Holds utility functions for handling data exports.
 """
 from pathlib import Path
+from tkinter import messagebox as tkmsg
 
 from const import PROP_DRAWING_PATH
 from pytia.log import log
@@ -9,6 +10,7 @@ from pytia.wrapper.documents.drawing_documents import PyDrawingDocument
 from pytia.wrapper.documents.part_documents import PyPartDocument
 from pytia.wrapper.documents.product_documents import PyProductDocument
 from resources import resource
+from resources.utils import expand_env_vars
 
 
 def export_drawing(
@@ -28,7 +30,9 @@ def export_drawing(
         document (PyProductDocument | PyPartDocument): The document from which to export the data.
     """
     if document.properties.exists(PROP_DRAWING_PATH):
-        drawing_path = Path(document.properties.get_by_name(PROP_DRAWING_PATH).value)
+        drawing_path = Path(
+            expand_env_vars(document.properties.get_by_name(PROP_DRAWING_PATH).value)
+        )
         if drawing_path.exists():
             with PyDrawingDocument() as drawing_document:
                 drawing_document.open(drawing_path)
@@ -50,8 +54,10 @@ def export_drawing(
                             )
                     drawing_document.save()
         else:
-            log.error(
+            msg = (
                 f"Skipped drawing export of {document.document.name!r}: Path not valid."
             )
+            log.error(msg)
+            tkmsg.showerror(title=resource.settings.title, message=msg)
     else:
         log.info(f"Skipped drawing export of {document.document.name!r}: Path not set.")

@@ -61,15 +61,22 @@ class Layout:
 
         # region MENU
         menubar = Menu(root)
+        menubar.add_cascade(label=&#34;Help&#34;, command=show_help)
 
         self._appearance_menu = Menu(menubar, tearoff=False)
         for style in STYLES:
             self._appearance_menu.add_command(label=style)
-
-        menubar.add_cascade(label=&#34;Help&#34;, command=show_help)
         menubar.add_cascade(label=&#34;Appearance&#34;, menu=self._appearance_menu)
-
         set_appearance_menu(self._appearance_menu)
+
+        self._rps_menu: Menu | None = None
+        if resource.settings.export.enable_rps:
+            self._rps_menu = Menu(menubar, tearoff=False)
+            self._rps_menu.add_command(label=&#34;Set Access Token&#34;)
+            self._rps_menu.add_command(label=&#34;Remove Access Token&#34;)
+            self._rps_menu.add_command(label=&#34;Test Access Token&#34;)
+            menubar.add_cascade(label=resource.rps.name, menu=self._rps_menu)
+
         root.configure(menu=menubar)
         # endregion
 
@@ -322,6 +329,10 @@ class Layout:
     @property
     def appearance_menu(self) -&gt; Menu:
         return self._appearance_menu
+
+    @property
+    def rps_menu(self) -&gt; Menu | None:
+        return self._rps_menu
 
     @property
     def input_project(self) -&gt; Combobox:
@@ -419,15 +430,22 @@ class Layout:
 
         # region MENU
         menubar = Menu(root)
+        menubar.add_cascade(label=&#34;Help&#34;, command=show_help)
 
         self._appearance_menu = Menu(menubar, tearoff=False)
         for style in STYLES:
             self._appearance_menu.add_command(label=style)
-
-        menubar.add_cascade(label=&#34;Help&#34;, command=show_help)
         menubar.add_cascade(label=&#34;Appearance&#34;, menu=self._appearance_menu)
-
         set_appearance_menu(self._appearance_menu)
+
+        self._rps_menu: Menu | None = None
+        if resource.settings.export.enable_rps:
+            self._rps_menu = Menu(menubar, tearoff=False)
+            self._rps_menu.add_command(label=&#34;Set Access Token&#34;)
+            self._rps_menu.add_command(label=&#34;Remove Access Token&#34;)
+            self._rps_menu.add_command(label=&#34;Test Access Token&#34;)
+            menubar.add_cascade(label=resource.rps.name, menu=self._rps_menu)
+
         root.configure(menu=menubar)
         # endregion
 
@@ -680,6 +698,10 @@ class Layout:
     @property
     def appearance_menu(self) -&gt; Menu:
         return self._appearance_menu
+
+    @property
+    def rps_menu(self) -&gt; Menu | None:
+        return self._rps_menu
 
     @property
     def input_project(self) -&gt; Combobox:
@@ -898,6 +920,18 @@ def input_quantity(self) -&gt; NumberEntry:
     return self._entry_quantity</code></pre>
 </details>
 </dd>
+<dt id="pytia_quick_export.app.layout.Layout.rps_menu"><code class="name">var <span class="ident">rps_menu</span> : tkinter.Menu | None</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def rps_menu(self) -&gt; Menu | None:
+    return self._rps_menu</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -934,6 +968,7 @@ def input_quantity(self) -&gt; NumberEntry:
 <li><code><a title="pytia_quick_export.app.layout.Layout.input_note" href="#pytia_quick_export.app.layout.Layout.input_note">input_note</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.input_project" href="#pytia_quick_export.app.layout.Layout.input_project">input_project</a></code></li>
 <li><code><a title="pytia_quick_export.app.layout.Layout.input_quantity" href="#pytia_quick_export.app.layout.Layout.input_quantity">input_quantity</a></code></li>
+<li><code><a title="pytia_quick_export.app.layout.Layout.rps_menu" href="#pytia_quick_export.app.layout.Layout.rps_menu">rps_menu</a></code></li>
 </ul>
 </li>
 </ul>

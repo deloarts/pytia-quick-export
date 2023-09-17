@@ -59,16 +59,33 @@ class Rps:
 
     @classmethod
     def setup_personal_access_token(cls, root: Tk) -&gt; None:
+        &#34;&#34;&#34;Sets up the personal access token for the RPS upload. Writes the token to
+        the appdata config file.
+
+        Args:
+            root (Tk): The main app. Required for the prompt to be in front of the app.
+        &#34;&#34;&#34;
         pat = simpledialog.askstring(
             parent=root,
             title=resource.settings.title,
             prompt=(f&#34;Enter your personal access token for {resource.rps.name}.&#34;),
         )
         resource.appdata.personal_access_token = pat or &#34;&#34;
-        cls._test_login()
+        cls.test_login()
 
     @classmethod
-    def _test_login(cls) -&gt; None:
+    def remove_personal_access_token(cls) -&gt; None:
+        &#34;&#34;&#34;Removes the personal access token from the appdata config file.&#34;&#34;&#34;
+        resource.appdata.personal_access_token = &#34;&#34;
+        resource.write_appdata()
+        tkmsg.showinfo(
+            title=resource.settings.title,
+            message=f&#34;Removed personal access token for {resource.rps.name}.&#34;,
+        )
+
+    @classmethod
+    def test_login(cls) -&gt; None:
+        &#34;&#34;&#34;Tests the access token for the RPS system. Shows respective information.&#34;&#34;&#34;
         pat = resource.appdata.personal_access_token
 
         try:
@@ -119,11 +136,17 @@ class Rps:
             )
 
     def _process_schema(self) -&gt; str:
-        # RPS schema keywords are:
-        #  - %: The prefix for fixed text
-        #  - $: The prefix for default or app specific properties
-        #  - No prefix: The property name
+        &#34;&#34;&#34;Processes the schema for the RPS upload. The schema is defined in the
+        RPS config file.
 
+        RPS schema keywords are:
+         - %: The prefix for fixed text
+         - $: The prefix for default or app specific properties
+         - No prefix: The property name
+
+        Returns:
+            str: A valid json for the upload.
+        &#34;&#34;&#34;
         data = {}
         schema = resource.rps.api.bought.create.schema
 
@@ -232,16 +255,33 @@ class Rps:
 
     @classmethod
     def setup_personal_access_token(cls, root: Tk) -&gt; None:
+        &#34;&#34;&#34;Sets up the personal access token for the RPS upload. Writes the token to
+        the appdata config file.
+
+        Args:
+            root (Tk): The main app. Required for the prompt to be in front of the app.
+        &#34;&#34;&#34;
         pat = simpledialog.askstring(
             parent=root,
             title=resource.settings.title,
             prompt=(f&#34;Enter your personal access token for {resource.rps.name}.&#34;),
         )
         resource.appdata.personal_access_token = pat or &#34;&#34;
-        cls._test_login()
+        cls.test_login()
 
     @classmethod
-    def _test_login(cls) -&gt; None:
+    def remove_personal_access_token(cls) -&gt; None:
+        &#34;&#34;&#34;Removes the personal access token from the appdata config file.&#34;&#34;&#34;
+        resource.appdata.personal_access_token = &#34;&#34;
+        resource.write_appdata()
+        tkmsg.showinfo(
+            title=resource.settings.title,
+            message=f&#34;Removed personal access token for {resource.rps.name}.&#34;,
+        )
+
+    @classmethod
+    def test_login(cls) -&gt; None:
+        &#34;&#34;&#34;Tests the access token for the RPS system. Shows respective information.&#34;&#34;&#34;
         pat = resource.appdata.personal_access_token
 
         try:
@@ -292,11 +332,17 @@ class Rps:
             )
 
     def _process_schema(self) -&gt; str:
-        # RPS schema keywords are:
-        #  - %: The prefix for fixed text
-        #  - $: The prefix for default or app specific properties
-        #  - No prefix: The property name
+        &#34;&#34;&#34;Processes the schema for the RPS upload. The schema is defined in the
+        RPS config file.
 
+        RPS schema keywords are:
+         - %: The prefix for fixed text
+         - $: The prefix for default or app specific properties
+         - No prefix: The property name
+
+        Returns:
+            str: A valid json for the upload.
+        &#34;&#34;&#34;
         data = {}
         schema = resource.rps.api.bought.create.schema
 
@@ -368,24 +414,118 @@ class Rps:
 </details>
 <h3>Static methods</h3>
 <dl>
+<dt id="pytia_quick_export.helper.rps.Rps.remove_personal_access_token"><code class="name flex">
+<span>def <span class="ident">remove_personal_access_token</span></span>(<span>) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes the personal access token from the appdata config file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def remove_personal_access_token(cls) -&gt; None:
+    &#34;&#34;&#34;Removes the personal access token from the appdata config file.&#34;&#34;&#34;
+    resource.appdata.personal_access_token = &#34;&#34;
+    resource.write_appdata()
+    tkmsg.showinfo(
+        title=resource.settings.title,
+        message=f&#34;Removed personal access token for {resource.rps.name}.&#34;,
+    )</code></pre>
+</details>
+</dd>
 <dt id="pytia_quick_export.helper.rps.Rps.setup_personal_access_token"><code class="name flex">
 <span>def <span class="ident">setup_personal_access_token</span></span>(<span>root: tkinter.Tk) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Sets up the personal access token for the RPS upload. Writes the token to
+the appdata config file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>root</code></strong> :&ensp;<code>Tk</code></dt>
+<dd>The main app. Required for the prompt to be in front of the app.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def setup_personal_access_token(cls, root: Tk) -&gt; None:
+    &#34;&#34;&#34;Sets up the personal access token for the RPS upload. Writes the token to
+    the appdata config file.
+
+    Args:
+        root (Tk): The main app. Required for the prompt to be in front of the app.
+    &#34;&#34;&#34;
     pat = simpledialog.askstring(
         parent=root,
         title=resource.settings.title,
         prompt=(f&#34;Enter your personal access token for {resource.rps.name}.&#34;),
     )
     resource.appdata.personal_access_token = pat or &#34;&#34;
-    cls._test_login()</code></pre>
+    cls.test_login()</code></pre>
+</details>
+</dd>
+<dt id="pytia_quick_export.helper.rps.Rps.test_login"><code class="name flex">
+<span>def <span class="ident">test_login</span></span>(<span>) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tests the access token for the RPS system. Shows respective information.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def test_login(cls) -&gt; None:
+    &#34;&#34;&#34;Tests the access token for the RPS system. Shows respective information.&#34;&#34;&#34;
+    pat = resource.appdata.personal_access_token
+
+    try:
+        response = requests.request(
+            method=resource.rps.api.login.method,
+            url=cls._make_url(resource.rps.api.login.url),
+            headers={resource.rps.api.login.api_header: pat},
+        )
+        if response.status_code == 401:
+            tkmsg.showwarning(
+                title=resource.settings.title,
+                message=(
+                    f&#34;Your personal access token for {resource.rps.name} is not valid. &#34;
+                    &#34;Press F6 to setup your access token.&#34;
+                ),
+            )
+        elif response.status_code != 200:
+            tkmsg.showerror(
+                title=resource.settings.title,
+                message=(
+                    f&#34;The server could not process the request:\n\n&#34;
+                    f&#34;{str(response.text)}&#34;
+                ),
+            )
+        else:
+            try:
+                response_body = json.loads(response.text)
+                rps_username = response_body[
+                    resource.rps.api.login.response_username_key
+                ]
+            except Exception as e:
+                rps_username = &#34;Unknown&#34;
+
+            tkmsg.showinfo(
+                title=resource.settings.title,
+                message=(
+                    f&#34;You are logged to {resource.rps.name} as {rps_username}.&#34;
+                ),
+            )
+
+    except Exception as e:
+        tkmsg.showerror(
+            title=resource.settings.title,
+            message=(
+                f&#34;Failed to establish a connection with {resource.rps.name}:\n\n&#34;
+                f&#34;{e}&#34;
+            ),
+        )</code></pre>
 </details>
 </dd>
 </dl>
@@ -471,7 +611,9 @@ def setup_personal_access_token(cls, root: Tk) -&gt; None:
 <li>
 <h4><code><a title="pytia_quick_export.helper.rps.Rps" href="#pytia_quick_export.helper.rps.Rps">Rps</a></code></h4>
 <ul class="">
+<li><code><a title="pytia_quick_export.helper.rps.Rps.remove_personal_access_token" href="#pytia_quick_export.helper.rps.Rps.remove_personal_access_token">remove_personal_access_token</a></code></li>
 <li><code><a title="pytia_quick_export.helper.rps.Rps.setup_personal_access_token" href="#pytia_quick_export.helper.rps.Rps.setup_personal_access_token">setup_personal_access_token</a></code></li>
+<li><code><a title="pytia_quick_export.helper.rps.Rps.test_login" href="#pytia_quick_export.helper.rps.Rps.test_login">test_login</a></code></li>
 <li><code><a title="pytia_quick_export.helper.rps.Rps.upload_bought_item" href="#pytia_quick_export.helper.rps.Rps.upload_bought_item">upload_bought_item</a></code></li>
 </ul>
 </li>
