@@ -32,15 +32,22 @@ class Layout:
 
         # region MENU
         menubar = Menu(root)
+        menubar.add_cascade(label="Help", command=show_help)
 
         self._appearance_menu = Menu(menubar, tearoff=False)
         for style in STYLES:
             self._appearance_menu.add_command(label=style)
-
-        menubar.add_cascade(label="Help", command=show_help)
         menubar.add_cascade(label="Appearance", menu=self._appearance_menu)
-
         set_appearance_menu(self._appearance_menu)
+
+        self._rps_menu: Menu | None = None
+        if resource.settings.export.enable_rps:
+            self._rps_menu = Menu(menubar, tearoff=False)
+            self._rps_menu.add_command(label="Set Access Token")
+            self._rps_menu.add_command(label="Remove Access Token")
+            self._rps_menu.add_command(label="Test Access Token")
+            menubar.add_cascade(label=resource.rps.name, menu=self._rps_menu)
+
         root.configure(menu=menubar)
         # endregion
 
@@ -293,6 +300,10 @@ class Layout:
     @property
     def appearance_menu(self) -> Menu:
         return self._appearance_menu
+
+    @property
+    def rps_menu(self) -> Menu | None:
+        return self._rps_menu
 
     @property
     def input_project(self) -> Combobox:

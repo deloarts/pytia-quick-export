@@ -326,7 +326,7 @@ class Resources:  # pylint: disable=R0902
         self._read_props()
         self._read_appdata()
 
-        atexit.register(self._write_appdata)
+        atexit.register(self.write_appdata)
 
     @property
     def settings(self) -> Settings:
@@ -436,7 +436,7 @@ class Resources:  # pylint: disable=R0902
         else:
             self._appdata = AppData()
 
-    def _write_appdata(self) -> None:
+    def write_appdata(self) -> None:
         """Saves appdata config to file."""
         os.makedirs(APPDATA, exist_ok=True)
         with open(f"{APPDATA}\\{CONFIG_APPDATA}", "w", encoding="utf8") as f:
