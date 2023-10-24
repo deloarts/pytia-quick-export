@@ -8,7 +8,8 @@ from shutil import make_archive
 
 import jinja2
 from helper.outlook import get_outlook
-from models.data import DataModel, DatumModel
+from models.data import DataModel
+from models.data import DatumModel
 from pytia.exceptions import PytiaApplicationError
 from resources import resource
 from templates import templates

@@ -1,5 +1,6 @@
 import os
-from tkinter import DISABLED, NORMAL
+from tkinter import DISABLED
+from tkinter import NORMAL
 from tkinter import messagebox as tkmsg
 
 import validators

@@ -3,7 +3,9 @@
 """
 
 from dataclasses import dataclass
-from tkinter import DoubleVar, StringVar, Tk
+from tkinter import DoubleVar
+from tkinter import StringVar
+from tkinter import Tk
 
 
 @dataclass(slots=True, kw_only=True)

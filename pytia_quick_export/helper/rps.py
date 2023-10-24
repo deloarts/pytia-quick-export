@@ -7,7 +7,8 @@ import requests
 from app.state_setter import UISetter
 from app.vars import Variables
 from helper.lazy_loaders import LazyDocumentHelper
-from helper.translators import translate_project, translate_property_value
+from helper.translators import translate_project
+from helper.translators import translate_property_value
 from pytia.log import log
 from resources import resource
 
