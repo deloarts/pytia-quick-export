@@ -6,11 +6,9 @@ import os
 import time
 from pathlib import Path
 
-from pytia.exceptions import (
-    PytiaDocumentNotSavedError,
-    PytiaValueError,
-    PytiaWrongDocumentTypeError,
-)
+from pytia.exceptions import PytiaDocumentNotSavedError
+from pytia.exceptions import PytiaValueError
+from pytia.exceptions import PytiaWrongDocumentTypeError
 from pytia.log import log
 from resources import resource
 

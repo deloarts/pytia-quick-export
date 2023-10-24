@@ -8,7 +8,12 @@
 import atexit
 import os
 
-from const import APP_NAME, APP_VERSION, LOG, LOGS, PID, PID_FILE
+from const import APP_NAME
+from const import APP_VERSION
+from const import LOG
+from const import LOGS
+from const import PID
+from const import PID_FILE
 from dependencies import deps
 from resources import resource
 
@@ -22,9 +27,8 @@ def main() -> None:
     # Afterwards import those modules which depend on third party modules.
     deps.install_dependencies()
 
-    from pytia.log import log  # pylint: disable=C0415
-
     from gui import GUI  # pylint: disable=C0415
+    from pytia.log import log  # pylint: disable=C0415
 
     with open(PID_FILE, "w") as f:
         f.write(str(PID))

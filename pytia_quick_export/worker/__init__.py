@@ -13,7 +13,9 @@ from app.frames import Frames
 from app.layout import Layout
 from app.state_setter import UISetter
 from app.vars import Variables
-from const import KEEP, TEMP_ATTACHMENTS, TEMP_EXPORT
+from const import KEEP
+from const import TEMP_ATTACHMENTS
+from const import TEMP_EXPORT
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.names import get_data_export_name
 from helper.translators import translate_project
@@ -31,7 +33,8 @@ from .drawing import export_drawing
 from .excel import export_excel
 from .mail import export_mail
 from .runner import Runner
-from .stp_stl import export_stl, export_stp
+from .stp_stl import export_stl
+from .stp_stl import export_stp
 
 
 class Worker:

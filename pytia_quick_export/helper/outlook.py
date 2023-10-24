@@ -1,7 +1,8 @@
 from typing import Optional
 
 from pytia.log import log
-from win32com.client import CDispatch, Dispatch
+from win32com.client import CDispatch
+from win32com.client import Dispatch
 from win32com.server.exception import COMException
 
 
