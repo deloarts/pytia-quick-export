@@ -1,11 +1,11 @@
 # pytia quick export
 
 ![state](https://img.shields.io/badge/State-Alpha-brown.svg?style=for-the-badge)
-![version](https://img.shields.io/badge/Version-0.6.1-orange.svg?style=for-the-badge)
+![version](https://img.shields.io/github/v/release/deloarts/pytia-quick-export?style=for-the-badge&color=orange)
 
 [![python](https://img.shields.io/badge/Python-3.10-blue.svg?style=for-the-badge)](https://www.python.org/downloads/)
 ![catia](https://img.shields.io/badge/CATIA-V5%206R2017-blue.svg?style=for-the-badge)
-![OS](https://img.shields.io/badge/OS-WIN10%20|%20WIN11-blue.svg?style=for-the-badge)
+![OS](https://img.shields.io/badge/OS-WIN11-blue.svg?style=for-the-badge)
 
 > ⚠️ The layout of this app is heavily biased towards the workflow and needs of my companies' engineering team. Although almost everything can be changed via config files and presets, the apps basic functionality is built to work in the environment of said company.
 
@@ -318,17 +318,17 @@ On a new revision, do the following:
 
 ## 7 changelog
 
-**v0.6.1**: Fix issues with export and types.  
-**v0.6.0**: Add themes.  
-**v0.5.0**: Add RPS upload.  
-**v0.4.2**: Fix launcher path.  
-**v0.4.1**: Expand environment variables in path settings.  
-**v0.4.0**: Add custom header text to export.  
-**v0.3.0**: Add fixed text and placeholder to export.  
-**v0.2.0**: Add `made` and `bought` header to excel config.  
-**v0.1.2**: Update export & mail settings.  
-**v0.1.1**: Distinguish between source 'made' and 'bought'.  
-**v0.1.0**: Initial commit.  
+[**v0.6.1**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.1): Fix issues with export and types.  
+[**v0.6.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.0): Add themes.  
+[**v0.5.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.5.0): Add RPS upload.  
+[**v0.4.2**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.4.2): Fix launcher path.  
+[**v0.4.1**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.4.1): Expand environment variables in path settings.  
+[**v0.4.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.4.0): Add custom header text to export.  
+[**v0.3.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.3.0): Add fixed text and placeholder to export.  
+[**v0.2.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.2.0): Add `made` and `bought` header to excel config.  
+[**v0.1.2**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.1.2): Update export & mail settings.  
+[**v0.1.1**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.1.1): Distinguish between source 'made' and 'bought'.  
+[**v0.1.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.1.0): Initial commit.  
 
 ## 8 to dos
 
