@@ -34,7 +34,7 @@
 import os
 from pathlib import Path
 
-__version__ = &#34;0.6.1&#34;
+__version__ = &#34;0.6.2&#34;
 
 PYTIA = &#34;pytia&#34;
 PYTIA_QUICK_EXPORT = &#34;pytia_quick_export&#34;
@@ -42,7 +42,7 @@ PYTIA_QUICK_EXPORT = &#34;pytia_quick_export&#34;
 APP_NAME = &#34;PYTIA Quick Export&#34;
 APP_VERSION = __version__
 
-LOGON = str(os.environ.get(&#34;USERNAME&#34;))
+LOGON = str(os.environ.get(&#34;USERNAME&#34;)).lower()
 CNEXT = &#34;win_b64\\code\\bin\\CNEXT.exe&#34;
 TEMP = str(os.environ.get(&#34;TEMP&#34;))
 TEMP_EXPORT = Path(TEMP, PYTIA_QUICK_EXPORT, &#34;export&#34;)

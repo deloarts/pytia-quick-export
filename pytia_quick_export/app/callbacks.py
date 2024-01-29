@@ -2,8 +2,10 @@
     The callbacks submodule for the main window.
 """
 
-from pathlib import Path, WindowsPath
-from tkinter import Tk, filedialog
+from pathlib import Path
+from pathlib import WindowsPath
+from tkinter import Tk
+from tkinter import filedialog
 
 from app.frames import Frames
 from app.layout import Layout

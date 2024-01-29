@@ -4,9 +4,12 @@
 from pathlib import Path
 from typing import Literal
 
-from models.data import DataModel, DatumModel
+from models.data import DataModel
+from models.data import DatumModel
 from openpyxl.cell import Cell
-from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.styles import Alignment
+from openpyxl.styles import Font
+from openpyxl.styles import PatternFill
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from pytia.log import log

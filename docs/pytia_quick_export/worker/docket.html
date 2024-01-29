@@ -34,11 +34,9 @@ from pathlib import Path
 
 from const import LOGON
 from pytia.exceptions import PytiaFileOperationError
-from pytia.utilities.docket import (
-    DocketConfig,
-    create_docket_from_template,
-    export_docket_as_pdf,
-)
+from pytia.utilities.docket import DocketConfig
+from pytia.utilities.docket import create_docket_from_template
+from pytia.utilities.docket import export_docket_as_pdf
 from pytia.wrapper.documents.part_documents import PyPartDocument
 from pytia.wrapper.documents.product_documents import PyProductDocument
 from resources import resource

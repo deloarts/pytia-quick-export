@@ -3,10 +3,9 @@
 """
 
 from const import KEEP
+from helper.lazy_loaders import LazyDocumentHelper
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from resources import resource
-
-from helper.lazy_loaders import LazyDocumentHelper
 
 
 def get_data_export_name(
