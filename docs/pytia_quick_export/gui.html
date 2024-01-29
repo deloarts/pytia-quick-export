@@ -44,18 +44,18 @@ from app.state_setter import UISetter
 from app.tooltips import ToolTips
 from app.traces import Traces
 from app.vars import Variables
-from const import APP_VERSION, LOG, LOGS
+from const import APP_VERSION
+from const import LOG
+from const import LOGS
 from helper.lazy_loaders import LazyDocumentHelper
 from helper.messages import show_help
 from helper.rps import Rps
-from pytia.exceptions import (
-    PytiaBodyEmptyError,
-    PytiaDifferentDocumentError,
-    PytiaDocumentNotSavedError,
-    PytiaNoDocumentOpenError,
-    PytiaPropertyNotFoundError,
-    PytiaWrongDocumentTypeError,
-)
+from pytia.exceptions import PytiaBodyEmptyError
+from pytia.exceptions import PytiaDifferentDocumentError
+from pytia.exceptions import PytiaDocumentNotSavedError
+from pytia.exceptions import PytiaNoDocumentOpenError
+from pytia.exceptions import PytiaPropertyNotFoundError
+from pytia.exceptions import PytiaWrongDocumentTypeError
 from pytia_ui_tools.exceptions import PytiaUiToolsOutsideWorkspaceError
 from pytia_ui_tools.handlers.error_handler import ErrorHandler
 from pytia_ui_tools.handlers.mail_handler import MailHandler

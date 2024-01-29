@@ -34,15 +34,15 @@
 from tkinter import Tk
 from tkinter import messagebox as tkmsg
 
-from const import KEEP, LOGON
+from app.layout import Layout
+from app.state_setter import UISetter
+from app.vars import Variables
+from const import KEEP
+from const import LOGON
 from helper.lazy_loaders import LazyDocumentHelper
 from pytia.exceptions import PytiaPropertyNotFoundError
 from pytia_ui_tools.handlers.workspace_handler import Workspace
 from resources import resource
-
-from app.layout import Layout
-from app.state_setter import UISetter
-from app.vars import Variables
 
 
 class Controller:

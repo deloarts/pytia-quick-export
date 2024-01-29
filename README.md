@@ -320,6 +320,7 @@ On a new revision, do the following:
 
 ## 7 changelog
 
+[**v0.6.2**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.2): Fix deprecation and logon.  
 [**v0.6.1**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.1): Fix issues with export and types.  
 [**v0.6.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.0): Add themes.  
 [**v0.5.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.5.0): Add RPS upload.  
