@@ -58,6 +58,8 @@ Table of contents:
 ### 1.1 user
 
 > ✏️ For a guided installation visit [https://pytia.deloarts.com](https://pytia.deloarts.com/installation/v0.html)
+>
+> ⚠️ Do not manually install any dependencies. The app installs all required packages on its own.
 
 On the users machine you need to install the following:
 
