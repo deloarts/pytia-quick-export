@@ -23,6 +23,7 @@ from models.data import DataModel
 from pytia.log import log
 from pytia.utilities.docket import DocketConfig
 from pytia.wrapper.documents.part_documents import PyPartDocument
+from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.utils.files import file_utility
 from pytia_ui_tools.utils.qr import QR
 from resources import resource
@@ -48,6 +49,7 @@ class Worker:
         doc_helper: LazyDocumentHelper,
         variables: Variables,
         frames: Frames,
+        workspace: Workspace,
     ) -> None:
         self.main_ui = main_ui
         self.layout = layout
@@ -55,6 +57,7 @@ class Worker:
         self.doc_helper = doc_helper
         self.variables = variables
         self.frames = frames
+        self.workspace = workspace
 
         self.data: DataModel
 
@@ -180,6 +183,7 @@ class Worker:
             pdf_path=self.pdf_path,
             dxf_path=self.dxf_path,
             document=self.doc_helper.document,
+            workspace=self.workspace,
         )
 
     def _send_mail(self) -> None:
