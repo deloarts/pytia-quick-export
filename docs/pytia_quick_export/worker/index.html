@@ -52,6 +52,7 @@ from models.data import DataModel
 from pytia.log import log
 from pytia.utilities.docket import DocketConfig
 from pytia.wrapper.documents.part_documents import PyPartDocument
+from pytia_ui_tools.handlers.workspace_handler import Workspace
 from pytia_ui_tools.utils.files import file_utility
 from pytia_ui_tools.utils.qr import QR
 from resources import resource
@@ -77,6 +78,7 @@ class Worker:
         doc_helper: LazyDocumentHelper,
         variables: Variables,
         frames: Frames,
+        workspace: Workspace,
     ) -&gt; None:
         self.main_ui = main_ui
         self.layout = layout
@@ -84,6 +86,7 @@ class Worker:
         self.doc_helper = doc_helper
         self.variables = variables
         self.frames = frames
+        self.workspace = workspace
 
         self.data: DataModel
 
@@ -209,6 +212,7 @@ class Worker:
             pdf_path=self.pdf_path,
             dxf_path=self.dxf_path,
             document=self.doc_helper.document,
+            workspace=self.workspace,
         )
 
     def _send_mail(self) -&gt; None:
@@ -288,7 +292,7 @@ class Worker:
 <dl>
 <dt id="pytia_quick_export.worker.Worker"><code class="flex name class">
 <span>class <span class="ident">Worker</span></span>
-<span>(</span><span>main_ui: tkinter.Tk, layout: app.layout.Layout, ui_setter: app.state_setter.UISetter, doc_helper: helper.lazy_loaders.LazyDocumentHelper, variables: app.vars.Variables, frames: app.frames.Frames)</span>
+<span>(</span><span>main_ui: tkinter.Tk, layout: app.layout.Layout, ui_setter: app.state_setter.UISetter, doc_helper: helper.lazy_loaders.LazyDocumentHelper, variables: app.vars.Variables, frames: app.frames.Frames, workspace: pytia_ui_tools.handlers.workspace_handler.Workspace)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>The worker class. Responsible for running all sub-tasks to export data.</p></div>
@@ -307,6 +311,7 @@ class Worker:
         doc_helper: LazyDocumentHelper,
         variables: Variables,
         frames: Frames,
+        workspace: Workspace,
     ) -&gt; None:
         self.main_ui = main_ui
         self.layout = layout
@@ -314,6 +319,7 @@ class Worker:
         self.doc_helper = doc_helper
         self.variables = variables
         self.frames = frames
+        self.workspace = workspace
 
         self.data: DataModel
 
@@ -439,6 +445,7 @@ class Worker:
             pdf_path=self.pdf_path,
             dxf_path=self.dxf_path,
             document=self.doc_helper.document,
+            workspace=self.workspace,
         )
 
     def _send_mail(self) -&gt; None:
