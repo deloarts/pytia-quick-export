@@ -119,6 +119,7 @@ class Callbacks:
             doc_helper=self.doc_helper,
             variables=self.vars,
             frames=self.frames,
+            workspace=self.workspace,
         )
         self.root.after(100, worker.run)
 
