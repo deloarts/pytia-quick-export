@@ -1,6 +1,7 @@
 """
     Export submodule. Holds utility functions for handling data exports.
 """
+
 from pathlib import Path
 from tkinter import messagebox as tkmsg
 
@@ -9,6 +10,7 @@ from pytia.log import log
 from pytia.wrapper.documents.drawing_documents import PyDrawingDocument
 from pytia.wrapper.documents.part_documents import PyPartDocument
 from pytia.wrapper.documents.product_documents import PyProductDocument
+from pytia_ui_tools.handlers.workspace_handler import Workspace
 from resources import resource
 from resources.utils import expand_env_vars
 
@@ -17,6 +19,7 @@ def export_drawing(
     pdf_path: Path,
     dxf_path: Path,
     document: PyProductDocument | PyPartDocument,
+    workspace: Workspace,
 ) -> None:
     """
     Exports the drawing into a pdf and dxf file. The files will be exported into the temp folder
@@ -30,9 +33,20 @@ def export_drawing(
         document (PyProductDocument | PyPartDocument): The document from which to export the data.
     """
     if document.properties.exists(PROP_DRAWING_PATH):
-        drawing_path = Path(
-            expand_env_vars(document.properties.get_by_name(PROP_DRAWING_PATH).value)
-        )
+        drawing_file_value = document.properties.get_by_name(PROP_DRAWING_PATH).value
+
+        # When the linked drawing path starts with a dot, the path is assumed to be
+        # relative to the workspace file.
+        # This makes it possible to move a whole project without breaking the paths.
+        if drawing_file_value.startswith(".\\") and workspace.workspace_folder:
+            relative_path = Path(drawing_file_value[2:])
+            drawing_path = Path(workspace.workspace_folder, relative_path)
+
+        # If the linked drawing path isn't saved relative to a workspace file, it's
+        # assumed to be either a full absolute path, or a symlinked path (e.g. onedrive)
+        else:
+            drawing_path = Path(expand_env_vars(drawing_file_value))
+
         if drawing_path.exists():
             with PyDrawingDocument() as drawing_document:
                 drawing_document.open(drawing_path)
