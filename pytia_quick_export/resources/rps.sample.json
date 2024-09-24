@@ -19,7 +19,7 @@
                     "quantity": "$quantity",
                     "unit": "%STK",
                     "partnumber": "$partnumber",
-                    "definition": "$definition",
+                    "order_number": "pytia.order_number",
                     "group_1": "pytia.group",
                     "supplier": "pytia.supplier",
                     "manufacturer": "pytia.manufacturer",
