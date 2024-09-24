@@ -3,7 +3,7 @@
     "data_row": 1,
     "header_items_made": [
         "Project:pytia.project",
-        "Machine:pytia.machine",
+        "Product:pytia.product",
         "Number:$number",
         "Type:$type",
         "Quantity:$quantity",
@@ -43,7 +43,7 @@
     ],
     "header_items_bought": [
         "Project:pytia.project",
-        "Machine:pytia.machine",
+        "Product:pytia.product",
         "Number:$number",
         "Type:$type",
         "Quantity:$quantity",

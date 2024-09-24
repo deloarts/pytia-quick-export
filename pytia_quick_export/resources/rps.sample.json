@@ -15,7 +15,6 @@
                 "url": "/api/pat/v1/items/bought",
                 "schema": {
                     "project": "pytia.project",
-                    "machine": "pytia.machine",
                     "quantity": "$quantity",
                     "unit": "%STK",
                     "partnumber": "$partnumber",

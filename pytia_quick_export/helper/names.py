@@ -25,7 +25,7 @@ def get_data_export_name(
     # TODO: Make the export filename configurable in the settings.json
 
     value = (
-        f"{doc_helper.document.properties.get_by_name(resource.props.machine).value} "
+        f"{doc_helper.document.properties.get_by_name(resource.props.product).value} "
         f"{doc_helper.document.product.part_number} "
         f"Rev{doc_helper.document.product.revision}"
     )

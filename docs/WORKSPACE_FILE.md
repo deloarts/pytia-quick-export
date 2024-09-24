@@ -9,11 +9,15 @@ title: "An important project"
 active: true
 customer: "Cat"
 description: "Lorem ipsum"
-machine: "M00001"
+product: "M00001"
 projects:
   - "P12345"
   - "P23456"
   - "P34567"
+groups:
+  - "Made Parts"
+  - "Bought Parts (Mechanical)"
+  - "Bought Parts (Electrical)"
 responsible: "Dr. Awkward"
 delegate: "Mr. Alarm"
 editors:
@@ -22,9 +26,9 @@ editors:
 bom_name: "Bill of Material"
 bom_folder: ./export/bom
 docket_folder: ./export/dockets
-drawing_folder: ./export/drawings
 stp_folder: ./export/stp
 stl_folder: ./export/stl
+image_folder: "./export/images"
 ```
 
 ## 2 description
@@ -37,24 +41,26 @@ title | `str` | The title of the project/workspace.
 active | `bool` | Defines the state of the project. If set to `false` nobody can write changes to the part properties.
 customer | `str` | The name of the customer of the project.
 description | `str` | The description of the project.
-machine | `str` | The machine number, in which the part is assembled.
-projects | `List[str]` or `str` | The list of projects associated with this machine/workspace.
+product | `str` | The product number, in which the part is assembled.
+projects | `List[str]` or `str` | The list of projects associated with this product/workspace.
+definition_prefix | `str` | The prefix for the calculated definition.
+groups | `List[str]` or `str` | A list of default groups for sorting the graph tree and the bill of material.
 responsible | `str` | The name of the person that is responsible for the project.
 delegate | `str` | The name of the person that is representative for the responsible person.
 editors | `List[str]` or `str` | The list of editors that are allowed to make changes to the part properties. If the value of the **settings.json** key `restrictions.allow_all_editors` is set to `false`, only those editors are allowed to make changes to the part properties. If set to `true`, the editors list will be ignored.
 bom_name | `str` | The default file name for the exported bill of material. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
 bom_folder | `str` | The standard path for the bill of material. Can be absolute or relative, use a dot and a slash `./` to mark the root folder. The root folder is the same folder, where the workspace config is stored. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
 docket_folder | `str` | The standard path for dockets. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
-drawing_folder | `str` | The standard path for drawing files (pdf and dxf). Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
 stp_folder | `str` | The standard path for step files. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
 stl_folder | `str` | The standard path for stl files. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
+image_folder | `str` | The standard path for png files. Used with [pytia bill of material](https://github.com/deloarts/pytia-bill-of-material).
 
 ## 3 example file
 
 This example file is with comments, so any person involved in this project can edit the file easily.
 
 ```yaml
-# This is the workspace file. Edit this file to fit the purpose of the machine.
+# This is the workspace file. Edit this file to fit the purpose of the product.
 # All keys are optional, you can either delete them, remove the values or comment
 # them out, by using the hash '#' symbol.
 
@@ -74,21 +80,30 @@ customer: "Cat"
 # The description. Any text is valid.
 description: "Lorem ipsum"
 
-# The unique machine identification number. Any text is valid, but it should be
-# unique among all machine.
-machine: "M00001"
+# The unique product identification number. Any text is valid, but it should be
+# unique among all products.
+product: "M00001"
 
-# The project numbers, that are associated with this machine. This can either be
+# The project numbers, that are associated with this product number. This can either be
 # a list or values, or a single value.
 projects:
   - "P12345"
   - "P23456"
   - "P34567"
 
-# The responsible person for this machine.
+# The available groups. Use groups to sort the graph tree an the bill of material.
+groups:
+  - "Made Parts"
+  - "Bought Parts (Mechanical)"
+  - "Bought Parts (Electrical)"
+
+# The prefix for the calculated definition. Can be omitted.
+definition_prefix: "DA-"
+
+# The responsible person for this product.
 responsible: "Dr. Awkward"
 
-# The representative of the responsible person for this machine.
+# The representative of the responsible person for this product.
 delegate: "Mr. Alarm"
 
 # The list of editors, that are allowed to make changes to CATIA properties via
@@ -109,15 +124,12 @@ bom_folder: ./export/bom
 # The docket folder is the pre-defined location of the pdf dockets. It will be used if the set folder exists. Can be absolute or relative, use a dot and a slash `./` to mark the root folder. The root folder is the folder in which the workspace file is stored.
 docket_folder: ./export/dockets
 
-# The docket folder is the pre-defined location of the drawings (pdf and dxf). It will be used if 
-# the set folder exists. Can be absolute or relative, use a dot and a slash `./` to mark the root
-# folder. The root folder is the folder in which the workspace file is stored.
-# Drawings can only be exported if their path is saved its linked document.
-drawing_folder: ./export/drawings
-
 # The stp folder is the pre-defined location of the step files. It will be used if the set folder exists. Can be absolute or relative, use a dot and a slash `./` to mark the root folder. The root folder is the folder in which the workspace file is stored.
 stp_folder: ./export/stp
 
 # The stp folder is the pre-defined location of the stl files. It will be used if the set folder exists. Can be absolute or relative, use a dot and a slash `./` to mark the root folder. The root folder is the folder in which the workspace file is stored.
 stl_folder: ./export/stl
+
+# The image folder is the pre-defined location of the png files. It will be used if the set folder exists. Can be absolute or relative, use a dot and a slash `./` to mark the root folder. The root folder is the folder in which the workspace file is stored.
+image_folder: ./export/image
 ```
