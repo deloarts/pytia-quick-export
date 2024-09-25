@@ -54,7 +54,7 @@ def get_data_export_name(
     # TODO: Make the export filename configurable in the settings.json
 
     value = (
-        f&#34;{doc_helper.document.properties.get_by_name(resource.props.machine).value} &#34;
+        f&#34;{doc_helper.document.properties.get_by_name(resource.props.product).value} &#34;
         f&#34;{doc_helper.document.product.part_number} &#34;
         f&#34;Rev{doc_helper.document.product.revision}&#34;
     )
@@ -108,7 +108,7 @@ If None, the project number from the documents properties will be used.</p>
     # TODO: Make the export filename configurable in the settings.json
 
     value = (
-        f&#34;{doc_helper.document.properties.get_by_name(resource.props.machine).value} &#34;
+        f&#34;{doc_helper.document.properties.get_by_name(resource.props.product).value} &#34;
         f&#34;{doc_helper.document.product.part_number} &#34;
         f&#34;Rev{doc_helper.document.product.revision}&#34;
     )

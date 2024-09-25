@@ -288,7 +288,7 @@ class Props:
     &#34;&#34;&#34;Dataclass for properties on the part (properties.json).&#34;&#34;&#34;
 
     project: str
-    machine: str
+    product: str
     creator: str
     modifier: str
 
@@ -554,7 +554,7 @@ resource = Resources()</code></pre>
 <dl>
 <dt id="pytia_quick_export.resources.AppData"><code class="flex name class">
 <span>class <span class="ident">AppData</span></span>
-<span>(</span><span>*, version: str = '0.6.3', counter: int = 0, theme: str = 'cosmo', personal_access_token: str = '')</span>
+<span>(</span><span>*, version: str = '0.7.0', counter: int = 0, theme: str = 'cosmo', personal_access_token: str = '')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for appdata settings.</p></div>
@@ -839,7 +839,7 @@ class Keywords:
 </dd>
 <dt id="pytia_quick_export.resources.Props"><code class="flex name class">
 <span>class <span class="ident">Props</span></span>
-<span>(</span><span>*, project: str, machine: str, creator: str, modifier: str)</span>
+<span>(</span><span>*, project: str, product: str, creator: str, modifier: str)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Dataclass for properties on the part (properties.json).</p></div>
@@ -852,7 +852,7 @@ class Props:
     &#34;&#34;&#34;Dataclass for properties on the part (properties.json).&#34;&#34;&#34;
 
     project: str
-    machine: str
+    product: str
     creator: str
     modifier: str
 
@@ -885,11 +885,11 @@ def keys(self) -&gt; List[str]:
     return [f.name for f in fields(self)]</code></pre>
 </details>
 </dd>
-<dt id="pytia_quick_export.resources.Props.machine"><code class="name">var <span class="ident">machine</span> : str</code></dt>
+<dt id="pytia_quick_export.resources.Props.modifier"><code class="name">var <span class="ident">modifier</span> : str</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
-<dt id="pytia_quick_export.resources.Props.modifier"><code class="name">var <span class="ident">modifier</span> : str</code></dt>
+<dt id="pytia_quick_export.resources.Props.product"><code class="name">var <span class="ident">product</span> : str</code></dt>
 <dd>
 <div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
 </dd>
@@ -2080,8 +2080,8 @@ def values(self) -&gt; List[str]:
 <ul class="two-column">
 <li><code><a title="pytia_quick_export.resources.Props.creator" href="#pytia_quick_export.resources.Props.creator">creator</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Props.keys" href="#pytia_quick_export.resources.Props.keys">keys</a></code></li>
-<li><code><a title="pytia_quick_export.resources.Props.machine" href="#pytia_quick_export.resources.Props.machine">machine</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Props.modifier" href="#pytia_quick_export.resources.Props.modifier">modifier</a></code></li>
+<li><code><a title="pytia_quick_export.resources.Props.product" href="#pytia_quick_export.resources.Props.product">product</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Props.project" href="#pytia_quick_export.resources.Props.project">project</a></code></li>
 <li><code><a title="pytia_quick_export.resources.Props.values" href="#pytia_quick_export.resources.Props.values">values</a></code></li>
 </ul>
