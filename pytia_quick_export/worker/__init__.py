@@ -64,8 +64,8 @@ class Worker:
         self.project = translate_project(
             project=self.variables.project, doc_helper=self.doc_helper
         )
-        self.machine = self.doc_helper.document.properties.get_by_name(
-            resource.props.machine
+        self.product = self.doc_helper.document.properties.get_by_name(
+            resource.props.product
         ).value
         self.partnumber = self.doc_helper.document.product.part_number
         self.revision = self.doc_helper.document.product.revision
@@ -154,7 +154,7 @@ class Worker:
         qr.generate(
             data={
                 "project": self.project,
-                "machine": self.machine,
+                "product": self.product,
                 "partnumber": self.partnumber,
                 "revision": self.revision,
             }

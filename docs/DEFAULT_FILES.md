@@ -19,7 +19,7 @@ This file contains the configuration for the final bill of material excel file.
     "data_row": 1,
     "header_items_made": [
         "Project:pytia.project",
-        "Machine:pytia.machine",
+        "Product:pytia.product",
         "Number:$number",
         "Type:$type",
         "Quantity:$quantity",
@@ -59,7 +59,7 @@ This file contains the configuration for the final bill of material excel file.
     ],
     "header_items_bought": [
         "Project:pytia.project",
-        "Machine:pytia.machine",
+        "Product:pytia.product",
         "Number:$number",
         "Type:$type",
         "Quantity:$quantity",
@@ -117,7 +117,7 @@ This file contains all part/product properties, which are required for this app.
 ```json
 {
     "project": "pytia.project",
-    "machine": "pytia.machine",
+    "product": "pytia.product",
     "creator": "pytia.creator",
     "modifier": "pytia.modifier"
 }
