@@ -4,13 +4,13 @@ classifiers = ["Operating System :: Microsoft :: Windows"]
 description = "A tool for exporting data from a CATPart or CATProduct."
 name = "pytia-quick-export"
 readme = "README.md"
-version = "0.6.3"
+version = "0.7.0"
 
 [tool.poetry.dependencies]
 openpyxl = "3.1.2"
 python = "^3.10"
 pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.3.5"}
-pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.7.3"}
+pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.7.4"}
 requests = "2.31.0"
 validators = "0.22.0"
 

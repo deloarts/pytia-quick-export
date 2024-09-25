@@ -93,8 +93,8 @@ class Worker:
         self.project = translate_project(
             project=self.variables.project, doc_helper=self.doc_helper
         )
-        self.machine = self.doc_helper.document.properties.get_by_name(
-            resource.props.machine
+        self.product = self.doc_helper.document.properties.get_by_name(
+            resource.props.product
         ).value
         self.partnumber = self.doc_helper.document.product.part_number
         self.revision = self.doc_helper.document.product.revision
@@ -183,7 +183,7 @@ class Worker:
         qr.generate(
             data={
                 &#34;project&#34;: self.project,
-                &#34;machine&#34;: self.machine,
+                &#34;product&#34;: self.product,
                 &#34;partnumber&#34;: self.partnumber,
                 &#34;revision&#34;: self.revision,
             }
@@ -326,8 +326,8 @@ class Worker:
         self.project = translate_project(
             project=self.variables.project, doc_helper=self.doc_helper
         )
-        self.machine = self.doc_helper.document.properties.get_by_name(
-            resource.props.machine
+        self.product = self.doc_helper.document.properties.get_by_name(
+            resource.props.product
         ).value
         self.partnumber = self.doc_helper.document.product.part_number
         self.revision = self.doc_helper.document.product.revision
@@ -416,7 +416,7 @@ class Worker:
         qr.generate(
             data={
                 &#34;project&#34;: self.project,
-                &#34;machine&#34;: self.machine,
+                &#34;product&#34;: self.product,
                 &#34;partnumber&#34;: self.partnumber,
                 &#34;revision&#34;: self.revision,
             }
