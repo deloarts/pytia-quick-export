@@ -320,6 +320,7 @@ On a new revision, do the following:
 
 ## 7 changelog
 
+[**v0.7.1**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.7.1): Update docs and deps.  
 [**v0.7.0**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.7.0): Rename machine to product number.  
 [**v0.6.3**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.3): Add workspace level drawing export.  
 [**v0.6.2**](https://github.com/deloarts/pytia-quick-export/releases/tag/v0.6.2): Fix deprecation and logon.  

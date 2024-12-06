@@ -3,23 +3,27 @@ authors = ["Philip Delorenzo <git@deloarts.com>"]
 classifiers = ["Operating System :: Microsoft :: Windows"]
 description = "A tool for exporting data from a CATPart or CATProduct."
 name = "pytia-quick-export"
+package-mode = false
+packages = [{include = "pytia_quick_export"}]
 readme = "README.md"
-version = "0.7.0"
+version = "0.7.1"
 
 [tool.poetry.dependencies]
 openpyxl = "3.1.2"
 python = "^3.10"
-pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.3.5"}
-pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.7.4"}
+pytia = {git = "ssh://git@github.com/deloarts/pytia.git", tag = "v0.4.2"}
+pytia-ui-tools = {git = "ssh://git@github.com/deloarts/pytia-ui-tools.git", tag = "v0.7.7"}
 requests = "2.31.0"
 validators = "0.22.0"
+
+[tool.poetry.group.build.dependencies]
+pygit2 = "1.12.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "23.3.0"
 packaging = "^23.2"
 pdoc3 = "^0.10.0"
 pre-commit = "^3.5.0"
-pygit2 = "1.12.0"
 pylint = "3.0.0"
 pytest = "^7.4.0"
 setuptools = "^68.2.0"
